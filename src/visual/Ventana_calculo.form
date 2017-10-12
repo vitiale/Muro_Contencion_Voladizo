@@ -104,7 +104,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="sc">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="5"/>
+                        <Property name="text" type="java.lang.String" value="5.0"/>
                       </Properties>
                       <AuxValues>
                         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -298,7 +298,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="h1">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="3"/>
+                        <Property name="text" type="java.lang.String" value="3.0"/>
                       </Properties>
                       <AuxValues>
                         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -354,7 +354,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="d1">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="0"/>
+                        <Property name="text" type="java.lang.String" value="0.0"/>
                       </Properties>
                       <AuxValues>
                         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -1116,7 +1116,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="delta">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="1.0"/>
+                        <Property name="text" type="java.lang.String" value="0.0"/>
                       </Properties>
                       <AuxValues>
                         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>

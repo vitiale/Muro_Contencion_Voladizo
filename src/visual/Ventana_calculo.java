@@ -331,7 +331,7 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
         jLabel21.setText("Sc");
         jPanel3.add(jLabel21);
 
-        sc.setText("5");
+        sc.setText("5.0");
         jPanel3.add(sc);
 
         jLabel_ka1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -414,7 +414,7 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
         jLabel1.setText("h1");
         jPanel2.add(jLabel1);
 
-        h1.setText("3");
+        h1.setText("3.0");
         jPanel2.add(h1);
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -442,7 +442,7 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
         jLabel6.setText("d1");
         jPanel2.add(jLabel6);
 
-        d1.setText("0");
+        d1.setText("0.0");
         jPanel2.add(d1);
 
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -794,7 +794,7 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
         jLabel122.setText("δ");
         jPanel16.add(jLabel122);
 
-        delta.setText("1.0");
+        delta.setText("0.0");
         jPanel16.add(delta);
 
         jLabel118.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
