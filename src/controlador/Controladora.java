@@ -475,49 +475,49 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
     public void focusLost(FocusEvent e) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         if (e.getSource() == vc.fi1) {
-            if (ChecarErrores.Dobles_simple(vc.fi1.getText()) == 1) {
+            if (ChecarErrores.Dobles_menor_igual(vc.fi1.getText()) == 1) {
                 vc.fi1.setText(temp_fi1);
                 vc.fi1.setBackground(Color.ORANGE);
             } else {
                 ejecutor();
             }
         } else if (e.getSource() == vc.fi2) {
-            if (ChecarErrores.Dobles_simple(vc.fi2.getText()) == 1) {
+            if (ChecarErrores.Dobles_menor_igual(vc.fi2.getText()) == 1) {
                 vc.fi2.setText(temp_fi2);
                 vc.fi2.setBackground(Color.ORANGE);
             } else {
                 ejecutor();
             }
         } else if (e.getSource() == vc.sc) {
-            if (ChecarErrores.Dobles_simple(vc.sc.getText()) == 1) {
+            if (ChecarErrores.Dobles_menor_igual(vc.sc.getText()) == 1) {
                 vc.sc.setText(temp_sc);
                 vc.sc.setBackground(Color.ORANGE);
             } else {
                 ejecutor();
             }
         } else if (e.getSource() == vc.gamma1) {
-            if (ChecarErrores.Dobles_simple(vc.gamma1.getText()) == 1) {
+            if (ChecarErrores.Dobles_menor_igual(vc.gamma1.getText()) == 1) {
                 vc.gamma1.setText(temp_gamma1);
                 vc.gamma1.setBackground(Color.ORANGE);
             } else {
                 ejecutor();
             }
         } else if (e.getSource() == vc.gamma2) {
-            if (ChecarErrores.Dobles_simple(vc.gamma2.getText()) == 1) {
+            if (ChecarErrores.Dobles_menor_igual(vc.gamma2.getText()) == 1) {
                 vc.gamma2.setText(temp_gamma2);
                 vc.gamma2.setBackground(Color.ORANGE);
             } else {
                 ejecutor();
             }
         } else if (e.getSource() == vc.c) {
-            if (ChecarErrores.Dobles_simple(vc.c.getText()) == 1) {
+            if (ChecarErrores.Dobles_menor(vc.c.getText()) == 1) {
                 vc.c.setText(temp_c);
                 vc.c.setBackground(Color.ORANGE);
             } else {
                 ejecutor();
             }
         } else if (e.getSource() == vc.qad) {
-            if (ChecarErrores.Dobles_simple(vc.qad.getText()) == 1) {
+            if (ChecarErrores.Dobles_menor_igual(vc.qad.getText()) == 1) {
                 vc.qad.setText(temp_qad);
                 vc.qad.setBackground(Color.ORANGE);
             } else {
@@ -525,77 +525,77 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
                 vc.qad_espejo.setText(vc.qad.getText());
             }
         } else if (e.getSource() == vc.h1) {
-            if (ChecarErrores.Dobles_simple(vc.h1.getText()) == 1) {
+            if (ChecarErrores.Dobles_menor_igual(vc.h1.getText()) == 1) {
                 vc.h1.setText(temp_h1);
                 vc.h1.setBackground(Color.ORANGE);
             } else {
                 ejecutor();
             }
         } else if (e.getSource() == vc.h2) {
-            if (ChecarErrores.Dobles_simple(vc.h2.getText()) == 1) {
+            if (ChecarErrores.Dobles_menor_igual(vc.h2.getText()) == 1) {
                 vc.h2.setText(temp_h2);
                 vc.h2.setBackground(Color.ORANGE);
             } else {
                 ejecutor();
             }
         } else if (e.getSource() == vc.d1) {
-            if (ChecarErrores.Dobles_simple(vc.d1.getText()) == 1) {
+            if (ChecarErrores.Dobles_menor(vc.d1.getText()) == 1) {
                 vc.d1.setText(temp_d1);
                 vc.d1.setBackground(Color.ORANGE);
             } else {
                 ejecutor();
             }
         } else if (e.getSource() == vc.var_e) {
-            if (ChecarErrores.Dobles_simple(vc.var_e.getText()) == 1) {
+            if (ChecarErrores.Dobles_menor_igual(vc.var_e.getText()) == 1) {
                 vc.var_e.setText(temp_e);
                 vc.var_e.setBackground(Color.ORANGE);
             } else {
                 ejecutor();
             }
         } else if (e.getSource() == vc.a1) {
-            if (ChecarErrores.Dobles_simple(vc.a1.getText()) == 1) {
+            if (ChecarErrores.Dobles_menor_igual(vc.a1.getText()) == 1) {
                 vc.a1.setText(temp_a1);
                 vc.a1.setBackground(Color.ORANGE);
             } else {
                 ejecutor();
             }
         } else if (e.getSource() == vc.d2) {
-            if (ChecarErrores.Dobles_simple(vc.d2.getText()) == 1) {
+            if (ChecarErrores.Dobles_menor_igual(vc.d2.getText()) == 1) {
                 vc.d2.setText(temp_d2);
                 vc.d2.setBackground(Color.ORANGE);
             } else {
                 ejecutor();
             }
         } else if (e.getSource() == vc.l1) {
-            if (ChecarErrores.Dobles_simple(vc.l1.getText()) == 1) {
+            if (ChecarErrores.Dobles_menor_igual(vc.l1.getText()) == 1) {
                 vc.l1.setText(temp_l1);
                 vc.l1.setBackground(Color.ORANGE);
             } else {
                 ejecutor();
             }
         } else if (e.getSource() == vc.l2) {
-            if (ChecarErrores.Dobles_simple(vc.l2.getText()) == 1) {
+            if (ChecarErrores.Dobles_menor_igual(vc.l2.getText()) == 1) {
                 vc.l2.setText(temp_l2);
                 vc.l2.setBackground(Color.ORANGE);
             } else {
                 ejecutor();
             }
         } else if (e.getSource() == vc.l3) {
-            if (ChecarErrores.Dobles_simple(vc.l3.getText()) == 1) {
+            if (ChecarErrores.Dobles_menor_igual(vc.l3.getText()) == 1) {
                 vc.l3.setText(temp_l3);
                 vc.l3.setBackground(Color.ORANGE);
             } else {
                 ejecutor();
             }
         } else if (e.getSource() == vc.alpha) {
-            if (ChecarErrores.Dobles_simple(vc.alpha.getText()) == 1) {
+            if (ChecarErrores.Dobles_menor(vc.alpha.getText()) == 1) {
                 vc.alpha.setText(temp_alpha);
                 vc.alpha.setBackground(Color.ORANGE);
             } else {
                 ejecutor();
             }
         } else if (e.getSource() == vc.fc) {
-            if (ChecarErrores.Dobles_simple(vc.fc.getText()) == 1) {
+            if (ChecarErrores.Dobles_menor_igual(vc.fc.getText()) == 1) {
                 vc.fc.setText(temp_fc);
                 vc.fc.setBackground(Color.ORANGE);
             } else {
@@ -604,35 +604,35 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
         } else if (e.getSource() == vc.r) {
             ejecutor();
         } else if (e.getSource() == vc.fy) {
-            if (ChecarErrores.Dobles_simple(vc.fy.getText()) == 1) {
+            if (ChecarErrores.Dobles_menor_igual(vc.fy.getText()) == 1) {
                 vc.fy.setText(temp_fy);
                 vc.fy.setBackground(Color.ORANGE);
             } else {
                 ejecutor();
             }
         } else if (e.getSource() == vc.kv) {
-            if (ChecarErrores.Dobles_simple(vc.kv.getText()) == 1) {
+            if (ChecarErrores.Dobles_menor(vc.kv.getText()) == 1) {
                 vc.kv.setText(temp_kv);
                 vc.kv.setBackground(Color.ORANGE);
             } else {
                 ejecutor();
             }
         } else if (e.getSource() == vc.kh) {
-            if (ChecarErrores.Dobles_simple(vc.kh.getText()) == 1) {
+            if (ChecarErrores.Dobles_menor_igual(vc.kh.getText()) == 1) {
                 vc.kh.setText(temp_kh);
                 vc.kh.setBackground(Color.ORANGE);
             } else {
                 ejecutor();
             }
         } else if (e.getSource() == vc.beta) {
-            if (ChecarErrores.Dobles_simple(vc.beta.getText()) == 1) {
+            if (ChecarErrores.Dobles_menor_igual(vc.beta.getText()) == 1) {
                 vc.beta.setText(temp_beta);
                 vc.beta.setBackground(Color.ORANGE);
             } else {
                 ejecutor();
             }
         } else if (e.getSource() == vc.delta) {
-            if (ChecarErrores.Dobles_simple(vc.delta.getText()) == 1) {
+            if (ChecarErrores.Dobles_menor(vc.delta.getText()) == 1) {
                 vc.delta.setText(temp_delta);
                 vc.delta.setBackground(Color.ORANGE);
             } else {
@@ -651,14 +651,14 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
         } else if (e.getSource() == vc.separacion3) {
             ejecutor();
         } else if (e.getSource() == vc.ld1) {
-            if (ChecarErrores.Dobles_simple(vc.ld1.getText()) == 1) {
+            if (ChecarErrores.Dobles_menor_igual(vc.ld1.getText()) == 1) {
                 vc.ld1.setText(temp_ld1);
                 vc.ld1.setBackground(Color.ORANGE);
             } else {
                 ejecutor();
             }
         } else if (e.getSource() == vc.ld2) {
-            if (ChecarErrores.Dobles_simple(vc.ld2.getText()) == 1) {
+            if (ChecarErrores.Dobles_menor_igual(vc.ld2.getText()) == 1) {
                 vc.ld2.setText(temp_ld2);
                 vc.ld2.setBackground(Color.ORANGE);
             } else {
@@ -1499,9 +1499,7 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
     }
 
     public void ka_kp(int tipo_suelo) {
-        //llenado_elementos();
-        //int estado = ChecarErrores.Dobles(elementos);
-        //if (estado == -20) {
+        
             double res;
             double res1;
             if (tipo_suelo == 1) {
@@ -1515,17 +1513,11 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
                 res1 = Math.pow(Math.tan((45 * conversion) + Double.parseDouble(vc.fi2.getText())), 2);
                 vc.kp2.setText(String.valueOf(res1));
             }
-//        } else {
-//            gps_error(elementos_mombre.get(estado));
-//            JOptionPane.showMessageDialog(null, "Verifique por favor, está introduciendo valores incorrectos en la celda ϕ1 o ϕ2");
-//        }
+
     }
 
     public void ka_kp() {
-//        System.out.println("estoy en ka_kp");
-//        llenado_elementos();
-//        int estado = ChecarErrores.Dobles(elementos);
-//        if (estado == -20) {
+
             double delta = Double.parseDouble(vc.delta.getText());
             double beta = Double.parseDouble(vc.beta.getText());
             double alpha = Double.parseDouble(vc.alpha.getText());
@@ -1542,80 +1534,69 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
                     * (Math.pow(1 + Math.sqrt((Math.sin((delta + fi1) * conversion) * Math.sin((fi1 - alpha) * conversion)) / Math.sin(((beta - delta) * conversion - theta)) * Math.sin((beta + alpha) * conversion)), 2)));
 
             vc.ka1.setText(String.valueOf(ka));
-//        } else {
-//            gps_error(elementos_mombre.get(estado));
-//            JOptionPane.showMessageDialog(null, "Verifique por favor, está introduciendo valores incorrectos en la celda ϕ1 o ϕ2");
-//        }
+
     }
 
     public void sigma() {
-        System.out.println("estoy en sigma");
-        llenado_elementos();
+//        System.out.println("estoy en sigma");
+//        llenado_elementos();
         sigma_a = 0;
         sigma_b = 0;
-        int estado = ChecarErrores.Dobles(elementos);
-        if (estado == -20) {
+//        int estado = ChecarErrores.Dobles(elementos);
+//        if (estado == -20) {
             sigma_a = redondeo(Double.parseDouble(vc.ka2.getText()) * Double.parseDouble(vc.sc.getText()), 2);
             sigma_b = redondeo(Double.parseDouble(vc.ka2.getText()) * Double.parseDouble(vc.gamma1.getText()) * (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText())) + Double.parseDouble(vc.sc.getText()) * Double.parseDouble(vc.ka2.getText()), 2);
             sigma_p = redondeo(Double.parseDouble(vc.kp1.getText()) * Double.parseDouble(vc.gamma1.getText()) * Double.parseDouble(vc.h2.getText()), 2);
-        } else {
-            gps_error(elementos_mombre.get(estado));
-            JOptionPane.showMessageDialog(null, "Verifique por favor, está introduciendo valores incorrectos en la celda Sc o Ka");
-        }
+//        } else {
+//            gps_error(elementos_mombre.get(estado));
+//            JOptionPane.showMessageDialog(null, "Verifique por favor, está introduciendo valores incorrectos en la celda Sc o Ka");
+//        }
     }
 
     //tener en cuenta que estamos tomando el texfield h2 como la altura en los calculos pero hay que revisar que vamos hacer con esta situacion
     public void empuje_activo() {
-        System.out.println("estoy en empuje_activo");
-        llenado_elementos();
-        int estado = ChecarErrores.Dobles(elementos);
-        if (estado == -20) {
+//        System.out.println("estoy en empuje_activo");
+//        llenado_elementos();
+//        int estado = ChecarErrores.Dobles(elementos);
+//        if (estado == -20) {
             //no se ubica aqui
 //            vc.wa.setText(String.valueOf(redondeo((0.5 * Double.parseDouble(vc.ka1.getText()) * Double.parseDouble(vc.gamma1.getText()) * Math.pow(Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText()), 2)) ,2)));
-        } else {
-            gps_error(elementos_mombre.get(estado));
-            JOptionPane.showMessageDialog(null, "Verifique por favor, está introduciendo valores incorrectos en la celda Sc o Ka");
-        }
+//        } else {
+//            gps_error(elementos_mombre.get(estado));
+//            JOptionPane.showMessageDialog(null, "Verifique por favor, está introduciendo valores incorrectos en la celda Sc o Ka");
+//        }
     }
 
     public void empuje_pasivo() {
-        System.out.println("estoy en empuje_pasivo");
-        llenado_elementos();
-        int estado = ChecarErrores.Dobles(elementos);
-        if (estado == -20) {
-            //no se ubica aqui
-//           vc.wp.setText(String.valueOf(redondeo(0.5 * Double.parseDouble(vc.kp1.getText()) * Double.parseDouble(vc.gamma1.getText()) * Math.pow(Double.parseDouble(vc.h2.getText()) + Double.parseDouble(vc.d1.getText()), 2) + 2 * Double.parseDouble(vc.c.getText())
-//                    * Math.sqrt(Double.parseDouble(vc.kp1.getText())) * (Double.parseDouble(vc.h2.getText()) + Double.parseDouble(vc.d1.getText())) ,2)));
-//            System.out.println("Mi Pp "+(redondeo(0.5 * Double.parseDouble(vc.kp1.getText()) * Double.parseDouble(vc.gamma1.getText()) * Math.pow(Double.parseDouble(vc.h2.getText()) + Double.parseDouble(vc.d1.getText()), 2) + 2 * Double.parseDouble(vc.c.getText())
-//                    * Math.sqrt(Double.parseDouble(vc.kp1.getText())) * (Double.parseDouble(vc.h2.getText()) + Double.parseDouble(vc.d1.getText())) ,2)));
-        } else {
-            elementos_mombre.get(estado);
-            JOptionPane.showMessageDialog(null, "Verifique por favor, está introduciendo valores incorrectos en la celda Sc o Ka");
-        }
+//        System.out.println("estoy en empuje_pasivo");
+//        llenado_elementos();
+//        int estado = ChecarErrores.Dobles(elementos);
+//        if (estado == -20) {
+//            //no se ubica aqui
+////           vc.wp.setText(String.valueOf(redondeo(0.5 * Double.parseDouble(vc.kp1.getText()) * Double.parseDouble(vc.gamma1.getText()) * Math.pow(Double.parseDouble(vc.h2.getText()) + Double.parseDouble(vc.d1.getText()), 2) + 2 * Double.parseDouble(vc.c.getText())
+////                    * Math.sqrt(Double.parseDouble(vc.kp1.getText())) * (Double.parseDouble(vc.h2.getText()) + Double.parseDouble(vc.d1.getText())) ,2)));
+////            System.out.println("Mi Pp "+(redondeo(0.5 * Double.parseDouble(vc.kp1.getText()) * Double.parseDouble(vc.gamma1.getText()) * Math.pow(Double.parseDouble(vc.h2.getText()) + Double.parseDouble(vc.d1.getText()), 2) + 2 * Double.parseDouble(vc.c.getText())
+////                    * Math.sqrt(Double.parseDouble(vc.kp1.getText())) * (Double.parseDouble(vc.h2.getText()) + Double.parseDouble(vc.d1.getText())) ,2)));
+//        } else {
+//            elementos_mombre.get(estado);
+//            JOptionPane.showMessageDialog(null, "Verifique por favor, está introduciendo valores incorrectos en la celda Sc o Ka");
+//        }
     }
 
     //no tenemos donde ponerlo en la ventana 
     public void momento_activo_mpa() {
-        System.out.println("estoy en momento_activo_mpa");
-        llenado_elementos();
-        int estado = ChecarErrores.Dobles(elementos);
-        if (estado == -20) {
+
             //no se hubica aqui, debe ser en mpa pero nno tenemos esta variable aun creada
             //vc.mwa.setText(String.valueOf(0.5 * Double.parseDouble(vc.ka2.getText()) * Double.parseDouble(vc.gamma1.getText()) * Math.pow(Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText()), 2) * (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText())) / 3));
             mpa = redondeo((0.5 * Double.parseDouble(vc.ka1.getText()) * Double.parseDouble(vc.gamma1.getText()) * Math.pow(Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText()), 2) * (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText())) / 3), 2);
             System.out.println("mpa " + mpa);
-        } else {
-            gps_error(elementos_mombre.get(estado));
-            JOptionPane.showMessageDialog(null, "Verifique por favor, está introduciendo valores incorrectos en la celda Sc o Ka");
-        }
+
     }
 
     //no tenemos donde ponerlo en la ventana
     public void momento_pasivo_mpp() {
         System.out.println("estoy en momento_pasivo_mpp");
-        llenado_elementos();
-        int estado = ChecarErrores.Dobles(elementos);
-        if (estado == -20) {
+
             //no se hubica aqui, debe ser en mpp pero nno tenemos esta variable aun creada
             vc.mwp.setText(String.valueOf(redondeo(0.5 * Double.parseDouble(vc.kp1.getText()) * Double.parseDouble(vc.gamma1.getText()) * Math.pow(Double.parseDouble(vc.h2.getText()) + Double.parseDouble(vc.d1.getText()), 2) + 2 * Double.parseDouble(vc.c.getText())
                     * Math.sqrt(Double.parseDouble(vc.kp1.getText())) * (Double.parseDouble(vc.h2.getText()) + Double.parseDouble(vc.d1.getText()))
@@ -1623,69 +1604,43 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
             MPp = redondeo((0.5 * Double.parseDouble(vc.kp1.getText()) * Double.parseDouble(vc.gamma1.getText()) * Math.pow(Double.parseDouble(vc.h2.getText()) + Double.parseDouble(vc.d1.getText()), 2) + 2 * Double.parseDouble(vc.c.getText())
                     * Math.sqrt(Double.parseDouble(vc.kp1.getText())) * (Double.parseDouble(vc.h2.getText()) + Double.parseDouble(vc.d1.getText()))
                     * Double.parseDouble(vc.h2.getText()) / 3), 2);
-        } else {
-            gps_error(elementos_mombre.get(estado));
-            JOptionPane.showMessageDialog(null, "Verifique por favor, está introduciendo valores incorrectos en la celda Sc o Ka");
-        }
+
     }
 
     //Revision por volteo
     public void peso_pasivo_wp() {
         System.out.println("estoy en peso_pasivo_wp");
-        llenado_elementos();
-        int estado = ChecarErrores.Dobles(elementos);
-        if (estado == -20) {
+
             vc.wp.setText(String.valueOf(redondeo(Double.parseDouble(vc.l1.getText()) * (Double.parseDouble(vc.h2.getText()) - Double.parseDouble(vc.var_e.getText())) * Double.parseDouble(vc.gamma2.getText()), 2)));
 //            System.out.println("Valor esperado de wp");
 //            System.out.println((Double.parseDouble(vc.l1.getText()) * (Double.parseDouble(vc.h2.getText()) - Double.parseDouble(vc.var_e.getText())) * Double.parseDouble(vc.gamma1.getText())));
-        } else {
-            gps_error(elementos_mombre.get(estado));
-            JOptionPane.showMessageDialog(null, "Verifique por favor, está introduciendo valores incorrectos en la celda Sc o Ka");
-        }
+
     }
 
     public void momento_pasivo_mwp() {
         System.out.println("estoy en momento_pasivo_mwp");
-        llenado_elementos();
-        int estado = ChecarErrores.Dobles(elementos);
-        if (estado == -20) {
+        
             vc.mwp.setText(String.valueOf(redondeo(Double.parseDouble(vc.wp.getText()) * (Double.parseDouble(vc.l1.getText()) / 2), 2)));
-        } else {
-            gps_error(elementos_mombre.get(estado));
-            JOptionPane.showMessageDialog(null, "Verifique por favor, está introduciendo valores incorrectos en la celda Sc o Ka");
-        }
+            
     }
 
     public void peso_activo_wa() {
-        System.out.println("estoy en peso_activo_wa");
-        llenado_elementos();
-        int estado = ChecarErrores.Dobles(elementos);
-        if (estado == -20) {
+
             vc.wa.setText(String.valueOf(redondeo(Double.parseDouble(vc.l3.getText()) * ((Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText())) - Double.parseDouble(vc.var_e.getText())) * Double.parseDouble(vc.gamma1.getText()), 2)));
-        } else {
-            gps_error(elementos_mombre.get(estado));
-            JOptionPane.showMessageDialog(null, "Verifique por favor, está introduciendo valores incorrectos en la celda Sc o Ka");
-        }
+
 
     }
 
     public void momento_activo_mwa() {
         System.out.println("estoy en momento_activo_mwa");
-        llenado_elementos();
-        int estado = ChecarErrores.Dobles(elementos);
-        if (estado == -20) {
+        
             vc.mwa.setText(String.valueOf(redondeo(Double.parseDouble(vc.wa.getText()) * (Double.parseDouble(vc.l1.getText()) + Double.parseDouble(vc.l2.getText()) + Double.parseDouble(vc.l3.getText()) / 2), 2)));
-        } else {
-            gps_error(elementos_mombre.get(estado));
-            JOptionPane.showMessageDialog(null, "Verifique por favor, está introduciendo valores incorrectos en la celda Sc o Ka");
-        }
+        
     }
 
     public void sum_w1_w2_w3() {
         System.out.println("estoy en sum_w1_w2_w3");
-        llenado_elementos();
-        int estado = ChecarErrores.Dobles(elementos);
-        if (estado == -20) {
+        
 //            w3 = redondeo((Double.parseDouble(vc.l1.getText()) + Double.parseDouble(vc.l2.getText()) + Double.parseDouble(vc.l3.getText())) * Double.parseDouble(vc.var_e.getText()) * gamma_c ,2);
 //            w2 = redondeo(((Double.parseDouble(vc.l2.getText()) - Double.parseDouble(vc.a1.getText())) * (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText()) - Double.parseDouble(vc.var_e.getText()))) / 2 * Double.parseDouble(vc.var_e.getText()) * gamma_c ,2);
 //            w1 = redondeo(Double.parseDouble(vc.a1.getText()) * (Double.parseDouble(vc.h1.getText()) - Double.parseDouble(vc.var_e.getText())) * gamma_c ,2);
@@ -1698,10 +1653,7 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
             System.out.println("w2 " + w2);
             System.out.println("w1 " + w1);
             System.out.println("pp " + (w1 + w2 + w3));
-        } else {
-            elementos_mombre.get(estado);
-            JOptionPane.showMessageDialog(null, "Verifique por favor, está introduciendo valores incorrectos en la celda Sc o Ka");
-        }
+        
     }
 
 //    public void sum_w1_w2_w3() {
@@ -1722,64 +1674,44 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
 //    }
     public void sum_mw1_mw2_mw3() {
         System.out.println("estoy en sum_mw1_mw2_mw3");
-        llenado_elementos();
-        int estado = ChecarErrores.Dobles(elementos);
-        if (estado == -20) {
+        
             mw3 = redondeo((w3 * (Double.parseDouble(vc.l1.getText()) + Double.parseDouble(vc.l2.getText()) + Double.parseDouble(vc.l3.getText())) / 2), 2);
             mw2 = redondeo((w2 * (Double.parseDouble(vc.l1.getText()) + (Double.parseDouble(vc.l2.getText()) - Double.parseDouble(vc.a1.getText())) * 2 / 3)), 2);
             mw1 = redondeo((w1 * (Double.parseDouble(vc.l1.getText()) + (Double.parseDouble(vc.l2.getText()) - Double.parseDouble(vc.a1.getText())) + (Double.parseDouble(vc.a1.getText())) / 2)), 2);
             vc.mpp.setText(String.valueOf(redondeo((mw3 + mw2 + mw1), 2)));
-        } else {
-            gps_error(elementos_mombre.get(estado));
-            JOptionPane.showMessageDialog(null, "Verifique por favor, está introduciendo valores incorrectos en la celda Sc o Ka");
-        }
+        
     }
 
     public void sumatoria_mr() {
         System.out.println("estoy en sumatoria_mr");
-        llenado_elementos();
-        int estado = ChecarErrores.Dobles(elementos);
-        if (estado == -20) {
+        
             sum_mr = redondeo((MPp + mw3 + mw2 + mw1 + Double.parseDouble(vc.mwp.getText()) + Double.parseDouble(vc.mwa.getText())), 2);
             System.out.println("sum_mr " + sum_mr);
-        } else {
-            gps_error(elementos_mombre.get(estado));
-            JOptionPane.showMessageDialog(null, "Verifique por favor, está introduciendo valores incorrectos en la celda Sc o Ka");
-        }
+       
     }
 
     public void fs_volteo() {
         System.out.println("estoy en fs_volteo");
-        llenado_elementos();
+        
         mpa = redondeo((0.5 * Double.parseDouble(vc.ka1.getText()) * Double.parseDouble(vc.gamma1.getText()) * Math.pow(Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText()), 2) * (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText())) / 3), 2);
-        int estado = ChecarErrores.Dobles(elementos);
-        if (estado == -20) {
+        
             vc.fs_v.setText(String.valueOf(redondeo((sum_mr / mpa), 2)));
             System.out.println("mpa " + mpa);
             System.out.println("fs_volteo " + sum_mr / mpa);
-        } else {
-            gps_error(elementos_mombre.get(estado));
-            JOptionPane.showMessageDialog(null, "Verifique por favor, está introduciendo valores incorrectos en la celda Sc o Ka");
-        }
+       
     }
 
     //modulo revision por desplazamiento
     public void sumatoria_v() {
         System.out.println("estoy en sumatoria_v");
-        llenado_elementos();
-        int estado = ChecarErrores.Dobles(elementos);
-        if (estado == -20) {
+        
             vc.sum_v.setText(String.valueOf(redondeo(Double.parseDouble(vc.p_propio.getText()) + Double.parseDouble(vc.wp.getText()) + Double.parseDouble(vc.wa.getText()), 2)));
-        } else {
-            gps_error(elementos_mombre.get(estado));
-            JOptionPane.showMessageDialog(null, "Verifique por favor, está introduciendo valores incorrectos en la celda Sc o Ka");
-        }
+        
     }
 
     public void fs_deslizamiento() {
         System.out.println("estoy en fs_deslizamiento");
-        llenado_elementos();
-        int estado = ChecarErrores.Dobles(elementos);
+        
         double delta = Double.parseDouble(vc.delta.getText());
         double beta = Double.parseDouble(vc.beta.getText());
         double alpha = Double.parseDouble(vc.alpha.getText());
@@ -1794,7 +1726,7 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
         double pa = 0.5 * ka * gamma1 * Math.pow(h1 + h2, 2) + ka * (h1 + h2) * sc * Math.sin(beta * conversion) / Math.sin((beta + alpha) * conversion);
         double Pp = redondeo(0.5 * Double.parseDouble(vc.kp2.getText()) * Double.parseDouble(vc.gamma2.getText()) * Math.pow(Double.parseDouble(vc.h2.getText()) + Double.parseDouble(vc.d1.getText()), 2) + 2 * Double.parseDouble(vc.c.getText())
                 * Math.sqrt(Double.parseDouble(vc.kp2.getText())) * (Double.parseDouble(vc.h2.getText()) + Double.parseDouble(vc.d1.getText())), 2);
-        if (estado == -20) {
+        
             vc.fs_desliz.setText(String.valueOf(redondeo((((Double.parseDouble(vc.sum_v.getText())) * Math.tan(k1 * Double.parseDouble(vc.fi2.getText()) * conversion) + ((Double.parseDouble(vc.l1.getText()) + Double.parseDouble(vc.l2.getText()) + Double.parseDouble(vc.l3.getText())) * k2 * Double.parseDouble(vc.c.getText()))
                     + Pp)
                     / (pa * Math.cos(Double.parseDouble(vc.alpha.getText()) * conversion))), 2)));
@@ -1804,18 +1736,13 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
             System.out.println("pa que buscamos " + pa);
             System.out.println("cociente que buscamos " + (Math.tan(k1 * Double.parseDouble(vc.fi2.getText()) * conversion)));
             System.out.println("");
-        } else {
-            gps_error(elementos_mombre.get(estado));
-            JOptionPane.showMessageDialog(null, "Verifique por favor, está introduciendo valores incorrectos en la celda Sc o Ka");
-        }
+        
     }
 
     //revision por capacidad
     public void revision_capacidad() {
         System.out.println("estoy en revision_capacidad");
-        llenado_elementos();
-        int estado = ChecarErrores.Dobles(elementos);
-        if (estado == -20) {
+        
             mpa = redondeo((0.5 * Double.parseDouble(vc.ka1.getText()) * Double.parseDouble(vc.gamma1.getText()) * Math.pow(Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText()), 2) * (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText())) / 3), 2);
             sum_mr = redondeo(MPp + mw3 + mw2 + mw1 + Double.parseDouble(vc.mwp.getText()) + Double.parseDouble(vc.mwa.getText()), 2);
             m_neto = redondeo((sum_mr - mpa), 2);
@@ -1851,10 +1778,7 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
             System.out.println("i " + i);
             System.out.println("q_max " + q_max);
             System.out.println("q_min " + q_min);
-        } else {
-            gps_error(elementos_mombre.get(estado));
-            JOptionPane.showMessageDialog(null, "Verifique por favor, está introduciendo valores incorrectos en la celda Sc o Ka");
-        }
+        
 
     }
 
@@ -1906,9 +1830,7 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
 
     //Empuje activo ****Este es el módulo "Empuje activo" como tal****
     public void empuje_activo_sismico() {
-        llenado_elementos();
-        int estado = ChecarErrores.Dobles(elementos);
-        if (estado == -20) {
+        
             double delta = Double.parseDouble(vc.delta.getText());
             double beta = Double.parseDouble(vc.beta.getText());
             double alpha = Double.parseDouble(vc.alpha.getText());
@@ -1947,18 +1869,13 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
             vc.pa.setText(String.valueOf(pa));
             vc.variacion_pae.setText(String.valueOf(variacion_pae));
             vc.m.setText(String.valueOf(m));
-        } else {
-            gps_error(elementos_mombre.get(estado));
-            JOptionPane.showMessageDialog(null, "Verifique por favor, está introduciendo valores incorrectos en la celda Sc o Ka");
-        }
+        
 
     }
 
     //acero corrido
     public void acero_corrido() {
-        llenado_elementos();
-        int estado = ChecarErrores.Dobles(elementos);
-        if (estado == -20) {
+        
             switch (vc.varillas1.getSelectedIndex()) {
                 case 0:
                     area_steel1 = 0.71;
@@ -2049,18 +1966,13 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
             fi_mr1 *= 10;
             vc.as1.setText(String.valueOf(as1 * 100));
             vc.fi_mr1.setText(String.valueOf(fi_mr1));
-        } else {
-            gps_error(elementos_mombre.get(estado));
-            JOptionPane.showMessageDialog(null, "Verifique por favor, está introduciendo valores incorrectos en la celda Sc o Ka");
-        }
+        
 
     }
 
     //bastón 1
     public void baston1() {
-        llenado_elementos();
-        int estado = ChecarErrores.Dobles(elementos);
-        if (estado == -20) {
+        
             switch (vc.varillas2.getSelectedIndex()) {
                 case 0:
                     area_steel2 = 0.71;
@@ -2146,18 +2058,13 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
 //            fi_mr2 = Double.parseDouble(vc.fi_f.getText()) * (as2 / (b * d) * Double.parseDouble(vc.fy.getText()) * (1 - (as2 / (b * d)) * m1 * 0.5) * (b * d * d));
 //            vc.as2.setText(String.valueOf(as2));
 //            vc.fi_mr2.setText(String.valueOf(fi_mr2));
-        } else {
-            gps_error(elementos_mombre.get(estado));
-            JOptionPane.showMessageDialog(null, "Verifique por favor, está introduciendo valores incorrectos en la celda Sc o Ka");
-        }
+        
 
     }
 
     //bastón 2
     public void baston2() {
-        llenado_elementos();
-        int estado = ChecarErrores.Dobles(elementos);
-        if (estado == -20) {
+        
             switch (vc.varillas3.getSelectedIndex()) {
                 case 0:
                     area_steel3 = 0.71;
@@ -2243,10 +2150,7 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
 //            fi_mr3 = Double.parseDouble(vc.fi_f.getText()) * (as3 / (b * d) * Double.parseDouble(vc.fy.getText()) * (1 - (as3 / (b * d)) * m1 * 0.5) * (b * d * d));
 //            vc.as3.setText(String.valueOf(as3));
 //            vc.fi_mr3.setText(String.valueOf(fi_mr3));
-        } else {
-            gps_error(elementos_mombre.get(estado));
-            JOptionPane.showMessageDialog(null, "Verifique por favor, está introduciendo valores incorrectos en la celda Sc o Ka");
-        }
+        
 
     }
 
@@ -2254,9 +2158,7 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
     public void acero_temperatura() {
         double espesor_muro = 30;
         double num_lechos = 2;
-        llenado_elementos();
-        int estado = ChecarErrores.Dobles(elementos);
-        if (estado == -20) {
+        
             switch (vc.varillas4.getSelectedIndex()) {
                 case 0:
                     area_steel4 = 0.71;
@@ -2336,17 +2238,12 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
 
             vc.as4.setText(String.valueOf(As));
 
-        } else {
-            gps_error(elementos_mombre.get(estado));
-            JOptionPane.showMessageDialog(null, "Verifique por favor, está introduciendo valores incorrectos en la celda Sc o Ka");
-        }
+        
     }
 
     //revision
     public void revision() {
-        llenado_elementos();
-        int estado = ChecarErrores.Dobles(elementos);
-        if (estado == -20) {
+        
             h = (Double.parseDouble(vc.l2.getText()) - (Double.parseDouble(vc.l2.getText()) - Double.parseDouble(vc.a1.getText())) / (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText())) * Double.parseDouble(vc.h2.getText())) * 100;
             d = redondeo((h - (r)), 2) / 100;
             double fi_v = Double.parseDouble(vc.fi_v.getText());
@@ -2357,10 +2254,7 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
             vc.fi_vc.setText(String.valueOf(fi_vc));
             System.out.println("fi_vc " + fi_vc);
             vc.sum_fi_mr.setText(String.valueOf(sum_fi_mr));
-        } else {
-            gps_error(elementos_mombre.get(estado));
-            JOptionPane.showMessageDialog(null, "Verifique por favor, está introduciendo valores incorrectos en la celda Sc o Ka");
-        }
+        
 
     }
 
