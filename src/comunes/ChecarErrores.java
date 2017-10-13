@@ -36,11 +36,26 @@ public class ChecarErrores {
         }
     }
 
-    public static int Dobles_simple(String cad) {
+    public static int Dobles_menor_igual(String cad) {
         int i = 0;
         try {
             double valor = Double.parseDouble(cad);
             if (valor <= 0) {
+                i = 1;
+            } else {
+                i = 0;
+            }
+        } catch (Exception e) {
+            i = 1;
+        }
+        return i;
+    }
+    
+    public static int Dobles_menor(String cad) {
+        int i = 0;
+        try {
+            double valor = Double.parseDouble(cad);
+            if (valor < 0) {
                 i = 1;
             } else {
                 i = 0;
