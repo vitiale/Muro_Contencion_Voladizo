@@ -1066,17 +1066,20 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
             JOptionPane.showMessageDialog(null, "Debe poner un nombre que identifique al muro");
         } else {
             //invento
-            ArrayList<String> data = new ArrayList<>();
-            double altura = (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText()) + Double.parseDouble(vc.d1.getText()));
-            data.add(String.valueOf(altura));
-            double ancho = Double.parseDouble(vc.a1.getText());//puede ser d2
-            data.add(String.valueOf(ancho));
-            double altura_zapata = Double.parseDouble(vc.var_e.getText());
-            data.add(String.valueOf(altura_zapata));
-            double largo_zapata = (Double.parseDouble(vc.l1.getText()) + Double.parseDouble(vc.l2.getText()) + Double.parseDouble(vc.l3.getText()));
-            data.add(String.valueOf(largo_zapata));
-            double bajo_zapata = Double.parseDouble(vc.d1.getText());
-            data.add(String.valueOf(bajo_zapata));
+//            ArrayList<String> data = new ArrayList<>();
+//            double altura = (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText()) + Double.parseDouble(vc.d1.getText()));
+//            data.add(String.valueOf(altura));
+//            double ancho = Double.parseDouble(vc.a1.getText());//puede ser d2
+//            data.add(String.valueOf(ancho));
+//            double altura_zapata = Double.parseDouble(vc.var_e.getText());
+//            data.add(String.valueOf(altura_zapata));
+//            double largo_zapata = (Double.parseDouble(vc.l1.getText()) + Double.parseDouble(vc.l2.getText()) + Double.parseDouble(vc.l3.getText()));
+//            data.add(String.valueOf(largo_zapata));
+//            double bajo_zapata = Double.parseDouble(vc.d1.getText());
+//            data.add(String.valueOf(bajo_zapata));
+System.out.println("");
+            System.out.println("lo que tiene el combo "+vc.combo_almacen.getComponentCount());
+            System.out.println("");
 
             //datos_muro.clear();
             ArrayList<String> datos_muro = new ArrayList<>();
@@ -1172,11 +1175,19 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
             py.añdir_muro(mu);
             vc.combo_almacen.addItem(datos_muro.get(0));
             mu = null;
-            if (py.getLista().size() > 1) {
-                System.out.println("");
-                System.out.println(py.getLista().get(0).getLista_muro().get(0));
-                System.out.println(py.getLista().get(1).getLista_muro().get(0));
-                System.out.println("");
+            
+            System.out.println("");
+            System.out.println("lo que tiene el combo "+vc.combo_almacen.getComponentCount());
+            System.out.println("");
+            
+//            if (py.getLista().size() > 1) {
+//                System.out.println("");
+//                System.out.println(py.getLista().get(0).getLista_muro().get(0));
+//                System.out.println(py.getLista().get(1).getLista_muro().get(0));
+//                System.out.println("");
+//            }
+            for(int i=0; i<py.getLista().size(); i++){
+                System.out.println(py.getLista().get(i).getLista_muro().get(0));
             }
         }
 
@@ -1199,148 +1210,76 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
 
     public void cancelar() {
         //se reinician los valores aq 1.0 por el momento
-        vc.fi1.setText("0.1");
+        vc.fi1.setText("30.0");
         vc.fi1.setBackground(Color.WHITE);
-        vc.gamma1.setText("0.1");
+        vc.gamma1.setText("1.75");
         vc.gamma1.setBackground(Color.WHITE);
-        vc.sc.setText("0.1");
+        vc.sc.setText("5.0");
         vc.sc.setBackground(Color.WHITE);
-        vc.ka1.setText("0.1");
-        vc.ka1.setBackground(Color.WHITE);
-        vc.kp1.setText("0.1");
-        vc.kp1.setBackground(Color.WHITE);
-        vc.fi2.setText("0.1");
+        vc.fi2.setText("30.0");
         vc.fi2.setBackground(Color.WHITE);
-        vc.gamma2.setText("0.1");
+        vc.gamma2.setText("1.75");
         vc.gamma2.setBackground(Color.WHITE);
-        vc.c.setText("0.1");
+        vc.c.setText("0.0");
         vc.c.setBackground(Color.WHITE);
-        vc.qad.setText("0.1");
+        vc.qad.setText("20.7");
         vc.qad.setBackground(Color.WHITE);
-        vc.kp2.setText("0.1");
-        vc.kp2.setBackground(Color.WHITE);
-        vc.ka2.setText("0.1");
-        vc.ka2.setBackground(Color.WHITE);
-        vc.h1.setText("0.1");
+        vc.h1.setText("3.0");
         vc.h1.setBackground(Color.WHITE);
-        vc.h2.setText("0.1");
+        vc.h2.setText("0.5");
         vc.h2.setBackground(Color.WHITE);
-        vc.d1.setText("0.1");
+        vc.d1.setText("0.0");
         vc.d1.setBackground(Color.WHITE);
         vc.var_e.setText("0.1");
         vc.var_e.setBackground(Color.WHITE);
-        vc.a1.setText("0.1");
+        vc.a1.setText("0.35");
         vc.a1.setBackground(Color.WHITE);
-        vc.d2.setText("0.1");
+        vc.d2.setText("0.35");
         vc.d2.setBackground(Color.WHITE);
-        vc.l1.setText("0.1");
+        vc.l1.setText("1.20");
         vc.l1.setBackground(Color.WHITE);
-        vc.l2.setText("0.1");
+        vc.l2.setText("0.35");
         vc.l2.setBackground(Color.WHITE);
-        vc.l3.setText("0.1");
+        vc.l3.setText("0.5");
         vc.l3.setBackground(Color.WHITE);
-        vc.wp.setText("0.1");
-        vc.wp.setBackground(Color.WHITE);
-        vc.wa.setText("0.1");
-        vc.wa.setBackground(Color.WHITE);
-        vc.p_propio.setText("0.1");
-        vc.p_propio.setBackground(Color.WHITE);
-        vc.fs_v.setText("0.1");
-        vc.fs_v.setBackground(Color.WHITE);
-        vc.mwp.setText("0.1");
-        vc.mwp.setBackground(Color.WHITE);
-        vc.mwa.setText("0.1");
-        vc.mwa.setBackground(Color.WHITE);
-        vc.mpp.setText("0.1");
-        vc.mpp.setBackground(Color.WHITE);
-        vc.alpha.setText("0.1");
+        vc.alpha.setText("0");
         vc.alpha.setBackground(Color.WHITE);
-        vc.sum_v.setText("0.1");
-        vc.sum_v.setBackground(Color.WHITE);
-        vc.fs_desliz.setText("0.1");
-        vc.fs_desliz.setBackground(Color.WHITE);
-        vc.q_max.setText("0.1");
-        vc.q_max.setBackground(Color.WHITE);
-        vc.q_min.setText("0.1");
-        vc.q_min.setBackground(Color.WHITE);
-        vc.qad_espejo.setText("0.1");
-        vc.qad_espejo.setBackground(Color.WHITE);
-        vc.fc.setText("0.1");
+        vc.fc.setText("250");
         vc.fc.setBackground(Color.WHITE);
         vc.r.setSelectedIndex(0);
-        vc.fy.setText("0.1");
+        vc.fy.setText("4220");
         vc.fy.setBackground(Color.WHITE);
-        vc.beta1.setText("0.1");
-        vc.beta1.setBackground(Color.WHITE);
-        vc.rho_bal.setText("0.1");
-        vc.rho_bal.setBackground(Color.WHITE);
-        vc.rho_max.setText("0.1");
-        vc.rho_max.setBackground(Color.WHITE);
-        vc.kv.setText("0.1");
+        vc.kv.setText("0.0");
         vc.kv.setBackground(Color.WHITE);
-        vc.kh.setText("0.1");
+        vc.kh.setText("0.2");
         vc.kh.setBackground(Color.WHITE);
-        vc.beta.setText("0.1");
+        vc.beta.setText("90");
         vc.beta.setBackground(Color.WHITE);
-        vc.delta.setText("0.1");
+        vc.delta.setText("0.0");
         vc.delta.setBackground(Color.WHITE);
-        vc.pae.setText("0.1");
-        vc.pae.setBackground(Color.WHITE);
-        vc.pa.setText("0.1");
-        vc.pa.setBackground(Color.WHITE);
-        vc.variacion_pae.setText("0.1");
-        vc.variacion_pae.setBackground(Color.WHITE);
-        vc.m.setText("0.1");
-        vc.m.setBackground(Color.WHITE);
         vc.varillas1.setSelectedIndex(0);
-        vc.fi_f.setText("0.1");
-        vc.fi_f.setBackground(Color.WHITE);
-        vc.fi_v.setText("0.1");
-        vc.fi_v.setBackground(Color.WHITE);
         vc.separacion1.setSelectedIndex(0);
-        vc.as1.setText("0.1");
-        vc.as1.setBackground(Color.WHITE);
-        vc.fi_mr1.setText("0.1");
-        vc.fi_mr1.setBackground(Color.WHITE);
         vc.varillas2.setSelectedIndex(0);
-        vc.as2.setText("0.1");
-        vc.as2.setBackground(Color.WHITE);
-        vc.ld_propuesto1.setText("0.1");
-        vc.ld_propuesto1.setBackground(Color.WHITE);
-        vc.fi_mr2.setText("0.1");
-        vc.fi_mr2.setBackground(Color.WHITE);
         vc.separacion2.setSelectedIndex(0);
-        vc.l1.setText("0.1");
-        vc.l1.setBackground(Color.WHITE);
         vc.varillas3.setSelectedIndex(0);
-        vc.as3.setText("0.1");
-        vc.as3.setBackground(Color.WHITE);
-        vc.ld_propuesto2.setText("0.1");
-        vc.ld_propuesto2.setBackground(Color.WHITE);
-        vc.ld1.setText("0.1");
+        vc.ld1.setText("1.0");
         vc.ld1.setBackground(Color.WHITE);
-        vc.fi_mr3.setText("0.1");
-        vc.fi_mr3.setBackground(Color.WHITE);
         vc.separacion3.setSelectedIndex(0);
-        vc.ld2.setText("0.1");
+        vc.ld2.setText("1.0");
         vc.ld2.setBackground(Color.WHITE);
-        vc.sum_fi_mr.setText("0.1");
-        vc.sum_fi_mr.setBackground(Color.WHITE);
-        vc.m_max.setText("0.1");
-        vc.m_max.setBackground(Color.WHITE);
-        vc.fi_vc.setText("0.1");
-        vc.fi_vc.setBackground(Color.WHITE);
-        vc.v_max.setText("0.1");
-        vc.v_max.setBackground(Color.WHITE);
         vc.name.setText(null);
         vc.varillas4.setSelectedIndex(0);
         vc.separacion4.setSelectedIndex(0);
-        vc.as4.setText("1.0");
+        
+        ejecutor();
 
         //vc.fi1.requestFocus();
     }
 
     public void editar() {
+        System.out.println("");
+        System.out.println("combo_almacen tiene "+vc.combo_almacen.getComponentCount());
+        System.out.println("");
         if (vc.combo_almacen.getComponentCount() != 0) {
             int estado = JOptionPane.showConfirmDialog(null, "Está seguro que quiere editar?\nTenga en cuenta que si no ha guardado el elemento en el que está trabajando perderá los datos.");
             if (estado == JOptionPane.YES_OPTION) {

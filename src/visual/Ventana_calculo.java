@@ -24,7 +24,7 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
      */
         private String nombre_py;
 
-    public Ventana_calculo(String nombre_py) throws ParseException {//revisar esta excepcion*************************
+    public Ventana_calculo(String nombre_py)  {//revisar esta excepcion*************************
         this.nombre_py = nombre_py;
         setTitle(this.nombre_py);
         //mascaras
