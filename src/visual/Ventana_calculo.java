@@ -65,6 +65,8 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel15 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jPanel27 = new javax.swing.JPanel();
         jPanel25 = new javax.swing.JPanel();
         jPanel24 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
@@ -282,11 +284,6 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
         jLabel128 = new javax.swing.JLabel();
         jLabel130 = new javax.swing.JLabel();
         v_max = new javax.swing.JTextField();
-        jPanel9 = new javax.swing.JPanel();
-        jLabel73 = new javax.swing.JLabel();
-        name = new javax.swing.JTextField();
-        aceptar1 = new javax.swing.JButton();
-        cancelar = new javax.swing.JButton();
         jPanel21 = new javax.swing.JPanel();
         jPanel22 = new javax.swing.JPanel();
         combo_almacen = new javax.swing.JComboBox<>();
@@ -295,6 +292,11 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
         editar = new javax.swing.JButton();
         eliminar = new javax.swing.JButton();
         cerrar = new javax.swing.JButton();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel73 = new javax.swing.JLabel();
+        name = new javax.swing.JTextField();
+        aceptar1 = new javax.swing.JButton();
+        cancelar = new javax.swing.JButton();
 
         jLabel15.setText("jLabel13");
 
@@ -303,6 +305,8 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
         setMaximizable(true);
         setResizable(true);
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.Y_AXIS));
+
+        jPanel27.setLayout(new javax.swing.BoxLayout(jPanel27, javax.swing.BoxLayout.Y_AXIS));
 
         jPanel25.setLayout(new javax.swing.BoxLayout(jPanel25, javax.swing.BoxLayout.X_AXIS));
 
@@ -821,7 +825,7 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
 
         jPanel25.add(jPanel26);
 
-        getContentPane().add(jPanel25);
+        jPanel27.add(jPanel25);
 
         jPanel10.setLayout(new javax.swing.BoxLayout(jPanel10, javax.swing.BoxLayout.X_AXIS));
 
@@ -1025,7 +1029,7 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
 
         jPanel10.add(jPanel23);
 
-        getContentPane().add(jPanel10);
+        jPanel27.add(jPanel10);
 
         jPanel17.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Revisión", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         jPanel17.setLayout(new javax.swing.BoxLayout(jPanel17, javax.swing.BoxLayout.LINE_AXIS));
@@ -1080,24 +1084,11 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
 
         jPanel17.add(jPanel19);
 
-        getContentPane().add(jPanel17);
+        jPanel27.add(jPanel17);
 
-        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        jPanel9.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
+        jScrollPane2.setViewportView(jPanel27);
 
-        jLabel73.setText("Nombre del muro: ");
-        jPanel9.add(jLabel73);
-
-        name.setPreferredSize(new java.awt.Dimension(300, 30));
-        jPanel9.add(name);
-
-        aceptar1.setText("Aceptar");
-        jPanel9.add(aceptar1);
-
-        cancelar.setText("Cancelar");
-        jPanel9.add(cancelar);
-
-        getContentPane().add(jPanel9);
+        getContentPane().add(jScrollPane2);
 
         jPanel21.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jPanel21.setLayout(new javax.swing.BoxLayout(jPanel21, javax.swing.BoxLayout.X_AXIS));
@@ -1125,6 +1116,23 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
         jPanel21.add(jPanel20);
 
         getContentPane().add(jPanel21);
+
+        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel9.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
+
+        jLabel73.setText("Nombre del muro: ");
+        jPanel9.add(jLabel73);
+
+        name.setPreferredSize(new java.awt.Dimension(300, 30));
+        jPanel9.add(name);
+
+        aceptar1.setText("Aceptar");
+        jPanel9.add(aceptar1);
+
+        cancelar.setText("Cancelar");
+        jPanel9.add(cancelar);
+
+        getContentPane().add(jPanel9);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1309,6 +1317,7 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel24;
     private javax.swing.JPanel jPanel25;
     private javax.swing.JPanel jPanel26;
+    private javax.swing.JPanel jPanel27;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -1316,6 +1325,7 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JScrollPane jScrollPane2;
     public javax.swing.JTextField ka1;
     public javax.swing.JTextField ka2;
     public javax.swing.JTextField kh;
