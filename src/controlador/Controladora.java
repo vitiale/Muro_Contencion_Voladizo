@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import visual.Diagrama_momento;
 import visual.Ventana_calculo;
 
 /**
@@ -111,6 +112,10 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
     private String temp_delta;
     private String temp_ld1;
     private String temp_ld2;
+    //necesario para graficos
+    private static Diagrama_momento dm;
+    double factor = 100.0;
+    int aux = (int) factor;
 
     public Controladora(Ventana_calculo vc) {
         this.vc = vc;
@@ -157,6 +162,7 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
         vc.name.addKeyListener(this);
         vc.alpha.addKeyListener(this);
         vc.aceptar1.addKeyListener(this);
+        vc.mostrar.addKeyListener(this);
 
         //para agregar el evento focuslistener A los elementos
         vc.fi1.addFocusListener(this);
@@ -202,6 +208,7 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
         vc.editar.addActionListener(this);
         vc.eliminar.addActionListener(this);
         vc.cerrar.addActionListener(this);
+        vc.mostrar.addActionListener(this);
 
 //        //Aquí podemos cargar la lista elemento y elemento_nombre, así nos ahorramos el tener que borrar e insertar en cada llamada.
 //        elementos.add(vc.fi1.getText());
@@ -687,6 +694,8 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
             cerrar();
         } else if (e.getSource() == vc.guardar) {
             guardar();
+        } else if (e.getSource() == vc.mostrar) {
+            mostrar();
         }
     }
 
@@ -1390,6 +1399,65 @@ System.out.println("");
             vc.dispose();
         }
     }
+    
+    public void mostrar(){
+        double h1 = Double.parseDouble(vc.h1.getText());
+        double h2 = Double.parseDouble(vc.h2.getText());
+        double altura_muro = h1+h2;
+        double P = (sigma_b - sigma_a) / altura_muro;        
+        double fs = 1.0;
+        double fe = 1.6;
+        double xs = altura_muro * 0.6;
+        double pae = Double.parseDouble(vc.pae.getText());
+        double pa = Double.parseDouble(vc.pa.getText());
+        //****variacion_pae y Ps del excel son lo mismo
+        double variacion_pae = pae - pa;
+//        double factor = 100.0;
+//        int aux = (int) factor;
+        double fijo = altura_muro / factor;
+        double[] long2 = new double[aux];
+        double[] long1 = new double[aux];
+        //**** sigma_a es lo mismo que w1 en el excel 
+        double[] w2 = new double[aux];
+        double[] m1 = new double[aux];
+        double[] m2 = new double[aux];
+        double[] mrb = new double[aux];
+        double[] ms = new double[aux];
+        double[] sum = new double[aux];
+        double[] v1 = new double[aux];
+        double[] v2 = new double[aux];
+        double[] vrb = new double[aux];
+        double[] vs = new double[aux];
+        double[] sum_mcv = new double[aux];
+        
+        double Vmax=Math.abs(((v1[0] + v2[0]) * fe) + (vs[0] * fs) + vrb[0]);
+        
+        
+        for (int i = 0; i < long2.length; i++) {
+            long2[i] = altura_muro - (fijo * i);
+            long1[i] = (fijo * i);
+            w2[i] = (P * long1[i]) + sigma_a;
+            m1[i] = (sigma_a * long1[i]) * (long1[i] * 0.5);
+            m2[i] = ((w2[i] - sigma_a) * long1[i]) / 2 * (1.0 / 3.0) * long1[i];
+            mrb[i] = ((long1[i] - altura_muro) > 0) ? -(((sigma_a * Math.pow(altura_muro, 2) * 0.5 * fe) + ((sigma_b - sigma_a) * Math.pow(altura_muro, 2)) * ((1.0 / 6.0) * fe) + (xs * variacion_pae * fs)) / h2) : 0;
+            ms[i] = ((long1[i] > (altura_muro - xs)) ? variacion_pae * (long1[i] - (altura_muro - xs)) : 0);
+            sum[i] = ((m1[i] + m2[i]) * fe) + (ms[i] * fs) + mrb[i];
+            v1[i] = long1[i] * sigma_a;
+            v2[i] = (((w2[i] - sigma_a) * long1[i]) / 2);
+            vrb[i] = ((long1[i] - h1) > 0) ? -(((sigma_a * Math.pow(altura_muro, 2) * 0.5 * fe) + ((sigma_b - sigma_a) * Math.pow(altura_muro, 2)) * ((1.0 / 6.0) * fe) + (xs * variacion_pae * fs)) / h2) : 0;
+            vs[i] = (long1[i] > (altura_muro - xs)) ? variacion_pae : 0;
+            sum_mcv[i] = ((v1[i] + v2[i]) * fe) + (vs[i] * fs) + vrb[i];
+            if(Vmax<Math.abs(sum_mcv[i])){
+                Vmax=Math.abs(sum_mcv[i]);
+            }          
+        }
+        
+        vc.m_max.setText(String.valueOf(sum[sum.length-1]));
+        vc.v_max.setText(String.valueOf(Vmax));
+        
+        dm = new Diagrama_momento(sum, long2);
+        dm.setVisible(true);
+    }
 
     public void guardar() {
         if (vc.combo_almacen.getItemCount() == 0) {
@@ -1477,19 +1545,15 @@ System.out.println("");
     }
 
     public void sigma() {
-//        System.out.println("estoy en sigma");
-//        llenado_elementos();
-        sigma_a = 0;
-        sigma_b = 0;
-//        int estado = ChecarErrores.Dobles(elementos);
-//        if (estado == -20) {
-            sigma_a = redondeo(Double.parseDouble(vc.ka2.getText()) * Double.parseDouble(vc.sc.getText()), 2);
-            sigma_b = redondeo(Double.parseDouble(vc.ka2.getText()) * Double.parseDouble(vc.gamma1.getText()) * (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText())) + Double.parseDouble(vc.sc.getText()) * Double.parseDouble(vc.ka2.getText()), 2);
-            sigma_p = redondeo(Double.parseDouble(vc.kp1.getText()) * Double.parseDouble(vc.gamma1.getText()) * Double.parseDouble(vc.h2.getText()), 2);
-//        } else {
-//            gps_error(elementos_mombre.get(estado));
-//            JOptionPane.showMessageDialog(null, "Verifique por favor, está introduciendo valores incorrectos en la celda Sc o Ka");
-//        }
+        double ka1=Double.parseDouble(vc.ka1.getText());
+        double sc=Double.parseDouble(vc.sc.getText());
+        double gamma1=Double.parseDouble(vc.gamma1.getText());
+        double gamma2=Double.parseDouble(vc.gamma2.getText());
+        double H=(Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText()));
+        sigma_a = redondeo(ka1 * sc, 2);
+        sigma_b = redondeo(ka1 * gamma1 * H + sc * ka1, 2);
+        sigma_p = redondeo(Double.parseDouble(vc.kp2.getText()) * gamma2 * Double.parseDouble(vc.h2.getText()), 2);
+
     }
 
     //tener en cuenta que estamos tomando el texfield h2 como la altura en los calculos pero hay que revisar que vamos hacer con esta situacion
@@ -2183,17 +2247,77 @@ System.out.println("");
     //revision
     public void revision() {
         
-            h = (Double.parseDouble(vc.l2.getText()) - (Double.parseDouble(vc.l2.getText()) - Double.parseDouble(vc.a1.getText())) / (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText())) * Double.parseDouble(vc.h2.getText())) * 100;
-            d = redondeo((h - (r)), 2) / 100;
-            double fi_v = Double.parseDouble(vc.fi_v.getText());
-            double fi_fc = Double.parseDouble(vc.fc.getText());
-            double sum_fi_mr = fi_mr1 + fi_mr2 + fi_mr3;
-            double fi_vc = fi_v * 0.53 * Math.sqrt(fi_fc) * b * d;
-            fi_vc *= 10;
-            vc.fi_vc.setText(String.valueOf(fi_vc));
-            System.out.println("fi_vc " + fi_vc);
-            vc.sum_fi_mr.setText(String.valueOf(sum_fi_mr));
+        h = (Double.parseDouble(vc.l2.getText()) - (Double.parseDouble(vc.l2.getText()) - Double.parseDouble(vc.a1.getText())) / (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText())) * Double.parseDouble(vc.h2.getText())) * 100;
+        d = redondeo((h - (r)), 2) / 100;
+        double fi_v = Double.parseDouble(vc.fi_v.getText());
+        double fi_fc = Double.parseDouble(vc.fc.getText());
+        double sum_fi_mr = fi_mr1 + fi_mr2 + fi_mr3;
+        double fi_vc = fi_v * 0.53 * Math.sqrt(fi_fc) * b * d;
+        fi_vc *= 10;
+        vc.fi_vc.setText(String.valueOf(fi_vc));
+        System.out.println("fi_vc " + fi_vc);
+        vc.sum_fi_mr.setText(String.valueOf(sum_fi_mr));
+
+        //Aquí coenzamos los calculos de momento
+        System.out.println("sigma_a " + sigma_a);
+        System.out.println("sigma_b " + sigma_b);
+        System.out.println("sigma_p " + sigma_p);
+        double h1 = Double.parseDouble(vc.h1.getText());
+        double h2 = Double.parseDouble(vc.h2.getText());
+        double altura_muro = h1+h2;
+        double P = (sigma_b - sigma_a) / altura_muro;        
+        double fs = 1.0;
+        double fe = 1.6;
+        double xs = altura_muro * 0.6;
+        double pae = Double.parseDouble(vc.pae.getText());
+        double pa = Double.parseDouble(vc.pa.getText());
+        //****variacion_pae y Ps del excel son lo mismo
+        double variacion_pae = pae - pa;
+//        double factor = 100.0;
+//        int aux = (int) factor;
+        double fijo = altura_muro / factor;
+        double[] long2 = new double[aux];
+        double[] long1 = new double[aux];
+        //**** sigma_a es lo mismo que w1 en el excel 
+        double[] w2 = new double[aux];
+        double[] m1 = new double[aux];
+        double[] m2 = new double[aux];
+        double[] mrb = new double[aux];
+        double[] ms = new double[aux];
+        double[] sum = new double[aux];
+        double[] v1 = new double[aux];
+        double[] v2 = new double[aux];
+        double[] vrb = new double[aux];
+        double[] vs = new double[aux];
+        double[] sum_mcv = new double[aux];
         
+        double Vmax=Math.abs(((v1[0] + v2[0]) * fe) + (vs[0] * fs) + vrb[0]);
+        
+        
+        for (int i = 0; i < long2.length; i++) {
+            long2[i] = altura_muro - (fijo * i);
+            long1[i] = (fijo * i);
+            w2[i] = (P * long1[i]) + sigma_a;
+            m1[i] = (sigma_a * long1[i]) * (long1[i] * 0.5);
+            m2[i] = ((w2[i] - sigma_a) * long1[i]) / 2 * (1.0 / 3.0) * long1[i];
+            mrb[i] = ((long1[i] - altura_muro) > 0) ? -(((sigma_a * Math.pow(altura_muro, 2) * 0.5 * fe) + ((sigma_b - sigma_a) * Math.pow(altura_muro, 2)) * ((1.0 / 6.0) * fe) + (xs * variacion_pae * fs)) / h2) : 0;
+            ms[i] = ((long1[i] > (altura_muro - xs)) ? variacion_pae * (long1[i] - (altura_muro - xs)) : 0);
+            sum[i] = ((m1[i] + m2[i]) * fe) + (ms[i] * fs) + mrb[i];
+            v1[i] = long1[i] * sigma_a;
+            v2[i] = (((w2[i] - sigma_a) * long1[i]) / 2);
+            vrb[i] = ((long1[i] - h1) > 0) ? -(((sigma_a * Math.pow(altura_muro, 2) * 0.5 * fe) + ((sigma_b - sigma_a) * Math.pow(altura_muro, 2)) * ((1.0 / 6.0) * fe) + (xs * variacion_pae * fs)) / h2) : 0;
+            vs[i] = (long1[i] > (altura_muro - xs)) ? variacion_pae : 0;
+            sum_mcv[i] = ((v1[i] + v2[i]) * fe) + (vs[i] * fs) + vrb[i];
+            if(Vmax<Math.abs(sum_mcv[i])){
+                Vmax=Math.abs(sum_mcv[i]);
+            }          
+        }
+        
+        vc.m_max.setText(String.valueOf(sum[sum.length-1]));
+        vc.v_max.setText(String.valueOf(Vmax));
+        
+        //dm = new Diagrama_momento(sum, long2);
+        //dm.setVisible(true);
 
     }
 

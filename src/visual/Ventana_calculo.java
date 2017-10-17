@@ -65,6 +65,7 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel15 = new javax.swing.JLabel();
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jScrollPane2 = new javax.swing.JScrollPane();
         jPanel27 = new javax.swing.JPanel();
         jPanel25 = new javax.swing.JPanel();
@@ -284,6 +285,10 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
         jLabel128 = new javax.swing.JLabel();
         jLabel130 = new javax.swing.JLabel();
         v_max = new javax.swing.JTextField();
+        jPanel28 = new javax.swing.JPanel();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        Cortante = new javax.swing.JRadioButton();
+        mostrar = new javax.swing.JButton();
         jPanel21 = new javax.swing.JPanel();
         jPanel22 = new javax.swing.JPanel();
         combo_almacen = new javax.swing.JComboBox<>();
@@ -1084,6 +1089,23 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
 
         jPanel17.add(jPanel19);
 
+        jPanel28.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jPanel28.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 40, 5));
+
+        buttonGroup1.add(jRadioButton1);
+        jRadioButton1.setSelected(true);
+        jRadioButton1.setText("Momento");
+        jPanel28.add(jRadioButton1);
+
+        buttonGroup1.add(Cortante);
+        Cortante.setText("Cortante");
+        jPanel28.add(Cortante);
+
+        mostrar.setText("Mostrar");
+        jPanel28.add(mostrar);
+
+        jPanel17.add(jPanel28);
+
         jPanel27.add(jPanel17);
 
         jScrollPane2.setViewportView(jPanel27);
@@ -1139,6 +1161,7 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton Cortante;
     public javax.swing.JTextField a1;
     public javax.swing.JButton aceptar1;
     public javax.swing.JTextField alpha;
@@ -1148,6 +1171,7 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
     public javax.swing.JTextField as4;
     public javax.swing.JTextField beta;
     public javax.swing.JTextField beta1;
+    private javax.swing.ButtonGroup buttonGroup1;
     public javax.swing.JTextField c;
     public javax.swing.JButton cancelar;
     public javax.swing.JButton cerrar;
@@ -1318,6 +1342,7 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel25;
     private javax.swing.JPanel jPanel26;
     private javax.swing.JPanel jPanel27;
+    private javax.swing.JPanel jPanel28;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -1325,6 +1350,7 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane2;
     public javax.swing.JTextField ka1;
     public javax.swing.JTextField ka2;
@@ -1341,6 +1367,7 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
     public javax.swing.JTextField ld_propuesto2;
     public javax.swing.JTextField m;
     public javax.swing.JTextField m_max;
+    public javax.swing.JButton mostrar;
     public javax.swing.JTextField mpp;
     public javax.swing.JTextField mwa;
     public javax.swing.JTextField mwp;
