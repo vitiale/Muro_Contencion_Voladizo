@@ -10,7 +10,9 @@ import clases.Proyecto;
 import com.sun.javafx.css.CalculatedValue;
 import comunes.ChecarErrores;
 import comunes.Py_Serializable;
+import static demo.MinMaxCategoryPlotDemo1.createChart;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -22,8 +24,17 @@ import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
+import visual.Diagrama_cortante;
 import visual.Diagrama_momento;
 import visual.Ventana_calculo;
 
@@ -114,8 +125,12 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
     private String temp_ld2;
     //necesario para graficos
     private static Diagrama_momento dm;
+    private static Diagrama_cortante dc;
     double factor = 100.0;
     int aux = (int) factor;
+    double[] sum = new double[aux];
+    double[] long2 = new double[aux];
+    //private Diag diag=new Diag();
 
     public Controladora(Ventana_calculo vc) {
         this.vc = vc;
@@ -1086,8 +1101,8 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
 //            data.add(String.valueOf(largo_zapata));
 //            double bajo_zapata = Double.parseDouble(vc.d1.getText());
 //            data.add(String.valueOf(bajo_zapata));
-System.out.println("");
-            System.out.println("lo que tiene el combo "+vc.combo_almacen.getComponentCount());
+            System.out.println("");
+            System.out.println("lo que tiene el combo " + vc.combo_almacen.getComponentCount());
             System.out.println("");
 
             //datos_muro.clear();
@@ -1184,18 +1199,18 @@ System.out.println("");
             py.añdir_muro(mu);
             vc.combo_almacen.addItem(datos_muro.get(0));
             mu = null;
-            
+
             System.out.println("");
-            System.out.println("lo que tiene el combo "+vc.combo_almacen.getComponentCount());
+            System.out.println("lo que tiene el combo " + vc.combo_almacen.getComponentCount());
             System.out.println("");
-            
+
 //            if (py.getLista().size() > 1) {
 //                System.out.println("");
 //                System.out.println(py.getLista().get(0).getLista_muro().get(0));
 //                System.out.println(py.getLista().get(1).getLista_muro().get(0));
 //                System.out.println("");
 //            }
-            for(int i=0; i<py.getLista().size(); i++){
+            for (int i = 0; i < py.getLista().size(); i++) {
                 System.out.println(py.getLista().get(i).getLista_muro().get(0));
             }
         }
@@ -1279,7 +1294,7 @@ System.out.println("");
         vc.name.setText(null);
         vc.varillas4.setSelectedIndex(0);
         vc.separacion4.setSelectedIndex(0);
-        
+
         ejecutor();
 
         //vc.fi1.requestFocus();
@@ -1287,7 +1302,7 @@ System.out.println("");
 
     public void editar() {
         System.out.println("");
-        System.out.println("combo_almacen tiene "+vc.combo_almacen.getComponentCount());
+        System.out.println("combo_almacen tiene " + vc.combo_almacen.getComponentCount());
         System.out.println("");
         if (vc.combo_almacen.getComponentCount() != 0) {
             int estado = JOptionPane.showConfirmDialog(null, "Está seguro que quiere editar?\nTenga en cuenta que si no ha guardado el elemento en el que está trabajando perderá los datos.");
@@ -1399,12 +1414,12 @@ System.out.println("");
             vc.dispose();
         }
     }
-    
-    public void mostrar(){
+
+    public void mostrar() {
         double h1 = Double.parseDouble(vc.h1.getText());
         double h2 = Double.parseDouble(vc.h2.getText());
-        double altura_muro = h1+h2;
-        double P = (sigma_b - sigma_a) / altura_muro;        
+        double altura_muro = h1 + h2;
+        double P = (sigma_b - sigma_a) / altura_muro;
         double fs = 1.0;
         double fe = 1.6;
         double xs = altura_muro * 0.6;
@@ -1415,7 +1430,7 @@ System.out.println("");
 //        double factor = 100.0;
 //        int aux = (int) factor;
         double fijo = altura_muro / factor;
-        double[] long2 = new double[aux];
+        long2 = new double[aux];
         double[] long1 = new double[aux];
         //**** sigma_a es lo mismo que w1 en el excel 
         double[] w2 = new double[aux];
@@ -1423,16 +1438,15 @@ System.out.println("");
         double[] m2 = new double[aux];
         double[] mrb = new double[aux];
         double[] ms = new double[aux];
-        double[] sum = new double[aux];
+        sum = new double[aux];
         double[] v1 = new double[aux];
         double[] v2 = new double[aux];
         double[] vrb = new double[aux];
         double[] vs = new double[aux];
         double[] sum_mcv = new double[aux];
-        
-        double Vmax=Math.abs(((v1[0] + v2[0]) * fe) + (vs[0] * fs) + vrb[0]);
-        
-        
+
+        double Vmax = Math.abs(((v1[0] + v2[0]) * fe) + (vs[0] * fs) + vrb[0]);
+
         for (int i = 0; i < long2.length; i++) {
             long2[i] = altura_muro - (fijo * i);
             long1[i] = (fijo * i);
@@ -1447,16 +1461,23 @@ System.out.println("");
             vrb[i] = ((long1[i] - h1) > 0) ? -(((sigma_a * Math.pow(altura_muro, 2) * 0.5 * fe) + ((sigma_b - sigma_a) * Math.pow(altura_muro, 2)) * ((1.0 / 6.0) * fe) + (xs * variacion_pae * fs)) / h2) : 0;
             vs[i] = (long1[i] > (altura_muro - xs)) ? variacion_pae : 0;
             sum_mcv[i] = ((v1[i] + v2[i]) * fe) + (vs[i] * fs) + vrb[i];
-            if(Vmax<Math.abs(sum_mcv[i])){
-                Vmax=Math.abs(sum_mcv[i]);
-            }          
+            if (Vmax < Math.abs(sum_mcv[i])) {
+                Vmax = Math.abs(sum_mcv[i]);
+            }
         }
-        
-        vc.m_max.setText(String.valueOf(sum[sum.length-1]));
+
+        vc.m_max.setText(String.valueOf(sum[sum.length - 1]));
         vc.v_max.setText(String.valueOf(Vmax));
-        
-        dm = new Diagrama_momento(sum, long2);
-        dm.setVisible(true);
+        if (vc.momento.isSelected()) {
+            dm = new Diagrama_momento(sum, long2);
+            dm.setVisible(true);
+        } else {
+            dc = new Diagrama_cortante(long2, sum_mcv);
+            dc.setVisible(true);
+        }
+
+//        dm = new Diagrama_momento(sum, long2);
+//        dm.setVisible(true);
     }
 
     public void guardar() {
@@ -1506,50 +1527,50 @@ System.out.println("");
     }
 
     public void ka_kp(int tipo_suelo) {
-        
-            double res;
-            double res1;
-            if (tipo_suelo == 1) {
-                res = redondeo(Math.pow(Math.tan((45 * conversion) - Double.parseDouble(vc.fi1.getText()) / 2), 2), 2);
-                vc.ka1.setText(String.valueOf(res));
-                res1 = Math.pow(Math.tan((45 * conversion) + Double.parseDouble(vc.fi1.getText())), 2);
-                vc.kp1.setText(String.valueOf(res1));
-            } else {
-                res = Math.pow(Math.tan((45 * conversion) - Double.parseDouble(vc.fi2.getText()) / 2), 2);
-                vc.ka2.setText(String.valueOf(res));
-                res1 = Math.pow(Math.tan((45 * conversion) + Double.parseDouble(vc.fi2.getText())), 2);
-                vc.kp2.setText(String.valueOf(res1));
-            }
+
+        double res;
+        double res1;
+        if (tipo_suelo == 1) {
+            res = redondeo(Math.pow(Math.tan((45 * conversion) - Double.parseDouble(vc.fi1.getText()) / 2), 2), 2);
+            vc.ka1.setText(String.valueOf(res));
+            res1 = Math.pow(Math.tan((45 * conversion) + Double.parseDouble(vc.fi1.getText())), 2);
+            vc.kp1.setText(String.valueOf(res1));
+        } else {
+            res = Math.pow(Math.tan((45 * conversion) - Double.parseDouble(vc.fi2.getText()) / 2), 2);
+            vc.ka2.setText(String.valueOf(res));
+            res1 = Math.pow(Math.tan((45 * conversion) + Double.parseDouble(vc.fi2.getText())), 2);
+            vc.kp2.setText(String.valueOf(res1));
+        }
 
     }
 
     public void ka_kp() {
 
-            double delta = Double.parseDouble(vc.delta.getText());
-            double beta = Double.parseDouble(vc.beta.getText());
-            double alpha = Double.parseDouble(vc.alpha.getText());
-            double fi1 = Double.parseDouble(vc.fi1.getText());
-            theta = Math.atan(Double.parseDouble(vc.kh.getText()) / (1 - Double.parseDouble(vc.kv.getText())));
-            double ka;//es el ka de la memoria
-            double res1;
-            res1 = redondeo(Math.pow(Math.tan((45 + (Double.parseDouble(vc.fi2.getText())) / 2) * conversion), 2), 2);
-            vc.kp2.setText(String.valueOf(res1));
-            //res = redondeo(Math.pow(Math.tan((45 - Double.parseDouble(vc.fi1.getText()) / 2) * conversion), 2), 2);
+        double delta = Double.parseDouble(vc.delta.getText());
+        double beta = Double.parseDouble(vc.beta.getText());
+        double alpha = Double.parseDouble(vc.alpha.getText());
+        double fi1 = Double.parseDouble(vc.fi1.getText());
+        theta = Math.atan(Double.parseDouble(vc.kh.getText()) / (1 - Double.parseDouble(vc.kv.getText())));
+        double ka;//es el ka de la memoria
+        double res1;
+        res1 = redondeo(Math.pow(Math.tan((45 + (Double.parseDouble(vc.fi2.getText())) / 2) * conversion), 2), 2);
+        vc.kp2.setText(String.valueOf(res1));
+        //res = redondeo(Math.pow(Math.tan((45 - Double.parseDouble(vc.fi1.getText()) / 2) * conversion), 2), 2);
 
-            ka = Math.pow(Math.sin((beta + fi1) * conversion), 2)
-                    / (Math.pow(Math.sin(beta * conversion), 2) * Math.sin((beta - delta) * conversion)
-                    * (Math.pow(1 + Math.sqrt((Math.sin((delta + fi1) * conversion) * Math.sin((fi1 - alpha) * conversion)) / Math.sin(((beta - delta) * conversion - theta)) * Math.sin((beta + alpha) * conversion)), 2)));
+        ka = Math.pow(Math.sin((beta + fi1) * conversion), 2)
+                / (Math.pow(Math.sin(beta * conversion), 2) * Math.sin((beta - delta) * conversion)
+                * (Math.pow(1 + Math.sqrt((Math.sin((delta + fi1) * conversion) * Math.sin((fi1 - alpha) * conversion)) / Math.sin(((beta - delta) * conversion - theta)) * Math.sin((beta + alpha) * conversion)), 2)));
 
-            vc.ka1.setText(String.valueOf(ka));
+        vc.ka1.setText(String.valueOf(ka));
 
     }
 
     public void sigma() {
-        double ka1=Double.parseDouble(vc.ka1.getText());
-        double sc=Double.parseDouble(vc.sc.getText());
-        double gamma1=Double.parseDouble(vc.gamma1.getText());
-        double gamma2=Double.parseDouble(vc.gamma2.getText());
-        double H=(Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText()));
+        double ka1 = Double.parseDouble(vc.ka1.getText());
+        double sc = Double.parseDouble(vc.sc.getText());
+        double gamma1 = Double.parseDouble(vc.gamma1.getText());
+        double gamma2 = Double.parseDouble(vc.gamma2.getText());
+        double H = (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText()));
         sigma_a = redondeo(ka1 * sc, 2);
         sigma_b = redondeo(ka1 * gamma1 * H + sc * ka1, 2);
         sigma_p = redondeo(Double.parseDouble(vc.kp2.getText()) * gamma2 * Double.parseDouble(vc.h2.getText()), 2);
@@ -1562,7 +1583,7 @@ System.out.println("");
 //        llenado_elementos();
 //        int estado = ChecarErrores.Dobles(elementos);
 //        if (estado == -20) {
-            //no se ubica aqui
+        //no se ubica aqui
 //            vc.wa.setText(String.valueOf(redondeo((0.5 * Double.parseDouble(vc.ka1.getText()) * Double.parseDouble(vc.gamma1.getText()) * Math.pow(Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText()), 2)) ,2)));
 //        } else {
 //            gps_error(elementos_mombre.get(estado));
@@ -1589,10 +1610,10 @@ System.out.println("");
     //no tenemos donde ponerlo en la ventana 
     public void momento_activo_mpa() {
 
-            //no se hubica aqui, debe ser en mpa pero nno tenemos esta variable aun creada
-            //vc.mwa.setText(String.valueOf(0.5 * Double.parseDouble(vc.ka2.getText()) * Double.parseDouble(vc.gamma1.getText()) * Math.pow(Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText()), 2) * (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText())) / 3));
-            mpa = redondeo((0.5 * Double.parseDouble(vc.ka1.getText()) * Double.parseDouble(vc.gamma1.getText()) * Math.pow(Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText()), 2) * (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText())) / 3), 2);
-            System.out.println("mpa " + mpa);
+        //no se hubica aqui, debe ser en mpa pero nno tenemos esta variable aun creada
+        //vc.mwa.setText(String.valueOf(0.5 * Double.parseDouble(vc.ka2.getText()) * Double.parseDouble(vc.gamma1.getText()) * Math.pow(Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText()), 2) * (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText())) / 3));
+        mpa = redondeo((0.5 * Double.parseDouble(vc.ka1.getText()) * Double.parseDouble(vc.gamma1.getText()) * Math.pow(Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText()), 2) * (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText())) / 3), 2);
+        System.out.println("mpa " + mpa);
 
     }
 
@@ -1600,13 +1621,13 @@ System.out.println("");
     public void momento_pasivo_mpp() {
         System.out.println("estoy en momento_pasivo_mpp");
 
-            //no se hubica aqui, debe ser en mpp pero nno tenemos esta variable aun creada
-            vc.mwp.setText(String.valueOf(redondeo(0.5 * Double.parseDouble(vc.kp1.getText()) * Double.parseDouble(vc.gamma1.getText()) * Math.pow(Double.parseDouble(vc.h2.getText()) + Double.parseDouble(vc.d1.getText()), 2) + 2 * Double.parseDouble(vc.c.getText())
-                    * Math.sqrt(Double.parseDouble(vc.kp1.getText())) * (Double.parseDouble(vc.h2.getText()) + Double.parseDouble(vc.d1.getText()))
-                    * Double.parseDouble(vc.h2.getText()) / 3, 2)));
-            MPp = redondeo((0.5 * Double.parseDouble(vc.kp1.getText()) * Double.parseDouble(vc.gamma1.getText()) * Math.pow(Double.parseDouble(vc.h2.getText()) + Double.parseDouble(vc.d1.getText()), 2) + 2 * Double.parseDouble(vc.c.getText())
-                    * Math.sqrt(Double.parseDouble(vc.kp1.getText())) * (Double.parseDouble(vc.h2.getText()) + Double.parseDouble(vc.d1.getText()))
-                    * Double.parseDouble(vc.h2.getText()) / 3), 2);
+        //no se hubica aqui, debe ser en mpp pero nno tenemos esta variable aun creada
+        vc.mwp.setText(String.valueOf(redondeo(0.5 * Double.parseDouble(vc.kp1.getText()) * Double.parseDouble(vc.gamma1.getText()) * Math.pow(Double.parseDouble(vc.h2.getText()) + Double.parseDouble(vc.d1.getText()), 2) + 2 * Double.parseDouble(vc.c.getText())
+                * Math.sqrt(Double.parseDouble(vc.kp1.getText())) * (Double.parseDouble(vc.h2.getText()) + Double.parseDouble(vc.d1.getText()))
+                * Double.parseDouble(vc.h2.getText()) / 3, 2)));
+        MPp = redondeo((0.5 * Double.parseDouble(vc.kp1.getText()) * Double.parseDouble(vc.gamma1.getText()) * Math.pow(Double.parseDouble(vc.h2.getText()) + Double.parseDouble(vc.d1.getText()), 2) + 2 * Double.parseDouble(vc.c.getText())
+                * Math.sqrt(Double.parseDouble(vc.kp1.getText())) * (Double.parseDouble(vc.h2.getText()) + Double.parseDouble(vc.d1.getText()))
+                * Double.parseDouble(vc.h2.getText()) / 3), 2);
 
     }
 
@@ -1614,7 +1635,7 @@ System.out.println("");
     public void peso_pasivo_wp() {
         System.out.println("estoy en peso_pasivo_wp");
 
-            vc.wp.setText(String.valueOf(redondeo(Double.parseDouble(vc.l1.getText()) * (Double.parseDouble(vc.h2.getText()) - Double.parseDouble(vc.var_e.getText())) * Double.parseDouble(vc.gamma2.getText()), 2)));
+        vc.wp.setText(String.valueOf(redondeo(Double.parseDouble(vc.l1.getText()) * (Double.parseDouble(vc.h2.getText()) - Double.parseDouble(vc.var_e.getText())) * Double.parseDouble(vc.gamma2.getText()), 2)));
 //            System.out.println("Valor esperado de wp");
 //            System.out.println((Double.parseDouble(vc.l1.getText()) * (Double.parseDouble(vc.h2.getText()) - Double.parseDouble(vc.var_e.getText())) * Double.parseDouble(vc.gamma1.getText())));
 
@@ -1622,41 +1643,40 @@ System.out.println("");
 
     public void momento_pasivo_mwp() {
         System.out.println("estoy en momento_pasivo_mwp");
-        
-            vc.mwp.setText(String.valueOf(redondeo(Double.parseDouble(vc.wp.getText()) * (Double.parseDouble(vc.l1.getText()) / 2), 2)));
-            
+
+        vc.mwp.setText(String.valueOf(redondeo(Double.parseDouble(vc.wp.getText()) * (Double.parseDouble(vc.l1.getText()) / 2), 2)));
+
     }
 
     public void peso_activo_wa() {
 
-            vc.wa.setText(String.valueOf(redondeo(Double.parseDouble(vc.l3.getText()) * ((Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText())) - Double.parseDouble(vc.var_e.getText())) * Double.parseDouble(vc.gamma1.getText()), 2)));
-
+        vc.wa.setText(String.valueOf(redondeo(Double.parseDouble(vc.l3.getText()) * ((Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText())) - Double.parseDouble(vc.var_e.getText())) * Double.parseDouble(vc.gamma1.getText()), 2)));
 
     }
 
     public void momento_activo_mwa() {
         System.out.println("estoy en momento_activo_mwa");
-        
-            vc.mwa.setText(String.valueOf(redondeo(Double.parseDouble(vc.wa.getText()) * (Double.parseDouble(vc.l1.getText()) + Double.parseDouble(vc.l2.getText()) + Double.parseDouble(vc.l3.getText()) / 2), 2)));
-        
+
+        vc.mwa.setText(String.valueOf(redondeo(Double.parseDouble(vc.wa.getText()) * (Double.parseDouble(vc.l1.getText()) + Double.parseDouble(vc.l2.getText()) + Double.parseDouble(vc.l3.getText()) / 2), 2)));
+
     }
 
     public void sum_w1_w2_w3() {
         System.out.println("estoy en sum_w1_w2_w3");
-        
+
 //            w3 = redondeo((Double.parseDouble(vc.l1.getText()) + Double.parseDouble(vc.l2.getText()) + Double.parseDouble(vc.l3.getText())) * Double.parseDouble(vc.var_e.getText()) * gamma_c ,2);
 //            w2 = redondeo(((Double.parseDouble(vc.l2.getText()) - Double.parseDouble(vc.a1.getText())) * (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText()) - Double.parseDouble(vc.var_e.getText()))) / 2 * Double.parseDouble(vc.var_e.getText()) * gamma_c ,2);
 //            w1 = redondeo(Double.parseDouble(vc.a1.getText()) * (Double.parseDouble(vc.h1.getText()) - Double.parseDouble(vc.var_e.getText())) * gamma_c ,2);
 //            vc.p_propio.setText(String.valueOf(redondeo(w3 + w2 + w1 ,2)));
-            w3 = (Double.parseDouble(vc.l1.getText()) + Double.parseDouble(vc.l2.getText()) + Double.parseDouble(vc.l3.getText())) * Double.parseDouble(vc.var_e.getText()) * gamma_c;
-            w2 = ((Double.parseDouble(vc.l2.getText()) - Double.parseDouble(vc.a1.getText())) * (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText()) - Double.parseDouble(vc.var_e.getText()))) / 2 * Double.parseDouble(vc.var_e.getText()) * gamma_c;
-            w1 = Double.parseDouble(vc.a1.getText()) * ((Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText()) - Double.parseDouble(vc.var_e.getText()))) * gamma_c;
-            vc.p_propio.setText(String.valueOf(redondeo(w3 + w2 + w1, 2)));
-            System.out.println("w3 " + w3);
-            System.out.println("w2 " + w2);
-            System.out.println("w1 " + w1);
-            System.out.println("pp " + (w1 + w2 + w3));
-        
+        w3 = (Double.parseDouble(vc.l1.getText()) + Double.parseDouble(vc.l2.getText()) + Double.parseDouble(vc.l3.getText())) * Double.parseDouble(vc.var_e.getText()) * gamma_c;
+        w2 = ((Double.parseDouble(vc.l2.getText()) - Double.parseDouble(vc.a1.getText())) * (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText()) - Double.parseDouble(vc.var_e.getText()))) / 2 * Double.parseDouble(vc.var_e.getText()) * gamma_c;
+        w1 = Double.parseDouble(vc.a1.getText()) * ((Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText()) - Double.parseDouble(vc.var_e.getText()))) * gamma_c;
+        vc.p_propio.setText(String.valueOf(redondeo(w3 + w2 + w1, 2)));
+        System.out.println("w3 " + w3);
+        System.out.println("w2 " + w2);
+        System.out.println("w1 " + w1);
+        System.out.println("pp " + (w1 + w2 + w3));
+
     }
 
 //    public void sum_w1_w2_w3() {
@@ -1677,44 +1697,44 @@ System.out.println("");
 //    }
     public void sum_mw1_mw2_mw3() {
         System.out.println("estoy en sum_mw1_mw2_mw3");
-        
-            mw3 = redondeo((w3 * (Double.parseDouble(vc.l1.getText()) + Double.parseDouble(vc.l2.getText()) + Double.parseDouble(vc.l3.getText())) / 2), 2);
-            mw2 = redondeo((w2 * (Double.parseDouble(vc.l1.getText()) + (Double.parseDouble(vc.l2.getText()) - Double.parseDouble(vc.a1.getText())) * 2 / 3)), 2);
-            mw1 = redondeo((w1 * (Double.parseDouble(vc.l1.getText()) + (Double.parseDouble(vc.l2.getText()) - Double.parseDouble(vc.a1.getText())) + (Double.parseDouble(vc.a1.getText())) / 2)), 2);
-            vc.mpp.setText(String.valueOf(redondeo((mw3 + mw2 + mw1), 2)));
-        
+
+        mw3 = redondeo((w3 * (Double.parseDouble(vc.l1.getText()) + Double.parseDouble(vc.l2.getText()) + Double.parseDouble(vc.l3.getText())) / 2), 2);
+        mw2 = redondeo((w2 * (Double.parseDouble(vc.l1.getText()) + (Double.parseDouble(vc.l2.getText()) - Double.parseDouble(vc.a1.getText())) * 2 / 3)), 2);
+        mw1 = redondeo((w1 * (Double.parseDouble(vc.l1.getText()) + (Double.parseDouble(vc.l2.getText()) - Double.parseDouble(vc.a1.getText())) + (Double.parseDouble(vc.a1.getText())) / 2)), 2);
+        vc.mpp.setText(String.valueOf(redondeo((mw3 + mw2 + mw1), 2)));
+
     }
 
     public void sumatoria_mr() {
         System.out.println("estoy en sumatoria_mr");
-        
-            sum_mr = redondeo((MPp + mw3 + mw2 + mw1 + Double.parseDouble(vc.mwp.getText()) + Double.parseDouble(vc.mwa.getText())), 2);
-            System.out.println("sum_mr " + sum_mr);
-       
+
+        sum_mr = redondeo((MPp + mw3 + mw2 + mw1 + Double.parseDouble(vc.mwp.getText()) + Double.parseDouble(vc.mwa.getText())), 2);
+        System.out.println("sum_mr " + sum_mr);
+
     }
 
     public void fs_volteo() {
         System.out.println("estoy en fs_volteo");
-        
+
         mpa = redondeo((0.5 * Double.parseDouble(vc.ka1.getText()) * Double.parseDouble(vc.gamma1.getText()) * Math.pow(Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText()), 2) * (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText())) / 3), 2);
-        
-            vc.fs_v.setText(String.valueOf(redondeo((sum_mr / mpa), 2)));
-            System.out.println("mpa " + mpa);
-            System.out.println("fs_volteo " + sum_mr / mpa);
-       
+
+        vc.fs_v.setText(String.valueOf(redondeo((sum_mr / mpa), 2)));
+        System.out.println("mpa " + mpa);
+        System.out.println("fs_volteo " + sum_mr / mpa);
+
     }
 
     //modulo revision por desplazamiento
     public void sumatoria_v() {
         System.out.println("estoy en sumatoria_v");
-        
-            vc.sum_v.setText(String.valueOf(redondeo(Double.parseDouble(vc.p_propio.getText()) + Double.parseDouble(vc.wp.getText()) + Double.parseDouble(vc.wa.getText()), 2)));
-        
+
+        vc.sum_v.setText(String.valueOf(redondeo(Double.parseDouble(vc.p_propio.getText()) + Double.parseDouble(vc.wp.getText()) + Double.parseDouble(vc.wa.getText()), 2)));
+
     }
 
     public void fs_deslizamiento() {
         System.out.println("estoy en fs_deslizamiento");
-        
+
         double delta = Double.parseDouble(vc.delta.getText());
         double beta = Double.parseDouble(vc.beta.getText());
         double alpha = Double.parseDouble(vc.alpha.getText());
@@ -1729,59 +1749,58 @@ System.out.println("");
         double pa = 0.5 * ka * gamma1 * Math.pow(h1 + h2, 2) + ka * (h1 + h2) * sc * Math.sin(beta * conversion) / Math.sin((beta + alpha) * conversion);
         double Pp = redondeo(0.5 * Double.parseDouble(vc.kp2.getText()) * Double.parseDouble(vc.gamma2.getText()) * Math.pow(Double.parseDouble(vc.h2.getText()) + Double.parseDouble(vc.d1.getText()), 2) + 2 * Double.parseDouble(vc.c.getText())
                 * Math.sqrt(Double.parseDouble(vc.kp2.getText())) * (Double.parseDouble(vc.h2.getText()) + Double.parseDouble(vc.d1.getText())), 2);
-        
-            vc.fs_desliz.setText(String.valueOf(redondeo((((Double.parseDouble(vc.sum_v.getText())) * Math.tan(k1 * Double.parseDouble(vc.fi2.getText()) * conversion) + ((Double.parseDouble(vc.l1.getText()) + Double.parseDouble(vc.l2.getText()) + Double.parseDouble(vc.l3.getText())) * k2 * Double.parseDouble(vc.c.getText()))
-                    + Pp)
-                    / (pa * Math.cos(Double.parseDouble(vc.alpha.getText()) * conversion))), 2)));
-            System.out.println("");
 
-            System.out.println("tan que buscamos " + (Math.tan(k1 * Double.parseDouble(vc.fi2.getText()) * conversion)));
-            System.out.println("pa que buscamos " + pa);
-            System.out.println("cociente que buscamos " + (Math.tan(k1 * Double.parseDouble(vc.fi2.getText()) * conversion)));
-            System.out.println("");
-        
+        vc.fs_desliz.setText(String.valueOf(redondeo((((Double.parseDouble(vc.sum_v.getText())) * Math.tan(k1 * Double.parseDouble(vc.fi2.getText()) * conversion) + ((Double.parseDouble(vc.l1.getText()) + Double.parseDouble(vc.l2.getText()) + Double.parseDouble(vc.l3.getText())) * k2 * Double.parseDouble(vc.c.getText()))
+                + Pp)
+                / (pa * Math.cos(Double.parseDouble(vc.alpha.getText()) * conversion))), 2)));
+        System.out.println("");
+
+        System.out.println("tan que buscamos " + (Math.tan(k1 * Double.parseDouble(vc.fi2.getText()) * conversion)));
+        System.out.println("pa que buscamos " + pa);
+        System.out.println("cociente que buscamos " + (Math.tan(k1 * Double.parseDouble(vc.fi2.getText()) * conversion)));
+        System.out.println("");
+
     }
 
     //revision por capacidad
     public void revision_capacidad() {
         System.out.println("estoy en revision_capacidad");
-        
-            mpa = redondeo((0.5 * Double.parseDouble(vc.ka1.getText()) * Double.parseDouble(vc.gamma1.getText()) * Math.pow(Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText()), 2) * (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText())) / 3), 2);
-            sum_mr = redondeo(MPp + mw3 + mw2 + mw1 + Double.parseDouble(vc.mwp.getText()) + Double.parseDouble(vc.mwa.getText()), 2);
-            m_neto = redondeo((sum_mr - mpa), 2);
-            x = redondeo(m_neto / Double.parseDouble(vc.sum_v.getText()), 2);
-            ee = redondeo(((Double.parseDouble(vc.l1.getText()) + Double.parseDouble(vc.l2.getText()) + Double.parseDouble(vc.l3.getText()) / 2) - x), 2);
-            ma = redondeo((Double.parseDouble(vc.sum_v.getText()) * ee), 2);
-            A = redondeo(Double.parseDouble(vc.l1.getText()) + Double.parseDouble(vc.l2.getText()) + Double.parseDouble(vc.l3.getText()), 2);
-            c = redondeo(((Double.parseDouble(vc.l1.getText()) + Double.parseDouble(vc.l2.getText()) + Double.parseDouble(vc.l3.getText())) / 2), 2);
-            i = redondeo((Math.pow(Double.parseDouble(vc.l1.getText()) + Double.parseDouble(vc.l2.getText()) + Double.parseDouble(vc.l3.getText()), 3) / 12), 2);
-            double q_max = redondeo((Double.parseDouble(vc.sum_v.getText()) / A) + (ma * c) / i, 2);
-            double q_min = redondeo((Double.parseDouble(vc.sum_v.getText()) / A) - (ma * c) / i, 2);
-            vc.q_max.setText(String.valueOf(q_max));
-            vc.q_min.setText(String.valueOf(q_min));
-            //preguntar por la estructura correcta de las comparaciones
-            if (q_max <= Double.parseDouble(vc.qad.getText())) {
-                vc.q_max.setBackground(Color.WHITE);
-            } else {
-                vc.q_max.setBackground(Color.red);
-            }
-            if (q_min >= 0) {
-                vc.q_min.setBackground(Color.WHITE);
-            } else {
-                vc.q_min.setBackground(Color.red);
-            }
-            System.out.println("mpa " + mpa);
-            System.out.println("sum_mr " + sum_mr);
-            System.out.println("m_neto " + m_neto);
-            System.out.println("x " + x);
-            System.out.println("ee " + ee);
-            System.out.println("ma " + ma);
-            System.out.println("a " + A);
-            System.out.println("c " + c);
-            System.out.println("i " + i);
-            System.out.println("q_max " + q_max);
-            System.out.println("q_min " + q_min);
-        
+
+        mpa = redondeo((0.5 * Double.parseDouble(vc.ka1.getText()) * Double.parseDouble(vc.gamma1.getText()) * Math.pow(Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText()), 2) * (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText())) / 3), 2);
+        sum_mr = redondeo(MPp + mw3 + mw2 + mw1 + Double.parseDouble(vc.mwp.getText()) + Double.parseDouble(vc.mwa.getText()), 2);
+        m_neto = redondeo((sum_mr - mpa), 2);
+        x = redondeo(m_neto / Double.parseDouble(vc.sum_v.getText()), 2);
+        ee = redondeo(((Double.parseDouble(vc.l1.getText()) + Double.parseDouble(vc.l2.getText()) + Double.parseDouble(vc.l3.getText()) / 2) - x), 2);
+        ma = redondeo((Double.parseDouble(vc.sum_v.getText()) * ee), 2);
+        A = redondeo(Double.parseDouble(vc.l1.getText()) + Double.parseDouble(vc.l2.getText()) + Double.parseDouble(vc.l3.getText()), 2);
+        c = redondeo(((Double.parseDouble(vc.l1.getText()) + Double.parseDouble(vc.l2.getText()) + Double.parseDouble(vc.l3.getText())) / 2), 2);
+        i = redondeo((Math.pow(Double.parseDouble(vc.l1.getText()) + Double.parseDouble(vc.l2.getText()) + Double.parseDouble(vc.l3.getText()), 3) / 12), 2);
+        double q_max = redondeo((Double.parseDouble(vc.sum_v.getText()) / A) + (ma * c) / i, 2);
+        double q_min = redondeo((Double.parseDouble(vc.sum_v.getText()) / A) - (ma * c) / i, 2);
+        vc.q_max.setText(String.valueOf(q_max));
+        vc.q_min.setText(String.valueOf(q_min));
+        //preguntar por la estructura correcta de las comparaciones
+        if (q_max <= Double.parseDouble(vc.qad.getText())) {
+            vc.q_max.setBackground(Color.WHITE);
+        } else {
+            vc.q_max.setBackground(Color.red);
+        }
+        if (q_min >= 0) {
+            vc.q_min.setBackground(Color.WHITE);
+        } else {
+            vc.q_min.setBackground(Color.red);
+        }
+        System.out.println("mpa " + mpa);
+        System.out.println("sum_mr " + sum_mr);
+        System.out.println("m_neto " + m_neto);
+        System.out.println("x " + x);
+        System.out.println("ee " + ee);
+        System.out.println("ma " + ma);
+        System.out.println("a " + A);
+        System.out.println("c " + c);
+        System.out.println("i " + i);
+        System.out.println("q_max " + q_max);
+        System.out.println("q_min " + q_min);
 
     }
 
@@ -1833,113 +1852,112 @@ System.out.println("");
 
     //Empuje activo ****Este es el módulo "Empuje activo" como tal****
     public void empuje_activo_sismico() {
-        
-            double delta = Double.parseDouble(vc.delta.getText());
-            double beta = Double.parseDouble(vc.beta.getText());
-            double alpha = Double.parseDouble(vc.alpha.getText());
-            double fi1 = Double.parseDouble(vc.fi1.getText());
 
-            double h1 = Double.parseDouble(vc.h1.getText());
-            double h2 = Double.parseDouble(vc.h2.getText());
-            double gamma1 = Double.parseDouble(vc.gamma1.getText());
-            double sc = Double.parseDouble(vc.sc.getText());
+        double delta = Double.parseDouble(vc.delta.getText());
+        double beta = Double.parseDouble(vc.beta.getText());
+        double alpha = Double.parseDouble(vc.alpha.getText());
+        double fi1 = Double.parseDouble(vc.fi1.getText());
 
-            theta = Math.atan(Double.parseDouble(vc.kh.getText()) / (1 - Double.parseDouble(vc.kv.getText())));
+        double h1 = Double.parseDouble(vc.h1.getText());
+        double h2 = Double.parseDouble(vc.h2.getText());
+        double gamma1 = Double.parseDouble(vc.gamma1.getText());
+        double sc = Double.parseDouble(vc.sc.getText());
 
-            double kae = Math.pow(Math.sin((fi1 - beta) * conversion - theta), 2)
-                    / (Math.cos(theta) * Math.pow(Math.sin(beta * conversion), 2) * Math.sin((delta + beta) * conversion + theta)
-                    * (Math.pow(1 + Math.sqrt((Math.sin((delta + fi1) * conversion) * Math.sin((fi1 * conversion - theta - alpha * conversion))) / Math.sin(((beta - delta) * conversion - theta)) * Math.sin((beta + alpha) * conversion)), 2)));
+        theta = Math.atan(Double.parseDouble(vc.kh.getText()) / (1 - Double.parseDouble(vc.kv.getText())));
 
-            double ka = Math.pow(Math.sin((beta + fi1) * conversion), 2)
-                    / (Math.pow(Math.sin(beta * conversion), 2) * Math.sin((beta - delta) * conversion)
-                    * (Math.pow(1 + Math.sqrt((Math.sin((delta + fi1) * conversion) * Math.sin((fi1 - alpha) * conversion)) / Math.sin(((beta - delta) * conversion - theta)) * Math.sin((beta + alpha) * conversion)), 2)));
+        double kae = Math.pow(Math.sin((fi1 - beta) * conversion - theta), 2)
+                / (Math.cos(theta) * Math.pow(Math.sin(beta * conversion), 2) * Math.sin((delta + beta) * conversion + theta)
+                * (Math.pow(1 + Math.sqrt((Math.sin((delta + fi1) * conversion) * Math.sin((fi1 * conversion - theta - alpha * conversion))) / Math.sin(((beta - delta) * conversion - theta)) * Math.sin((beta + alpha) * conversion)), 2)));
 
-            double pae = 0.5 * Double.parseDouble(vc.gamma1.getText()) * Math.pow(Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText()), 2) * (1 - Double.parseDouble(vc.kv.getText())) * kae;
-            //double pae = redondeo(0.5 * gamma1 * Math.pow(h1 + h2, 2) * (1 - kv) * kae, 2);
+        double ka = Math.pow(Math.sin((beta + fi1) * conversion), 2)
+                / (Math.pow(Math.sin(beta * conversion), 2) * Math.sin((beta - delta) * conversion)
+                * (Math.pow(1 + Math.sqrt((Math.sin((delta + fi1) * conversion) * Math.sin((fi1 - alpha) * conversion)) / Math.sin(((beta - delta) * conversion - theta)) * Math.sin((beta + alpha) * conversion)), 2)));
 
-            double pa = 0.5 * ka * gamma1 * Math.pow(h1 + h2, 2) + ka * (h1 + h2) * sc * Math.sin(beta * conversion) / Math.sin((beta + alpha) * conversion);
+        double pae = 0.5 * Double.parseDouble(vc.gamma1.getText()) * Math.pow(Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText()), 2) * (1 - Double.parseDouble(vc.kv.getText())) * kae;
+        //double pae = redondeo(0.5 * gamma1 * Math.pow(h1 + h2, 2) * (1 - kv) * kae, 2);
+
+        double pa = 0.5 * ka * gamma1 * Math.pow(h1 + h2, 2) + ka * (h1 + h2) * sc * Math.sin(beta * conversion) / Math.sin((beta + alpha) * conversion);
 //            double pa = redondeo((0.5 * Double.parseDouble(vc.ka1.getText()) * Double.parseDouble(vc.gamma1.getText()) * Math.pow(Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText()), 2)
 //                    + Double.parseDouble(vc.ka1.getText()) * (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText())) * Double.parseDouble(vc.sc.getText()) 
 //                    * (Math.sin(beta*conversion))/Math.sin((beta-alpha)*conversion)  ), 2);
 
-            double variacion_pae = pae - pa;
+        double variacion_pae = pae - pa;
 
-            double m = pa * (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText())) / 3 + variacion_pae * (0.6 * (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText())));
+        double m = pa * (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText())) / 3 + variacion_pae * (0.6 * (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText())));
 
-            vc.ka1.setText(String.valueOf(ka));
+        vc.ka1.setText(String.valueOf(ka));
 
-            vc.pae.setText(String.valueOf(pae));
-            vc.pa.setText(String.valueOf(pa));
-            vc.variacion_pae.setText(String.valueOf(variacion_pae));
-            vc.m.setText(String.valueOf(m));
-        
+        vc.pae.setText(String.valueOf(pae));
+        vc.pa.setText(String.valueOf(pa));
+        vc.variacion_pae.setText(String.valueOf(variacion_pae));
+        vc.m.setText(String.valueOf(m));
 
     }
 
     //acero corrido
     public void acero_corrido() {
-        
-            switch (vc.varillas1.getSelectedIndex()) {
-                case 0:
-                    area_steel1 = 0.71;
-                    break;
-                case 1:
-                    area_steel1 = 1.27;
-                    break;
-                case 2:
-                    area_steel1 = 1.98;
-                    break;
-                case 3:
-                    area_steel1 = 2.85;
-                    break;
-                case 4:
-                    area_steel1 = 5.07;
-                    break;
-                case 5:
-                    area_steel1 = 7.92;
-                    break;
-                case 6:
-                    area_steel1 = 11.40;
-                    break;
-            }
-            switch (vc.separacion1.getSelectedIndex()) {
-                case 0:
-                    separacion1 = 2.5;
-                    break;
-                case 1:
-                    separacion1 = 5.0;
-                    break;
-                case 2:
-                    separacion1 = 7.5;
-                    break;
-                case 3:
-                    separacion1 = 10.0;
-                    break;
-                case 4:
-                    separacion1 = 12.5;
-                    break;
-                case 5:
-                    separacion1 = 15.0;
-                    break;
-                case 6:
-                    separacion1 = 17.5;
-                    break;
-                case 7:
-                    separacion1 = 20.0;
-                    break;
-                case 8:
-                    separacion1 = 22.5;
-                    break;
-                case 9:
-                    separacion1 = 25.0;
-                    break;
-                case 10:
-                    separacion1 = 27.5;
-                    break;
-                case 11:
-                    separacion1 = 30.0;
-                    break;
-            }
+
+        switch (vc.varillas1.getSelectedIndex()) {
+            case 0:
+                area_steel1 = 0.71;
+                break;
+            case 1:
+                area_steel1 = 1.27;
+                break;
+            case 2:
+                area_steel1 = 1.98;
+                break;
+            case 3:
+                area_steel1 = 2.85;
+                break;
+            case 4:
+                area_steel1 = 5.07;
+                break;
+            case 5:
+                area_steel1 = 7.92;
+                break;
+            case 6:
+                area_steel1 = 11.40;
+                break;
+        }
+        switch (vc.separacion1.getSelectedIndex()) {
+            case 0:
+                separacion1 = 2.5;
+                break;
+            case 1:
+                separacion1 = 5.0;
+                break;
+            case 2:
+                separacion1 = 7.5;
+                break;
+            case 3:
+                separacion1 = 10.0;
+                break;
+            case 4:
+                separacion1 = 12.5;
+                break;
+            case 5:
+                separacion1 = 15.0;
+                break;
+            case 6:
+                separacion1 = 17.5;
+                break;
+            case 7:
+                separacion1 = 20.0;
+                break;
+            case 8:
+                separacion1 = 22.5;
+                break;
+            case 9:
+                separacion1 = 25.0;
+                break;
+            case 10:
+                separacion1 = 27.5;
+                break;
+            case 11:
+                separacion1 = 30.0;
+                break;
+        }
 
 //            double d = 0.275;
 //            double b = 1;
@@ -1948,305 +1966,299 @@ System.out.println("");
 //            double fi_f = 0.9;
 //            double fy = 4220;
 //            double fc = 250;
-            System.out.println("separacion1 " + vc.separacion1.getSelectedIndex());
-            System.out.println("separacion1 " + separacion1);
+        System.out.println("separacion1 " + vc.separacion1.getSelectedIndex());
+        System.out.println("separacion1 " + separacion1);
 
-            double fi_f = Double.parseDouble(vc.fi_f.getText());
-            double fy = Double.parseDouble(vc.fy.getText());
+        double fi_f = Double.parseDouble(vc.fi_f.getText());
+        double fy = Double.parseDouble(vc.fy.getText());
 
-            h = (Double.parseDouble(vc.l2.getText()) - (Double.parseDouble(vc.l2.getText()) - Double.parseDouble(vc.a1.getText())) / (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText())) * Double.parseDouble(vc.h2.getText())) * 100;
-            d = redondeo((h - (r)), 2) / 100;
-            m1 = redondeo(Double.parseDouble(vc.fy.getText()) / (0.85 * Double.parseDouble(vc.fc.getText())), 2);
-            System.out.println("esta carajo es m1 " + m1);
-            System.out.println("esta carajo es h " + h);
-            System.out.println("esta carajo es d " + d);
-            double as1 = (100 / separacion1) * area_steel1;
-            as1 /= 100;
-            System.out.println("esta carajo es as1 " + as1);
-            System.out.println("esta carajo es as1 " + as1 / 100);
-            System.out.println("esta carajo es as1 " + as1 / (100 * 100));
-            fi_mr1 = redondeo(fi_f * ((as1 / 100) / (b * d) * fy * (1 - ((as1 / 100) / (b * d)) * m1 * 0.5) * (b * d * d)), 2);
-            fi_mr1 *= 10;
-            vc.as1.setText(String.valueOf(as1 * 100));
-            vc.fi_mr1.setText(String.valueOf(fi_mr1));
-        
+        h = (Double.parseDouble(vc.l2.getText()) - (Double.parseDouble(vc.l2.getText()) - Double.parseDouble(vc.a1.getText())) / (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText())) * Double.parseDouble(vc.h2.getText())) * 100;
+        d = redondeo((h - (r)), 2) / 100;
+        m1 = redondeo(Double.parseDouble(vc.fy.getText()) / (0.85 * Double.parseDouble(vc.fc.getText())), 2);
+        System.out.println("esta carajo es m1 " + m1);
+        System.out.println("esta carajo es h " + h);
+        System.out.println("esta carajo es d " + d);
+        double as1 = (100 / separacion1) * area_steel1;
+        as1 /= 100;
+        System.out.println("esta carajo es as1 " + as1);
+        System.out.println("esta carajo es as1 " + as1 / 100);
+        System.out.println("esta carajo es as1 " + as1 / (100 * 100));
+        fi_mr1 = redondeo(fi_f * ((as1 / 100) / (b * d) * fy * (1 - ((as1 / 100) / (b * d)) * m1 * 0.5) * (b * d * d)), 2);
+        fi_mr1 *= 10;
+        vc.as1.setText(String.valueOf(as1 * 100));
+        vc.fi_mr1.setText(String.valueOf(fi_mr1));
 
     }
 
     //bastón 1
     public void baston1() {
-        
-            switch (vc.varillas2.getSelectedIndex()) {
-                case 0:
-                    area_steel2 = 0.71;
-                    break;
-                case 1:
-                    area_steel2 = 1.27;
-                    break;
-                case 2:
-                    area_steel2 = 1.98;
-                    break;
-                case 3:
-                    area_steel2 = 2.85;
-                    break;
-                case 4:
-                    area_steel2 = 5.07;
-                    break;
-                case 5:
-                    area_steel2 = 7.92;
-                    break;
-                case 6:
-                    area_steel2 = 11.40;
-                    break;
-            }
-            switch (vc.separacion2.getSelectedIndex()) {
-                case 0:
-                    separacion2 = 2.5;
-                    break;
-                case 1:
-                    separacion2 = 5.0;
-                    break;
-                case 2:
-                    separacion2 = 7.5;
-                    break;
-                case 3:
-                    separacion2 = 10.0;
-                    break;
-                case 4:
-                    separacion2 = 12.5;
-                    break;
-                case 5:
-                    separacion2 = 15.0;
-                    break;
-                case 6:
-                    separacion2 = 17.5;
-                    break;
-                case 7:
-                    separacion2 = 20.0;
-                    break;
-                case 8:
-                    separacion2 = 22.5;
-                    break;
-                case 9:
-                    separacion2 = 25.0;
-                    break;
-                case 10:
-                    separacion2 = 27.5;
-                    break;
-                case 11:
-                    separacion2 = 30.0;
-                    break;
-            }
 
-            double fi_f = Double.parseDouble(vc.fi_f.getText());
-            double fy = Double.parseDouble(vc.fy.getText());
+        switch (vc.varillas2.getSelectedIndex()) {
+            case 0:
+                area_steel2 = 0.71;
+                break;
+            case 1:
+                area_steel2 = 1.27;
+                break;
+            case 2:
+                area_steel2 = 1.98;
+                break;
+            case 3:
+                area_steel2 = 2.85;
+                break;
+            case 4:
+                area_steel2 = 5.07;
+                break;
+            case 5:
+                area_steel2 = 7.92;
+                break;
+            case 6:
+                area_steel2 = 11.40;
+                break;
+        }
+        switch (vc.separacion2.getSelectedIndex()) {
+            case 0:
+                separacion2 = 2.5;
+                break;
+            case 1:
+                separacion2 = 5.0;
+                break;
+            case 2:
+                separacion2 = 7.5;
+                break;
+            case 3:
+                separacion2 = 10.0;
+                break;
+            case 4:
+                separacion2 = 12.5;
+                break;
+            case 5:
+                separacion2 = 15.0;
+                break;
+            case 6:
+                separacion2 = 17.5;
+                break;
+            case 7:
+                separacion2 = 20.0;
+                break;
+            case 8:
+                separacion2 = 22.5;
+                break;
+            case 9:
+                separacion2 = 25.0;
+                break;
+            case 10:
+                separacion2 = 27.5;
+                break;
+            case 11:
+                separacion2 = 30.0;
+                break;
+        }
 
-            h = (Double.parseDouble(vc.l2.getText()) - (Double.parseDouble(vc.l2.getText()) - Double.parseDouble(vc.a1.getText())) / (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText())) * Double.parseDouble(vc.h2.getText())) * 100;
-            d = redondeo((h - (r)), 2) / 100;
-            m1 = redondeo(Double.parseDouble(vc.fy.getText()) / (0.85 * Double.parseDouble(vc.fc.getText())), 2);
-            System.out.println("esta carajo es m1 " + m1);
-            System.out.println("esta carajo es h " + h);
-            System.out.println("esta carajo es d " + d);
-            double as2 = (100 / separacion2) * area_steel2;
-            as2 /= 100;
-            System.out.println("esta carajo es as2 " + as2);
-            System.out.println("esta carajo es as2 " + as2 / 100);
-            System.out.println("esta carajo es as2 " + as2 / (100 * 100));
-            fi_mr2 = redondeo(fi_f * ((as2 / 100) / (b * d) * fy * (1 - ((as2 / 100) / (b * d)) * m1 * 0.5) * (b * d * d)), 2);
-            fi_mr2 *= 10;
-            vc.as2.setText(String.valueOf(as2 * 100));
-            vc.fi_mr2.setText(String.valueOf(fi_mr2));
+        double fi_f = Double.parseDouble(vc.fi_f.getText());
+        double fy = Double.parseDouble(vc.fy.getText());
+
+        h = (Double.parseDouble(vc.l2.getText()) - (Double.parseDouble(vc.l2.getText()) - Double.parseDouble(vc.a1.getText())) / (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText())) * Double.parseDouble(vc.h2.getText())) * 100;
+        d = redondeo((h - (r)), 2) / 100;
+        m1 = redondeo(Double.parseDouble(vc.fy.getText()) / (0.85 * Double.parseDouble(vc.fc.getText())), 2);
+        System.out.println("esta carajo es m1 " + m1);
+        System.out.println("esta carajo es h " + h);
+        System.out.println("esta carajo es d " + d);
+        double as2 = (100 / separacion2) * area_steel2;
+        as2 /= 100;
+        System.out.println("esta carajo es as2 " + as2);
+        System.out.println("esta carajo es as2 " + as2 / 100);
+        System.out.println("esta carajo es as2 " + as2 / (100 * 100));
+        fi_mr2 = redondeo(fi_f * ((as2 / 100) / (b * d) * fy * (1 - ((as2 / 100) / (b * d)) * m1 * 0.5) * (b * d * d)), 2);
+        fi_mr2 *= 10;
+        vc.as2.setText(String.valueOf(as2 * 100));
+        vc.fi_mr2.setText(String.valueOf(fi_mr2));
 
 //            double as2 = (100 / separacion2) * area_steel2;
 //            fi_mr2 = Double.parseDouble(vc.fi_f.getText()) * (as2 / (b * d) * Double.parseDouble(vc.fy.getText()) * (1 - (as2 / (b * d)) * m1 * 0.5) * (b * d * d));
 //            vc.as2.setText(String.valueOf(as2));
 //            vc.fi_mr2.setText(String.valueOf(fi_mr2));
-        
-
     }
 
     //bastón 2
     public void baston2() {
-        
-            switch (vc.varillas3.getSelectedIndex()) {
-                case 0:
-                    area_steel3 = 0.71;
-                    break;
-                case 1:
-                    area_steel3 = 1.27;
-                    break;
-                case 2:
-                    area_steel3 = 1.98;
-                    break;
-                case 3:
-                    area_steel3 = 2.85;
-                    break;
-                case 4:
-                    area_steel3 = 5.07;
-                    break;
-                case 5:
-                    area_steel3 = 7.92;
-                    break;
-                case 6:
-                    area_steel3 = 11.40;
-                    break;
-            }
-            switch (vc.separacion3.getSelectedIndex()) {
-                case 0:
-                    separacion3 = 2.5;
-                    break;
-                case 1:
-                    separacion3 = 5.0;
-                    break;
-                case 2:
-                    separacion3 = 7.5;
-                    break;
-                case 3:
-                    separacion3 = 10.0;
-                    break;
-                case 4:
-                    separacion3 = 12.5;
-                    break;
-                case 5:
-                    separacion3 = 15.0;
-                    break;
-                case 6:
-                    separacion3 = 17.5;
-                    break;
-                case 7:
-                    separacion3 = 20.0;
-                    break;
-                case 8:
-                    separacion3 = 22.5;
-                    break;
-                case 9:
-                    separacion3 = 25.0;
-                    break;
-                case 10:
-                    separacion3 = 27.5;
-                    break;
-                case 11:
-                    separacion3 = 30.0;
-                    break;
-            }
 
-            double fi_f = Double.parseDouble(vc.fi_f.getText());
-            double fy = Double.parseDouble(vc.fy.getText());
+        switch (vc.varillas3.getSelectedIndex()) {
+            case 0:
+                area_steel3 = 0.71;
+                break;
+            case 1:
+                area_steel3 = 1.27;
+                break;
+            case 2:
+                area_steel3 = 1.98;
+                break;
+            case 3:
+                area_steel3 = 2.85;
+                break;
+            case 4:
+                area_steel3 = 5.07;
+                break;
+            case 5:
+                area_steel3 = 7.92;
+                break;
+            case 6:
+                area_steel3 = 11.40;
+                break;
+        }
+        switch (vc.separacion3.getSelectedIndex()) {
+            case 0:
+                separacion3 = 2.5;
+                break;
+            case 1:
+                separacion3 = 5.0;
+                break;
+            case 2:
+                separacion3 = 7.5;
+                break;
+            case 3:
+                separacion3 = 10.0;
+                break;
+            case 4:
+                separacion3 = 12.5;
+                break;
+            case 5:
+                separacion3 = 15.0;
+                break;
+            case 6:
+                separacion3 = 17.5;
+                break;
+            case 7:
+                separacion3 = 20.0;
+                break;
+            case 8:
+                separacion3 = 22.5;
+                break;
+            case 9:
+                separacion3 = 25.0;
+                break;
+            case 10:
+                separacion3 = 27.5;
+                break;
+            case 11:
+                separacion3 = 30.0;
+                break;
+        }
 
-            h = (Double.parseDouble(vc.l2.getText()) - (Double.parseDouble(vc.l2.getText()) - Double.parseDouble(vc.a1.getText())) / (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText())) * Double.parseDouble(vc.h2.getText())) * 100;
-            d = redondeo((h - (r)), 2) / 100;
-            m1 = redondeo(Double.parseDouble(vc.fy.getText()) / (0.85 * Double.parseDouble(vc.fc.getText())), 2);
-            System.out.println("esta carajo es m1 " + m1);
-            System.out.println("esta carajo es h " + h);
-            System.out.println("esta carajo es d " + d);
-            double as3 = (100 / separacion3) * area_steel3;
-            as3 /= 100;
-            System.out.println("esta carajo es as3 " + as3);
-            System.out.println("esta carajo es as3 " + as3 / 100);
-            System.out.println("esta carajo es as3 " + as3 / (100 * 100));
-            fi_mr3 = redondeo(fi_f * ((as3 / 100) / (b * d) * fy * (1 - ((as3 / 100) / (b * d)) * m1 * 0.5) * (b * d * d)), 2);
-            fi_mr3 *= 10;
-            vc.as3.setText(String.valueOf(as3 * 100));
-            vc.fi_mr3.setText(String.valueOf(fi_mr3));
+        double fi_f = Double.parseDouble(vc.fi_f.getText());
+        double fy = Double.parseDouble(vc.fy.getText());
+
+        h = (Double.parseDouble(vc.l2.getText()) - (Double.parseDouble(vc.l2.getText()) - Double.parseDouble(vc.a1.getText())) / (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText())) * Double.parseDouble(vc.h2.getText())) * 100;
+        d = redondeo((h - (r)), 2) / 100;
+        m1 = redondeo(Double.parseDouble(vc.fy.getText()) / (0.85 * Double.parseDouble(vc.fc.getText())), 2);
+        System.out.println("esta carajo es m1 " + m1);
+        System.out.println("esta carajo es h " + h);
+        System.out.println("esta carajo es d " + d);
+        double as3 = (100 / separacion3) * area_steel3;
+        as3 /= 100;
+        System.out.println("esta carajo es as3 " + as3);
+        System.out.println("esta carajo es as3 " + as3 / 100);
+        System.out.println("esta carajo es as3 " + as3 / (100 * 100));
+        fi_mr3 = redondeo(fi_f * ((as3 / 100) / (b * d) * fy * (1 - ((as3 / 100) / (b * d)) * m1 * 0.5) * (b * d * d)), 2);
+        fi_mr3 *= 10;
+        vc.as3.setText(String.valueOf(as3 * 100));
+        vc.fi_mr3.setText(String.valueOf(fi_mr3));
 
 //            double as3 = (100 / separacion3) * area_steel3;
 //            fi_mr3 = Double.parseDouble(vc.fi_f.getText()) * (as3 / (b * d) * Double.parseDouble(vc.fy.getText()) * (1 - (as3 / (b * d)) * m1 * 0.5) * (b * d * d));
 //            vc.as3.setText(String.valueOf(as3));
 //            vc.fi_mr3.setText(String.valueOf(fi_mr3));
-        
-
     }
 
     //acero en temperatura
     public void acero_temperatura() {
         double espesor_muro = 30;
         double num_lechos = 2;
-        
-            switch (vc.varillas4.getSelectedIndex()) {
-                case 0:
-                    area_steel4 = 0.71;
-                    break;
-                case 1:
-                    area_steel4 = 1.27;
-                    break;
-                case 2:
-                    area_steel4 = 1.98;
-                    break;
-                case 3:
-                    area_steel4 = 2.85;
-                    break;
-                case 4:
-                    area_steel4 = 5.07;
-                    break;
-                case 5:
-                    area_steel4 = 7.92;
-                    break;
-                case 6:
-                    area_steel4 = 11.40;
-                    break;
-            }
-            switch (vc.separacion4.getSelectedIndex()) {
-                case 0:
-                    separacion4 = 2.5;
-                    break;
-                case 1:
-                    separacion4 = 5.0;
-                    break;
-                case 2:
-                    separacion4 = 7.5;
-                    break;
-                case 3:
-                    separacion4 = 10.0;
-                    break;
-                case 4:
-                    separacion4 = 12.5;
-                    break;
-                case 5:
-                    separacion4 = 15.0;
-                    break;
-                case 6:
-                    separacion4 = 17.5;
-                    break;
-                case 7:
-                    separacion4 = 20.0;
-                    break;
-                case 8:
-                    separacion4 = 22.5;
-                    break;
-                case 9:
-                    separacion4 = 25.0;
-                    break;
-                case 10:
-                    separacion4 = 27.5;
-                    break;
-                case 11:
-                    separacion4 = 30.0;
-                    break;
-            }
 
-            double As_h_min = (0.002) * espesor_muro;
-            double As_temp = As_h_min / num_lechos;
-            As_h_min *= 100;
-            As_temp *= 100;
-            System.out.println("As_h_min " + As_h_min);
-            System.out.println("As_temp " + As_temp);
+        switch (vc.varillas4.getSelectedIndex()) {
+            case 0:
+                area_steel4 = 0.71;
+                break;
+            case 1:
+                area_steel4 = 1.27;
+                break;
+            case 2:
+                area_steel4 = 1.98;
+                break;
+            case 3:
+                area_steel4 = 2.85;
+                break;
+            case 4:
+                area_steel4 = 5.07;
+                break;
+            case 5:
+                area_steel4 = 7.92;
+                break;
+            case 6:
+                area_steel4 = 11.40;
+                break;
+        }
+        switch (vc.separacion4.getSelectedIndex()) {
+            case 0:
+                separacion4 = 2.5;
+                break;
+            case 1:
+                separacion4 = 5.0;
+                break;
+            case 2:
+                separacion4 = 7.5;
+                break;
+            case 3:
+                separacion4 = 10.0;
+                break;
+            case 4:
+                separacion4 = 12.5;
+                break;
+            case 5:
+                separacion4 = 15.0;
+                break;
+            case 6:
+                separacion4 = 17.5;
+                break;
+            case 7:
+                separacion4 = 20.0;
+                break;
+            case 8:
+                separacion4 = 22.5;
+                break;
+            case 9:
+                separacion4 = 25.0;
+                break;
+            case 10:
+                separacion4 = 27.5;
+                break;
+            case 11:
+                separacion4 = 30.0;
+                break;
+        }
 
-            double As = area_steel4 * (1 / separacion4) * 100;
+        double As_h_min = (0.002) * espesor_muro;
+        double As_temp = As_h_min / num_lechos;
+        As_h_min *= 100;
+        As_temp *= 100;
+        System.out.println("As_h_min " + As_h_min);
+        System.out.println("As_temp " + As_temp);
 
-            if (As <= As_temp) {
-                vc.as4.setBackground(Color.red);
-            } else {
-                vc.as4.setBackground(Color.lightGray);
-            }
+        double As = area_steel4 * (1 / separacion4) * 100;
 
-            vc.as4.setText(String.valueOf(As));
+        if (As <= As_temp) {
+            vc.as4.setBackground(Color.red);
+        } else {
+            vc.as4.setBackground(Color.lightGray);
+        }
 
-        
+        vc.as4.setText(String.valueOf(As));
+
     }
 
     //revision
     public void revision() {
-        
+
         h = (Double.parseDouble(vc.l2.getText()) - (Double.parseDouble(vc.l2.getText()) - Double.parseDouble(vc.a1.getText())) / (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText())) * Double.parseDouble(vc.h2.getText())) * 100;
         d = redondeo((h - (r)), 2) / 100;
         double fi_v = Double.parseDouble(vc.fi_v.getText());
@@ -2264,8 +2276,8 @@ System.out.println("");
         System.out.println("sigma_p " + sigma_p);
         double h1 = Double.parseDouble(vc.h1.getText());
         double h2 = Double.parseDouble(vc.h2.getText());
-        double altura_muro = h1+h2;
-        double P = (sigma_b - sigma_a) / altura_muro;        
+        double altura_muro = h1 + h2;
+        double P = (sigma_b - sigma_a) / altura_muro;
         double fs = 1.0;
         double fe = 1.6;
         double xs = altura_muro * 0.6;
@@ -2276,7 +2288,7 @@ System.out.println("");
 //        double factor = 100.0;
 //        int aux = (int) factor;
         double fijo = altura_muro / factor;
-        double[] long2 = new double[aux];
+        long2 = new double[aux];
         double[] long1 = new double[aux];
         //**** sigma_a es lo mismo que w1 en el excel 
         double[] w2 = new double[aux];
@@ -2284,16 +2296,15 @@ System.out.println("");
         double[] m2 = new double[aux];
         double[] mrb = new double[aux];
         double[] ms = new double[aux];
-        double[] sum = new double[aux];
+        sum = new double[aux];
         double[] v1 = new double[aux];
         double[] v2 = new double[aux];
         double[] vrb = new double[aux];
         double[] vs = new double[aux];
         double[] sum_mcv = new double[aux];
-        
-        double Vmax=Math.abs(((v1[0] + v2[0]) * fe) + (vs[0] * fs) + vrb[0]);
-        
-        
+
+        double Vmax = Math.abs(((v1[0] + v2[0]) * fe) + (vs[0] * fs) + vrb[0]);
+
         for (int i = 0; i < long2.length; i++) {
             long2[i] = altura_muro - (fijo * i);
             long1[i] = (fijo * i);
@@ -2308,16 +2319,84 @@ System.out.println("");
             vrb[i] = ((long1[i] - h1) > 0) ? -(((sigma_a * Math.pow(altura_muro, 2) * 0.5 * fe) + ((sigma_b - sigma_a) * Math.pow(altura_muro, 2)) * ((1.0 / 6.0) * fe) + (xs * variacion_pae * fs)) / h2) : 0;
             vs[i] = (long1[i] > (altura_muro - xs)) ? variacion_pae : 0;
             sum_mcv[i] = ((v1[i] + v2[i]) * fe) + (vs[i] * fs) + vrb[i];
-            if(Vmax<Math.abs(sum_mcv[i])){
-                Vmax=Math.abs(sum_mcv[i]);
-            }          
+            if (Vmax < Math.abs(sum_mcv[i])) {
+                Vmax = Math.abs(sum_mcv[i]);
+            }
         }
-        
-        vc.m_max.setText(String.valueOf(sum[sum.length-1]));
+
+        vc.m_max.setText(String.valueOf(sum[sum.length - 1]));
         vc.v_max.setText(String.valueOf(Vmax));
-        
+
         //dm = new Diagrama_momento(sum, long2);
         //dm.setVisible(true);
+    }
+
+    public class Diag extends JFrame {
+
+        private double[] eje_x;
+        private double[] eje_y;
+
+        /**
+         * Creates new form Frame
+         */
+        public Diag(/*double[] eje_x, double[] eje_y*/) {
+
+            this.eje_x = eje_x;
+            this.eje_y = eje_y;
+
+            setBounds(700, 200, 700, 500);
+            String SITIO_1 = "PRIMERO";
+            String SITIO_2 = "SEGUNDO";
+
+            DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+            XYSeriesCollection xy = new XYSeriesCollection();
+            XYSeries serie1 = new XYSeries("Curva de Momentos");
+            XYSeries serie2 = new XYSeries("Acero corrido");
+            XYSeries serie3 = new XYSeries("Bastón");
+
+            //aqui trazamos la curva
+            for (int i = 0; i < sum.length; i++) {
+                serie1.add(sum[i], long2[i]);
+            }
+
+//        for(int i=0; i<eje_x.length; i++){
+//            serie2.add(eje_y[i],eje_x[i]);
+//        }
+            //aqui trazamos el acero corrido
+            serie2.add(4, 0);
+            serie2.add(4, 2.9);
+
+            //aqui trazamos baston
+            serie3.add(sum[sum.length - 1], 0);
+            serie3.add(sum[sum.length - 1], 1.0);
+
+//        serie2.add(5, 1);
+//        serie2.add(6, 2);
+//        serie2.add(7, 3);
+//        serie2.add(8, 4);
+            xy.addSeries(serie1);
+            xy.addSeries(serie2);
+            xy.addSeries(serie3);
+
+            //mi example
+            final JFreeChart mi_gr = ChartFactory.createXYLineChart("Diagrama de Momentos", "datos_x", "datos_y", xy);
+            //final JFreeChart mi_gr1=ChartFactory.createXYLineChart("Otra", "en_x", "en_y", xy, PlotOrientation.HORIZONTAL, true, true, true);
+
+            final JFreeChart chart = createChart(dataset);
+            final ChartPanel chartPanel = new ChartPanel(chart);
+            final ChartPanel chartPanel1 = new ChartPanel(mi_gr);
+            //chartPanel.setPreferredSize(new Dimension(500, 270));
+            //chartPanel.setEnforceFileExtensions(false);
+            chartPanel1.setPreferredSize(new Dimension(500, 270));
+            chartPanel1.setEnforceFileExtensions(false);
+
+            //setContentPane(chartPanel);
+            setContentPane(chartPanel1);
+
+            setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        }
 
     }
 

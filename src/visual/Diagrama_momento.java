@@ -90,7 +90,7 @@ public class Diagrama_momento extends javax.swing.JFrame {
         //setContentPane(chartPanel);
         setContentPane(chartPanel1);
 
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(/*EXIT_ON_CLOSE*/DISPOSE_ON_CLOSE);
 
     }
 

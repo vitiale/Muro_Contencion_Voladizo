@@ -286,9 +286,14 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
         jLabel130 = new javax.swing.JLabel();
         v_max = new javax.swing.JTextField();
         jPanel28 = new javax.swing.JPanel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        Cortante = new javax.swing.JRadioButton();
+        momento = new javax.swing.JRadioButton();
+        cortante = new javax.swing.JRadioButton();
         mostrar = new javax.swing.JButton();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel73 = new javax.swing.JLabel();
+        name = new javax.swing.JTextField();
+        aceptar1 = new javax.swing.JButton();
+        cancelar = new javax.swing.JButton();
         jPanel21 = new javax.swing.JPanel();
         jPanel22 = new javax.swing.JPanel();
         combo_almacen = new javax.swing.JComboBox<>();
@@ -297,11 +302,6 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
         editar = new javax.swing.JButton();
         eliminar = new javax.swing.JButton();
         cerrar = new javax.swing.JButton();
-        jPanel9 = new javax.swing.JPanel();
-        jLabel73 = new javax.swing.JLabel();
-        name = new javax.swing.JTextField();
-        aceptar1 = new javax.swing.JButton();
-        cancelar = new javax.swing.JButton();
 
         jLabel15.setText("jLabel13");
 
@@ -1092,14 +1092,14 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
         jPanel28.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jPanel28.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 40, 5));
 
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setSelected(true);
-        jRadioButton1.setText("Momento");
-        jPanel28.add(jRadioButton1);
+        buttonGroup1.add(momento);
+        momento.setSelected(true);
+        momento.setText("Momento");
+        jPanel28.add(momento);
 
-        buttonGroup1.add(Cortante);
-        Cortante.setText("Cortante");
-        jPanel28.add(Cortante);
+        buttonGroup1.add(cortante);
+        cortante.setText("Cortante");
+        jPanel28.add(cortante);
 
         mostrar.setText("Mostrar");
         jPanel28.add(mostrar);
@@ -1111,6 +1111,23 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
         jScrollPane2.setViewportView(jPanel27);
 
         getContentPane().add(jScrollPane2);
+
+        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel9.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
+
+        jLabel73.setText("Nombre del muro: ");
+        jPanel9.add(jLabel73);
+
+        name.setPreferredSize(new java.awt.Dimension(300, 30));
+        jPanel9.add(name);
+
+        aceptar1.setText("Aceptar");
+        jPanel9.add(aceptar1);
+
+        cancelar.setText("Cancelar");
+        jPanel9.add(cancelar);
+
+        getContentPane().add(jPanel9);
 
         jPanel21.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jPanel21.setLayout(new javax.swing.BoxLayout(jPanel21, javax.swing.BoxLayout.X_AXIS));
@@ -1139,29 +1156,11 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
 
         getContentPane().add(jPanel21);
 
-        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        jPanel9.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
-
-        jLabel73.setText("Nombre del muro: ");
-        jPanel9.add(jLabel73);
-
-        name.setPreferredSize(new java.awt.Dimension(300, 30));
-        jPanel9.add(name);
-
-        aceptar1.setText("Aceptar");
-        jPanel9.add(aceptar1);
-
-        cancelar.setText("Cancelar");
-        jPanel9.add(cancelar);
-
-        getContentPane().add(jPanel9);
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JRadioButton Cortante;
     public javax.swing.JTextField a1;
     public javax.swing.JButton aceptar1;
     public javax.swing.JTextField alpha;
@@ -1178,6 +1177,7 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
     public javax.swing.JComboBox<String> combo_almacen;
     public javax.swing.JTextField constante1;
     public javax.swing.JTextField constante2;
+    public javax.swing.JRadioButton cortante;
     public javax.swing.JTextField d1;
     public javax.swing.JTextField d2;
     public javax.swing.JTextField delta;
@@ -1350,7 +1350,6 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane2;
     public javax.swing.JTextField ka1;
     public javax.swing.JTextField ka2;
@@ -1367,6 +1366,7 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
     public javax.swing.JTextField ld_propuesto2;
     public javax.swing.JTextField m;
     public javax.swing.JTextField m_max;
+    public javax.swing.JRadioButton momento;
     public javax.swing.JButton mostrar;
     public javax.swing.JTextField mpp;
     public javax.swing.JTextField mwa;
