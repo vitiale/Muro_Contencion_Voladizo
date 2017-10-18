@@ -41,7 +41,7 @@ public class Diagrama_cortante extends JFrame{
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         
         XYSeriesCollection xy=new XYSeriesCollection();
-        XYSeries serie1=new XYSeries("Curva de Momentos");
+        XYSeries serie1=new XYSeries("Curva de Cortante");
 //        XYSeries serie2=new XYSeries("Acero corrido");
 //        XYSeries serie3=new XYSeries("Bastón");
         

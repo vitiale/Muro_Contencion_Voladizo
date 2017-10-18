@@ -1609,6 +1609,16 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
 
     //no tenemos donde ponerlo en la ventana 
     public void momento_activo_mpa() {
+        double ka=Double.parseDouble(vc.ka1.getText());
+        double gamma1=Double.parseDouble(vc.gamma1.getText());
+        double H=Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText());
+        double sc=Double.parseDouble(vc.c.getText());
+        double beta=Double.parseDouble(vc.beta.getText());
+        double alpha=Double.parseDouble(vc.alpha.getText());
+        double paz = 0.5*ka*gamma1*Math.pow(H, 2) + ka*H*sc*(Math.sin(beta*conversion)/(Math.sin((beta+alpha)*conversion)));
+        double mpaz=paz*H/3;
+        System.out.println("paz "+paz);
+        System.out.println("Mpaz "+mpaz);
 
         //no se hubica aqui, debe ser en mpa pero nno tenemos esta variable aun creada
         //vc.mwa.setText(String.valueOf(0.5 * Double.parseDouble(vc.ka2.getText()) * Double.parseDouble(vc.gamma1.getText()) * Math.pow(Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText()), 2) * (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText())) / 3));
@@ -1628,6 +1638,7 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
         MPp = redondeo((0.5 * Double.parseDouble(vc.kp1.getText()) * Double.parseDouble(vc.gamma1.getText()) * Math.pow(Double.parseDouble(vc.h2.getText()) + Double.parseDouble(vc.d1.getText()), 2) + 2 * Double.parseDouble(vc.c.getText())
                 * Math.sqrt(Double.parseDouble(vc.kp1.getText())) * (Double.parseDouble(vc.h2.getText()) + Double.parseDouble(vc.d1.getText()))
                 * Double.parseDouble(vc.h2.getText()) / 3), 2);
+        System.out.println("MPp "+MPp);
 
     }
 
@@ -1702,6 +1713,10 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
         mw2 = redondeo((w2 * (Double.parseDouble(vc.l1.getText()) + (Double.parseDouble(vc.l2.getText()) - Double.parseDouble(vc.a1.getText())) * 2 / 3)), 2);
         mw1 = redondeo((w1 * (Double.parseDouble(vc.l1.getText()) + (Double.parseDouble(vc.l2.getText()) - Double.parseDouble(vc.a1.getText())) + (Double.parseDouble(vc.a1.getText())) / 2)), 2);
         vc.mpp.setText(String.valueOf(redondeo((mw3 + mw2 + mw1), 2)));
+        System.out.println("mw3 " + mw3);
+        System.out.println("mw2 " + mw2);
+        System.out.println("mw1 " + mw1);
+        System.out.println("mpp " + (mw1 + mw2 + mw3));
 
     }
 
@@ -1714,13 +1729,40 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
     }
 
     public void fs_volteo() {
+        System.out.println("");
         System.out.println("estoy en fs_volteo");
+        
+        double delta = Double.parseDouble(vc.delta.getText());
+        double beta = Double.parseDouble(vc.beta.getText());
+        double alpha = Double.parseDouble(vc.alpha.getText());
+        double fi1 = Double.parseDouble(vc.fi1.getText());
 
-        mpa = redondeo((0.5 * Double.parseDouble(vc.ka1.getText()) * Double.parseDouble(vc.gamma1.getText()) * Math.pow(Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText()), 2) * (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText())) / 3), 2);
-
+        double h1 = Double.parseDouble(vc.h1.getText());
+        double h2 = Double.parseDouble(vc.h2.getText());
+        double gamma1 = Double.parseDouble(vc.gamma1.getText());
+        double sc = Double.parseDouble(vc.sc.getText());
+        double ka=Double.parseDouble(vc.ka1.getText());
+        
+        
+        double pa = 0.5 * ka * gamma1 * Math.pow(h1 + h2, 2) + ka * (h1 + h2) * sc * Math.sin(beta * conversion) / Math.sin((beta + alpha) * conversion);
+        mpa = pa*(h1+h2)/3;
+        //mpa = redondeo((0.5 * Double.parseDouble(vc.ka1.getText()) * Double.parseDouble(vc.gamma1.getText()) * Math.pow(Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText()), 2) * (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText())) / 3), 2);
+//        System.out.println("ka "+ka);
+//        System.out.println("gamma1 "+gamma1);
+//        System.out.println("Math.pow(h1 + h2, 2) "+Math.pow(h1 + h2, 2));
+//        System.out.println("(h1 + h2) "+(h1 + h2));
+//        System.out.println("sc "+sc);
+//        System.out.println("Math.sin(beta * conversion) "+ Math.sin(beta * conversion));
+//        System.out.println("Math.sin((beta + alpha) * conversion) "+ Math.sin((beta + alpha) * conversion));
+//        System.out.println("Math.sin(beta * conversion) / Math.sin((beta + alpha) * conversion) "+Math.sin(beta * conversion) / Math.sin((beta + alpha) * conversion));
+//        System.out.println("");
+//        System.out.println("sum_mr "+sum_mr);
+//        System.out.println("pa "+pa);
+//        System.out.println("mpa "+mpa);
+//        System.out.println("");
         vc.fs_v.setText(String.valueOf(redondeo((sum_mr / mpa), 2)));
-        System.out.println("mpa " + mpa);
-        System.out.println("fs_volteo " + sum_mr / mpa);
+        //System.out.println("mpa " + mpa);
+        //System.out.println("fs_volteo " + sum_mr / mpa);
 
     }
 
@@ -1744,6 +1786,7 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
         double h2 = Double.parseDouble(vc.h2.getText());
         double gamma1 = Double.parseDouble(vc.gamma1.getText());
         double sc = Double.parseDouble(vc.sc.getText());
+        double ka = Double.parseDouble(vc.ka1.getText());
         //en la memoria hay dos formulas distintas para pa, aqui se va A aplicar la mas larga para que esto de**************************************************
         //double pa = redondeo((0.5 * Double.parseDouble(vc.ka1.getText()) * Double.parseDouble(vc.gamma2.getText()) * Math.pow(Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText()), 2)), 2);
         double pa = 0.5 * ka * gamma1 * Math.pow(h1 + h2, 2) + ka * (h1 + h2) * sc * Math.sin(beta * conversion) / Math.sin((beta + alpha) * conversion);
