@@ -263,6 +263,8 @@ public class Proyecto implements Serializable{
         }
     }
     
+    //public 
+    
     public double separacion_1(int valor){
         double res=2.5;
         switch(valor){
@@ -476,7 +478,7 @@ public class Proyecto implements Serializable{
                     pw.println();
                 }
 
-                pw.println("qleader " + (x - izq_zapata / 2) + "," + (y + bajo_zapata + recubrimiento) + " " + (x - izq_zapata / 2) + "," + (y + bajo_zapata / 2) + " " + (x - izq_zapata + 2 * recubrimiento + diametro_varillas / 2 - diametro_señal_varillas / 2 - ancho - 1.5) + "," + (y + bajo_zapata / 2) + " " + 2.0 + " " + "1#" + Math.round(num_varilla_armado_corrido) + "@" + Math.round(separacion_varillas_profundidad * scala));
+                pw.println("qleader " + (x - izq_zapata / 2) + "," + (y + bajo_zapata + recubrimiento) + " " + (x - izq_zapata / 2) + "," + (y + bajo_zapata / 2) + " " + (x - izq_zapata + 2 * recubrimiento + diametro_varillas / 2 - diametro_señal_varillas / 2 - ancho - 1.5) + "," + (y + bajo_zapata / 2) + " " + 2.0 + " " + "1#" + Math.round(num_varilla_armado_corrido) + "@" + Math.round(separacion_varillas_profundidad * scala)+"fdfdfdf");
                 pw.println();
                 pw.println("qleader " + (x - izq_zapata / 2) + "," + (y + bajo_zapata + altura_zapata - recubrimiento) + " " + (x - izq_zapata / 2) + "," + (y + bajo_zapata + altura_zapata + bajo_zapata / 2) + " " + (x - izq_zapata + 2 * recubrimiento + diametro_varillas / 2 - diametro_señal_varillas / 2 - ancho - 1.5) + "," + (y + bajo_zapata + altura_zapata + bajo_zapata / 2) + " " + 2.0 + " " + "1#" + Math.round(num_varilla_armado_corrido) + "@" + Math.round(separacion_varillas_profundidad * scala));
                 pw.println();
