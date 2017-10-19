@@ -1722,8 +1722,25 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
 
     public void sumatoria_mr() {
         System.out.println("estoy en sumatoria_mr");
-
-        sum_mr = redondeo((MPp + mw3 + mw2 + mw1 + Double.parseDouble(vc.mwp.getText()) + Double.parseDouble(vc.mwa.getText())), 2);
+        double kp=Double.parseDouble(vc.kp2.getText());
+        double gamma2=Double.parseDouble(vc.gamma2.getText());
+        double h2=Double.parseDouble(vc.h2.getText());
+        double d1=Double.parseDouble(vc.d1.getText());
+        double c=Double.parseDouble(vc.c.getText());
+        double pp=0.5*kp*gamma2*Math.pow((h2+d1), 2)+2*c*Math.sqrt(kp)*(h2+d1);
+        MPp=pp*h2/3.0;
+        /*double MPp = redondeo((0.5 * Double.parseDouble(vc.kp1.getText()) * Double.parseDouble(vc.gamma1.getText()) * Math.pow(Double.parseDouble(vc.h2.getText()) + Double.parseDouble(vc.d1.getText()), 2) + 2 * Double.parseDouble(vc.c.getText())
+                * Math.sqrt(Double.parseDouble(vc.kp1.getText())) * (Double.parseDouble(vc.h2.getText()) + Double.parseDouble(vc.d1.getText()))
+                * Double.parseDouble(vc.h2.getText()) / 3), 2);*/
+        
+        
+        sum_mr = (MPp + mw3 + mw2 + mw1 + Double.parseDouble(vc.mwp.getText()) + Double.parseDouble(vc.mwa.getText()));
+        
+        System.out.println("pp " + pp);
+        System.out.println("MPp " + MPp);
+        System.out.println("mw3 " + mw3);
+        System.out.println("mw2 " + mw2);
+        System.out.println("mw1 " + mw1);
         System.out.println("sum_mr " + sum_mr);
 
     }
@@ -1747,19 +1764,19 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
         double pa = 0.5 * ka * gamma1 * Math.pow(h1 + h2, 2) + ka * (h1 + h2) * sc * Math.sin(beta * conversion) / Math.sin((beta + alpha) * conversion);
         mpa = pa*(h1+h2)/3;
         //mpa = redondeo((0.5 * Double.parseDouble(vc.ka1.getText()) * Double.parseDouble(vc.gamma1.getText()) * Math.pow(Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText()), 2) * (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText())) / 3), 2);
-//        System.out.println("ka "+ka);
-//        System.out.println("gamma1 "+gamma1);
-//        System.out.println("Math.pow(h1 + h2, 2) "+Math.pow(h1 + h2, 2));
-//        System.out.println("(h1 + h2) "+(h1 + h2));
-//        System.out.println("sc "+sc);
-//        System.out.println("Math.sin(beta * conversion) "+ Math.sin(beta * conversion));
-//        System.out.println("Math.sin((beta + alpha) * conversion) "+ Math.sin((beta + alpha) * conversion));
-//        System.out.println("Math.sin(beta * conversion) / Math.sin((beta + alpha) * conversion) "+Math.sin(beta * conversion) / Math.sin((beta + alpha) * conversion));
-//        System.out.println("");
-//        System.out.println("sum_mr "+sum_mr);
-//        System.out.println("pa "+pa);
-//        System.out.println("mpa "+mpa);
-//        System.out.println("");
+        System.out.println("ka "+ka);
+        System.out.println("gamma1 "+gamma1);
+        System.out.println("Math.pow(h1 + h2, 2) "+Math.pow(h1 + h2, 2));
+        System.out.println("(h1 + h2) "+(h1 + h2));
+        System.out.println("sc "+sc);
+        System.out.println("Math.sin(beta * conversion) "+ Math.sin(beta * conversion));
+        System.out.println("Math.sin((beta + alpha) * conversion) "+ Math.sin((beta + alpha) * conversion));
+        System.out.println("Math.sin(beta * conversion) / Math.sin((beta + alpha) * conversion) "+Math.sin(beta * conversion) / Math.sin((beta + alpha) * conversion));
+        System.out.println("");
+        System.out.println("sum_mr "+sum_mr);
+        System.out.println("pa "+pa);
+        System.out.println("mpa "+mpa);
+        System.out.println("");
         vc.fs_v.setText(String.valueOf(redondeo((sum_mr / mpa), 2)));
         //System.out.println("mpa " + mpa);
         //System.out.println("fs_volteo " + sum_mr / mpa);
@@ -1808,18 +1825,35 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
     //revision por capacidad
     public void revision_capacidad() {
         System.out.println("estoy en revision_capacidad");
+        double delta = Double.parseDouble(vc.delta.getText());
+        double beta = Double.parseDouble(vc.beta.getText());
+        double alpha = Double.parseDouble(vc.alpha.getText());
+        double fi1 = Double.parseDouble(vc.fi1.getText());
 
-        mpa = redondeo((0.5 * Double.parseDouble(vc.ka1.getText()) * Double.parseDouble(vc.gamma1.getText()) * Math.pow(Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText()), 2) * (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText())) / 3), 2);
-        sum_mr = redondeo(MPp + mw3 + mw2 + mw1 + Double.parseDouble(vc.mwp.getText()) + Double.parseDouble(vc.mwa.getText()), 2);
-        m_neto = redondeo((sum_mr - mpa), 2);
-        x = redondeo(m_neto / Double.parseDouble(vc.sum_v.getText()), 2);
-        ee = redondeo(((Double.parseDouble(vc.l1.getText()) + Double.parseDouble(vc.l2.getText()) + Double.parseDouble(vc.l3.getText()) / 2) - x), 2);
-        ma = redondeo((Double.parseDouble(vc.sum_v.getText()) * ee), 2);
-        A = redondeo(Double.parseDouble(vc.l1.getText()) + Double.parseDouble(vc.l2.getText()) + Double.parseDouble(vc.l3.getText()), 2);
-        c = redondeo(((Double.parseDouble(vc.l1.getText()) + Double.parseDouble(vc.l2.getText()) + Double.parseDouble(vc.l3.getText())) / 2), 2);
+        double h1 = Double.parseDouble(vc.h1.getText());
+        double h2 = Double.parseDouble(vc.h2.getText());
+        double gamma1 = Double.parseDouble(vc.gamma1.getText());
+        double sc = Double.parseDouble(vc.sc.getText());
+        double ka=Double.parseDouble(vc.ka1.getText());
+        double l1=Double.parseDouble(vc.l1.getText());
+        double l2=Double.parseDouble(vc.l2.getText());
+        double l3=Double.parseDouble(vc.l3.getText());
+        
+        
+        double pa = 0.5 * ka * gamma1 * Math.pow(h1 + h2, 2) + ka * (h1 + h2) * sc * Math.sin(beta * conversion) / Math.sin((beta + alpha) * conversion);
+        mpa = pa*(h1+h2)/3;
+
+        //mpa = redondeo((0.5 * Double.parseDouble(vc.ka1.getText()) * Double.parseDouble(vc.gamma1.getText()) * Math.pow(Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText()), 2) * (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText())) / 3), 2);
+        //sum_mr = redondeo(MPp + mw3 + mw2 + mw1 + Double.parseDouble(vc.mwp.getText()) + Double.parseDouble(vc.mwa.getText()), 2);
+        m_neto = (sum_mr - mpa);
+        x = m_neto / Double.parseDouble(vc.sum_v.getText());
+        ee = ((l1+l2+l3)/2) - x;
+        ma = (Double.parseDouble(vc.sum_v.getText()) * ee);
+        A = Double.parseDouble(vc.l1.getText()) + Double.parseDouble(vc.l2.getText()) + Double.parseDouble(vc.l3.getText());
+        c = ((Double.parseDouble(vc.l1.getText()) + Double.parseDouble(vc.l2.getText()) + Double.parseDouble(vc.l3.getText())) / 2);
         i = redondeo((Math.pow(Double.parseDouble(vc.l1.getText()) + Double.parseDouble(vc.l2.getText()) + Double.parseDouble(vc.l3.getText()), 3) / 12), 2);
-        double q_max = redondeo((Double.parseDouble(vc.sum_v.getText()) / A) + (ma * c) / i, 2);
-        double q_min = redondeo((Double.parseDouble(vc.sum_v.getText()) / A) - (ma * c) / i, 2);
+        double q_max = (Double.parseDouble(vc.sum_v.getText()) / A) + (ma * c) / i;
+        double q_min = (Double.parseDouble(vc.sum_v.getText()) / A) - (ma * c) / i;
         vc.q_max.setText(String.valueOf(q_max));
         vc.q_min.setText(String.valueOf(q_min));
         //preguntar por la estructura correcta de las comparaciones
@@ -1833,8 +1867,9 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
         } else {
             vc.q_min.setBackground(Color.red);
         }
-        System.out.println("mpa " + mpa);
+        //System.out.println("m_neto "+m_neto);
         System.out.println("sum_mr " + sum_mr);
+        System.out.println("mpa " + mpa);        
         System.out.println("m_neto " + m_neto);
         System.out.println("x " + x);
         System.out.println("ee " + ee);
