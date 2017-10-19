@@ -231,7 +231,7 @@
                             <Component class="javax.swing.JLabel" name="jLabel28">
                               <Properties>
                                 <Property name="horizontalAlignment" type="int" value="0"/>
-                                <Property name="text" type="java.lang.String" value="Qad[tonnef/m&#xb2;]"/>
+                                <Property name="text" type="java.lang.String" value="Qad-[tonnef/m&#xb2;]"/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JTextField" name="qad">
@@ -319,7 +319,7 @@
                             <Component class="javax.swing.JLabel" name="jLabel3">
                               <Properties>
                                 <Property name="horizontalAlignment" type="int" value="0"/>
-                                <Property name="text" type="java.lang.String" value="a1[m]"/>
+                                <Property name="text" type="java.lang.String" value="a-[m]"/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JTextField" name="a1">
@@ -347,7 +347,7 @@
                             <Component class="javax.swing.JLabel" name="jLabel4">
                               <Properties>
                                 <Property name="horizontalAlignment" type="int" value="0"/>
-                                <Property name="text" type="java.lang.String" value="d2[m]"/>
+                                <Property name="text" type="java.lang.String" value="d2-[m]"/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JTextField" name="d2">
@@ -375,7 +375,7 @@
                             <Component class="javax.swing.JLabel" name="jLabel7">
                               <Properties>
                                 <Property name="horizontalAlignment" type="int" value="0"/>
-                                <Property name="text" type="java.lang.String" value="l1[m]"/>
+                                <Property name="text" type="java.lang.String" value="l1-[m]"/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JTextField" name="l1">
@@ -403,7 +403,7 @@
                             <Component class="javax.swing.JLabel" name="jLabel8">
                               <Properties>
                                 <Property name="horizontalAlignment" type="int" value="0"/>
-                                <Property name="text" type="java.lang.String" value="l2[m]"/>
+                                <Property name="text" type="java.lang.String" value="l2-[m]"/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JTextField" name="l2">
@@ -424,7 +424,7 @@
                             <Component class="javax.swing.JLabel" name="jLabel10">
                               <Properties>
                                 <Property name="horizontalAlignment" type="int" value="0"/>
-                                <Property name="text" type="java.lang.String" value="l3[m]"/>
+                                <Property name="text" type="java.lang.String" value="l3-[m]"/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JTextField" name="l3">

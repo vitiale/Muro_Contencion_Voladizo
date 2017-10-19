@@ -390,7 +390,7 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
         jPanel4.add(c);
 
         jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel28.setText("Qad[tonnef/m²]");
+        jLabel28.setText("Qad-[tonnef/m²]");
         jPanel4.add(jLabel28);
 
         qad.setText("20.7");
@@ -427,7 +427,7 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
         jPanel2.add(h1);
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("a1[m]");
+        jLabel3.setText("a-[m]");
         jPanel2.add(jLabel3);
 
         a1.setText("0.35");
@@ -441,7 +441,7 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
         jPanel2.add(h2);
 
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("d2[m]");
+        jLabel4.setText("d2-[m]");
         jPanel2.add(jLabel4);
 
         d2.setText("0.2");
@@ -455,7 +455,7 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
         jPanel2.add(d1);
 
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("l1[m]");
+        jLabel7.setText("l1-[m]");
         jPanel2.add(jLabel7);
 
         l1.setText("1.20");
@@ -469,7 +469,7 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
         jPanel2.add(var_e);
 
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("l2[m]");
+        jLabel8.setText("l2-[m]");
         jPanel2.add(jLabel8);
 
         l2.setText("0.35");
@@ -480,7 +480,7 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
         jPanel2.add(jLabel11);
 
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("l3[m]");
+        jLabel10.setText("l3-[m]");
         jPanel2.add(jLabel10);
 
         l3.setText("0.5");

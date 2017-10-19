@@ -1127,7 +1127,7 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
             datos_muro.add(vc.l1.getText());
             datos_muro.add(vc.l2.getText());
             datos_muro.add(vc.l3.getText());
-            //fin geometria indice 18
+            //fin geometria indice 19
             datos_muro.add(vc.wp.getText());
             datos_muro.add(vc.wa.getText());
             datos_muro.add(vc.p_propio.getText());
@@ -1139,6 +1139,7 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
             datos_muro.add(vc.alpha.getText());
             datos_muro.add(vc.sum_v.getText());
             datos_muro.add(vc.fs_desliz.getText());
+            //30
             datos_muro.add(vc.constante2.getText());
             datos_muro.add(vc.q_max.getText());
             datos_muro.add(vc.q_min.getText());
@@ -1161,6 +1162,7 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
             datos_muro.add(vc.fy.getText());
             datos_muro.add(vc.beta1.getText());
             datos_muro.add(vc.rho_bal.getText());
+            //40
             datos_muro.add(vc.rho_max.getText());
             datos_muro.add(vc.kv.getText());
             datos_muro.add(vc.kh.getText());
@@ -1171,6 +1173,7 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
             datos_muro.add(vc.variacion_pae.getText());
             datos_muro.add(vc.m.getText());
             datos_muro.add(String.valueOf(vc.varillas1.getSelectedIndex()));
+            //50
             datos_muro.add(vc.fi_f.getText());
             datos_muro.add(vc.fi_v.getText());
             datos_muro.add(String.valueOf(vc.separacion1.getSelectedIndex()));
@@ -1181,6 +1184,7 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
             datos_muro.add(vc.ld_propuesto1.getText());
             datos_muro.add(vc.fi_mr2.getText());
             datos_muro.add(String.valueOf(vc.separacion2.getSelectedIndex()));
+            //60
             datos_muro.add(vc.ld1.getText());
             datos_muro.add(String.valueOf(vc.varillas3.getSelectedIndex()));
             datos_muro.add(vc.as3.getText());
@@ -1191,6 +1195,7 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
             datos_muro.add(vc.sum_fi_mr.getText());
             datos_muro.add(vc.m_max.getText());
             datos_muro.add(vc.fi_vc.getText());
+            //70
             datos_muro.add(vc.v_max.getText());
             datos_muro.add(String.valueOf(vc.varillas4.getSelectedIndex()));
             datos_muro.add(String.valueOf(vc.separacion4.getSelectedIndex()));
@@ -1778,6 +1783,13 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
         System.out.println("mpa "+mpa);
         System.out.println("");
         vc.fs_v.setText(String.valueOf(redondeo((sum_mr / mpa), 2)));
+        
+        if (redondeo((sum_mr / mpa), 2) >= Double.parseDouble(vc.constante1.getText())) {
+            vc.q_max.setBackground(Color.lightGray);
+        } else {
+            vc.q_max.setBackground(Color.red);
+        }
+        
         //System.out.println("mpa " + mpa);
         //System.out.println("fs_volteo " + sum_mr / mpa);
 
@@ -1814,11 +1826,17 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
                 + Pp)
                 / (pa * Math.cos(Double.parseDouble(vc.alpha.getText()) * conversion))), 2)));
         System.out.println("");
+        
+        if (Double.parseDouble(vc.fs_desliz.getText()) >= Double.parseDouble(vc.constante2.getText())) {
+            vc.q_max.setBackground(Color.lightGray);
+        } else {
+            vc.q_max.setBackground(Color.red);
+        }
 
-        System.out.println("tan que buscamos " + (Math.tan(k1 * Double.parseDouble(vc.fi2.getText()) * conversion)));
-        System.out.println("pa que buscamos " + pa);
-        System.out.println("cociente que buscamos " + (Math.tan(k1 * Double.parseDouble(vc.fi2.getText()) * conversion)));
-        System.out.println("");
+//        System.out.println("tan que buscamos " + (Math.tan(k1 * Double.parseDouble(vc.fi2.getText()) * conversion)));
+//        System.out.println("pa que buscamos " + pa);
+//        System.out.println("cociente que buscamos " + (Math.tan(k1 * Double.parseDouble(vc.fi2.getText()) * conversion)));
+//        System.out.println("");
 
     }
 
@@ -1858,12 +1876,12 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
         vc.q_min.setText(String.valueOf(q_min));
         //preguntar por la estructura correcta de las comparaciones
         if (q_max <= Double.parseDouble(vc.qad.getText())) {
-            vc.q_max.setBackground(Color.WHITE);
+            vc.q_max.setBackground(Color.lightGray);
         } else {
             vc.q_max.setBackground(Color.red);
         }
         if (q_min >= 0) {
-            vc.q_min.setBackground(Color.WHITE);
+            vc.q_min.setBackground(Color.lightGray);
         } else {
             vc.q_min.setBackground(Color.red);
         }

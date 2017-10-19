@@ -265,31 +265,70 @@ public class Proyecto implements Serializable{
     
     //public 
     
-    public double separacion_1(int valor){
-        double res=2.5;
+    public String tipo_separacion(int valor){
+        String res="";
         switch(valor){
-            case 0: res=2.5;break;
-            case 1: res=5.0;break;
-            case 2: res=7.5;break;
-            case 3: res=10.0;break;
-            case 4: res=12.5;break;
-            case 5: res=15.0;break;
-            case 6: res=17.5;break;
-            case 7: res=20.0;break;
-            case 8: res=22.5;break;
-            case 9: res=25.0;break;
-            case 10: res=27.5;break;
-            case 11: res=30.0;break;
+            case 0: res="2.5";break;
+            case 1: res="5";break;
+            case 2: res="7.5";break;
+            case 3: res="10";break;
+            case 4: res="12.5";break;
+            case 5: res="15";break;
+            case 6: res="17.5";break;
+            case 7: res="20";break;
+            case 8: res="22.5";break;
+            case 9: res="25";break;
+            case 10: res="27.5";break;
+            case 11: res="30";break;
         }
         return res;
     }
     
-    public String acero_corrido(int valor){
+    public double separacion_temp(int valor, double scala){
+        double res=2.5;
+        switch(valor){
+            case 0: res=2.5;break;
+            case 1: res=5;break;
+            case 2: res=7.5;break;
+            case 3: res=10;break;
+            case 4: res=12.5;break;
+            case 5: res=15;break;
+            case 6: res=17.5;break;
+            case 7: res=20;break;
+            case 8: res=22.5;break;
+            case 9: res=25;break;
+            case 10: res=27.5;break;
+            case 11: res=30;break;
+        }
+        return res/scala;
+    }
+    
+    public String tipo_varillas(int valor){
         String cad="";
         switch(valor){
-            
+            case 0: cad="1#3@";break;
+            case 1: cad="1#4@";break;
+            case 2: cad="1#5@";break;
+            case 3: cad="1#6@";break;
+            case 4: cad="1#8@";break;
+            case 5: cad="1#10@";break;
+            case 6: cad="1#12@";break;
         }
         return cad;
+    }
+    
+    public double tipo_diametro_varilla(int valor, double scala){
+        double diametro=((3.0 / 8.0) * 2.54) / scala;
+        switch(valor){
+            case 0: diametro=((3.0 / 8.0) * 2.54);break;
+            case 1: diametro=((4.0 / 8.0) * 2.54);break;
+            case 2: diametro=((5.0 / 8.0) * 2.54);break;
+            case 3: diametro=((6.0 / 8.0) * 2.54);break;
+            case 4: diametro=((8.0 / 8.0) * 2.54);break;
+            case 5: diametro=((10.0 / 8.0) * 2.54);break;
+            case 6: diametro=((12.0 / 8.0) * 2.54);break;
+        }
+        return diametro/scala;
     }
     
     public void trazado_muro1(String dir) {
@@ -329,12 +368,17 @@ public class Proyecto implements Serializable{
                     case 2: recubrimiento=7.5/scala;break;
                 }
                 double zolapamiento = 2.0 / scala;
-                double num_varilla_temperatura = 3.0;
+                //double num_varilla_temperatura = 3.0;
+                String num_varilla_temperatura = tipo_varillas(Integer.parseInt(lista.get(j).getLista_muro().get(71)));
                 double num_varilla_armado_baston = 5.0;
-                double num_varilla_armado_corrido = 6.0;
-                double diametro_varillas = ((num_varilla_temperatura / 8.0) * 2.54) / scala;
-                double separacion_varillas_temperatura = 30.0/scala;
-                double separacion_varillas_profundidad = 50.0/scala;
+                String num_varilla_armado_corrido = tipo_varillas(Integer.parseInt(lista.get(j).getLista_muro().get(49)));
+                String num_varilla_baston1 = tipo_varillas(Integer.parseInt(lista.get(j).getLista_muro().get(55)));
+                String num_varilla_baston2 = tipo_varillas(Integer.parseInt(lista.get(j).getLista_muro().get(61)));
+                double diametro_varillas_temperatura = tipo_diametro_varilla( Integer.parseInt(lista.get(j).getLista_muro().get(71)), scala );
+                double separacion_varillas_temperatura = separacion_temp(Integer.parseInt(lista.get(j).getLista_muro().get(72)), scala);//30.0/scala;
+                String separacion_varillas_profundidad = tipo_separacion(Integer.parseInt(lista.get(j).getLista_muro().get(52)));
+                String separacion_varillas_profundidad_baston1 = tipo_separacion(Integer.parseInt(lista.get(j).getLista_muro().get(59)));
+                String separacion_varillas_profundidad_baston2 = tipo_separacion(Integer.parseInt(lista.get(j).getLista_muro().get(65)));
                 double dist_baston = 100/scala;
                 double alto_losa = 15.0 / scala;
                 double largo_losa;
@@ -381,21 +425,21 @@ public class Proyecto implements Serializable{
 
                 pto_medio_ancho_x = ((x + x + ancho) / 2);
                 pto_medio_ancho_y = ((y + y + altura) / 2);
-                for (double i = (y + recubrimiento + zolapamiento + diametro_varillas / 2); i < (y + altura - recubrimiento - 2 * zolapamiento); i += separacion_varillas_temperatura) {
-                    pw.println("circle " + (x + recubrimiento + diametro_varillas / 2) + "," + (i) + " " + diametro_varillas / 2);
-                    pw.println("mirror " + (x + recubrimiento + diametro_varillas) + "," + (i + diametro_varillas / 2) + "  " + (pto_medio_ancho_x) + "," + (pto_medio_ancho_y) + " " + (pto_medio_ancho_x) + "," + (pto_medio_ancho_y + 0.5) + " N  ");
+                for (double i = (y + recubrimiento + zolapamiento + diametro_varillas_temperatura / 2); i < (y + altura - recubrimiento - 2 * zolapamiento); i += separacion_varillas_temperatura) {
+                    pw.println("circle " + (x + recubrimiento + diametro_varillas_temperatura / 2) + "," + (i) + " " + diametro_varillas_temperatura / 2);
+                    pw.println("mirror " + (x + recubrimiento + diametro_varillas_temperatura) + "," + (i + diametro_varillas_temperatura / 2) + "  " + (pto_medio_ancho_x) + "," + (pto_medio_ancho_y) + " " + (pto_medio_ancho_x) + "," + (pto_medio_ancho_y + 0.5) + " N  ");
                     cont_pos_varillas_vert = i;
                 }
                 pto_medio_zapata_x = ((x - izq_zapata) + (x + drcha_zapata)) / 2;
                 pto_medio_zapata_y = ((y + bajo_zapata) + (y + bajo_zapata + altura_zapata)) / 2;
                 for (double h = (x - izq_zapata + 2 * recubrimiento); h < (x + ancho + drcha_zapata - 2 * recubrimiento); h += separacion_varillas_temperatura) {
-                    pw.println("circle " + (h + diametro_varillas / 2) + "," + (y + bajo_zapata + recubrimiento + diametro_varillas / 2) + " " + diametro_varillas / 2);
-                    pw.println("mirror " + (h + diametro_varillas / 2) + "," + (y + bajo_zapata + recubrimiento + diametro_varillas) + "  " + (pto_medio_zapata_x) + "," + (pto_medio_zapata_y) + " " + (pto_medio_zapata_x + 0.5) + "," + (pto_medio_zapata_y) + " N  ");
+                    pw.println("circle " + (h + diametro_varillas_temperatura / 2) + "," + (y + bajo_zapata + recubrimiento + diametro_varillas_temperatura / 2) + " " + diametro_varillas_temperatura / 2);
+                    pw.println("mirror " + (h + diametro_varillas_temperatura / 2) + "," + (y + bajo_zapata + recubrimiento + diametro_varillas_temperatura) + "  " + (pto_medio_zapata_x) + "," + (pto_medio_zapata_y) + " " + (pto_medio_zapata_x + 0.5) + "," + (pto_medio_zapata_y) + " N  ");
                     cont_pos_varillas_horiz = h;
                 }
                 //baston
                 if (baston) {
-                    pw.println("pline " + (x + ancho - recubrimiento - diametro_varillas) + "," + (y + bajo_zapata + altura_zapata) + " " + (x + ancho - recubrimiento - diametro_varillas) + "," + (y + bajo_zapata + altura_zapata + dist_baston) + " ");
+                    pw.println("pline " + (x + ancho - recubrimiento - diametro_varillas_temperatura) + "," + (y + bajo_zapata + altura_zapata) + " " + (x + ancho - recubrimiento - diametro_varillas_temperatura) + "," + (y + bajo_zapata + altura_zapata + dist_baston) + " ");
                 }
 
                 pw.println("-layer s 0 ");
@@ -452,35 +496,36 @@ public class Proyecto implements Serializable{
                 pw.println((x + recubrimiento / 2) + "," + (y + altura - (altura / 5)));
                 pw.println("dimlinear " + (x + ancho) + "," + (y + altura - (altura / 7)) + " " + (x + ancho - recubrimiento) + "," + (y + altura - (altura / 7)) + " h t " + (recubrimiento * scala));
                 pw.println((x + ancho + recubrimiento / 2) + "," + (y + altura - (altura / 7)));
-
+                
+                //escala en temperatura
                 pw.println("-layer s ALBA_TX2 ");
-                pw.println("circle " + (x + ancho - recubrimiento - diametro_varillas / 2) + "," + (cont_pos_varillas_vert) + " " + diametro_señal_varillas / 2);
-                pw.println("qleader " + (x + ancho - recubrimiento - diametro_varillas / 2 + diametro_señal_varillas / 2) + "," + (cont_pos_varillas_vert) + " " + (x + 2 * ancho) + "," + (cont_pos_varillas_vert) + " " + (x + 2 * ancho + 1) + "," + (cont_pos_varillas_vert) + " " + 2.0 + " " + "1#" + Math.round(num_varilla_temperatura) + "@" + Math.round(separacion_varillas_temperatura * scala));
+                pw.println("circle " + (x + ancho - recubrimiento - diametro_varillas_temperatura / 2) + "," + (cont_pos_varillas_vert) + " " + diametro_señal_varillas / 2);
+                pw.println("qleader " + (x + ancho - recubrimiento - diametro_varillas_temperatura / 2 + diametro_señal_varillas / 2) + "," + (cont_pos_varillas_vert) + " " + (x + 2 * ancho) + "," + (cont_pos_varillas_vert) + " " + (x + 2 * ancho + 1) + "," + (cont_pos_varillas_vert) + " " + 2.0 + " " + num_varilla_temperatura + (separacion_varillas_temperatura*scala));
                 pw.println();
-                pw.println("circle " + (x + recubrimiento + diametro_varillas / 2) + "," + (cont_pos_varillas_vert) + " " + diametro_señal_varillas / 2);
-                pw.println("qleader " + (x + recubrimiento + diametro_varillas / 2 - diametro_señal_varillas / 2) + "," + (cont_pos_varillas_vert) + " " + (x - ancho) + "," + (cont_pos_varillas_vert) + " " + (x - 2 * ancho + 1) + "," + (cont_pos_varillas_vert) + " " + 2.0 + " " + "1#" + Math.round(num_varilla_temperatura) + "@" + Math.round(separacion_varillas_temperatura * scala));
+                pw.println("circle " + (x + recubrimiento + diametro_varillas_temperatura / 2) + "," + (cont_pos_varillas_vert) + " " + diametro_señal_varillas / 2);
+                pw.println("qleader " + (x + recubrimiento + diametro_varillas_temperatura / 2 - diametro_señal_varillas / 2) + "," + (cont_pos_varillas_vert) + " " + (x - ancho) + "," + (cont_pos_varillas_vert) + " " + (x - 2 * ancho + 1) + "," + (cont_pos_varillas_vert) + " " + 2.0 + " " + num_varilla_temperatura + (separacion_varillas_temperatura*scala));
                 pw.println();
-                pw.println("circle " + (x - izq_zapata + 2 * recubrimiento + diametro_varillas / 2) + "," + (y + bajo_zapata + recubrimiento + diametro_varillas / 2) + " " + diametro_señal_varillas / 2);
-                pw.println("qleader " + (x - izq_zapata + 2 * recubrimiento + diametro_varillas / 2 - diametro_señal_varillas / 2) + "," + (y + bajo_zapata + recubrimiento + diametro_varillas / 2) + " " + (x - izq_zapata + 2 * recubrimiento + diametro_varillas / 2 - diametro_señal_varillas / 2 - ancho) + "," + (y + bajo_zapata + recubrimiento + diametro_varillas / 2) + " " + (x - izq_zapata + 2 * recubrimiento + diametro_varillas / 2 - diametro_señal_varillas / 2 - ancho - 1.5) + "," + (y + bajo_zapata + recubrimiento + diametro_varillas / 2) + " " + 2.0 + " " + "1#" + Math.round(num_varilla_temperatura) + "@" + Math.round(separacion_varillas_temperatura * scala));
+                pw.println("circle " + (x - izq_zapata + 2 * recubrimiento + diametro_varillas_temperatura / 2) + "," + (y + bajo_zapata + recubrimiento + diametro_varillas_temperatura / 2) + " " + diametro_señal_varillas / 2);
+                pw.println("qleader " + (x - izq_zapata + 2 * recubrimiento + diametro_varillas_temperatura / 2 - diametro_señal_varillas / 2) + "," + (y + bajo_zapata + recubrimiento + diametro_varillas_temperatura / 2) + " " + (x - izq_zapata + 2 * recubrimiento + diametro_varillas_temperatura / 2 - diametro_señal_varillas / 2 - ancho) + "," + (y + bajo_zapata + recubrimiento + diametro_varillas_temperatura / 2) + " " + (x - izq_zapata + 2 * recubrimiento + diametro_varillas_temperatura / 2 - diametro_señal_varillas / 2 - ancho - 1.5) + "," + (y + bajo_zapata + recubrimiento + diametro_varillas_temperatura / 2) + " " + 2.0 + " " + num_varilla_temperatura + (separacion_varillas_temperatura*scala));
                 pw.println();
-                pw.println("circle " + (x - izq_zapata + 2 * recubrimiento + diametro_varillas / 2) + "," + (y + bajo_zapata + altura_zapata - recubrimiento - diametro_varillas / 2) + " " + diametro_señal_varillas / 2);
-                pw.println("qleader " + (x - izq_zapata + 2 * recubrimiento + diametro_varillas / 2 - diametro_señal_varillas / 2) + "," + (y + bajo_zapata + altura_zapata - recubrimiento - diametro_varillas / 2) + " " + (x - izq_zapata + 2 * recubrimiento + diametro_varillas / 2 - diametro_señal_varillas / 2 - ancho) + "," + (y + bajo_zapata + altura_zapata - recubrimiento - diametro_varillas / 2) + " " + (x - izq_zapata + 2 * recubrimiento + diametro_varillas / 2 - diametro_señal_varillas / 2 - ancho - 1.5) + "," + (y + bajo_zapata + altura_zapata - recubrimiento - diametro_varillas / 2) + " " + 2.0 + " " + "1#" + Math.round(num_varilla_temperatura) + "@" + Math.round(separacion_varillas_temperatura * scala));
+                pw.println("circle " + (x - izq_zapata + 2 * recubrimiento + diametro_varillas_temperatura / 2) + "," + (y + bajo_zapata + altura_zapata - recubrimiento - diametro_varillas_temperatura / 2) + " " + diametro_señal_varillas / 2);
+                pw.println("qleader " + (x - izq_zapata + 2 * recubrimiento + diametro_varillas_temperatura / 2 - diametro_señal_varillas / 2) + "," + (y + bajo_zapata + altura_zapata - recubrimiento - diametro_varillas_temperatura / 2) + " " + (x - izq_zapata + 2 * recubrimiento + diametro_varillas_temperatura / 2 - diametro_señal_varillas / 2 - ancho) + "," + (y + bajo_zapata + altura_zapata - recubrimiento - diametro_varillas_temperatura / 2) + " " + (x - izq_zapata + 2 * recubrimiento + diametro_varillas_temperatura / 2 - diametro_señal_varillas / 2 - ancho - 1.5) + "," + (y + bajo_zapata + altura_zapata - recubrimiento - diametro_varillas_temperatura / 2) + " " + 2.0 + " " + num_varilla_temperatura + (separacion_varillas_temperatura*scala));
                 pw.println();
                 
                 //cotas de armado corrido en muro
-                pw.println("qleader " + (x + ancho - recubrimiento) + "," + (cont_pos_varillas_vert - separacion_varillas_temperatura / 2) + " " + (x + 2 * ancho) + "," + (cont_pos_varillas_vert - separacion_varillas_temperatura / 2) + " " + (x + 2 * ancho + 1) + "," + (cont_pos_varillas_vert - separacion_varillas_temperatura / 2) + " " + 2.0 + " " + "1#" + Math.round(num_varilla_armado_corrido) + "@" + Math.round(separacion_varillas_profundidad * scala));
+                pw.println("qleader " + (x + ancho - recubrimiento) + "," + (cont_pos_varillas_vert - separacion_varillas_temperatura / 2) + " " + (x + 2 * ancho) + "," + (cont_pos_varillas_vert - separacion_varillas_temperatura / 2) + " " + (x + 2 * ancho + 1) + "," + (cont_pos_varillas_vert - separacion_varillas_temperatura / 2) + " " + 2.0 + " " + num_varilla_armado_corrido + separacion_varillas_profundidad);
                 pw.println();
-                pw.println("qleader " + (x + recubrimiento) + "," + (cont_pos_varillas_vert - separacion_varillas_temperatura / 2) + " " + (x - ancho) + "," + (cont_pos_varillas_vert - separacion_varillas_temperatura / 2) + " " + (x - 2 * ancho + 1) + "," + (cont_pos_varillas_vert - separacion_varillas_temperatura / 2) + " " + 2.0 + " " + "1#" + Math.round(num_varilla_armado_corrido) + "@" + Math.round(separacion_varillas_profundidad * scala));
+                pw.println("qleader " + (x + recubrimiento) + "," + (cont_pos_varillas_vert - separacion_varillas_temperatura / 2) + " " + (x - ancho) + "," + (cont_pos_varillas_vert - separacion_varillas_temperatura / 2) + " " + (x - 2 * ancho + 1) + "," + (cont_pos_varillas_vert - separacion_varillas_temperatura / 2) + " " + 2.0 + " " + num_varilla_armado_corrido + separacion_varillas_profundidad);
                 pw.println();
 
                 if (baston) {
-                    pw.println("qleader " + (x + ancho - recubrimiento - diametro_varillas) + "," + (y + bajo_zapata + altura_zapata + dist_baston / 2) + " " + (x + ancho - recubrimiento - diametro_varillas + 2 * recubrimiento) + "," + (y + bajo_zapata + altura_zapata + dist_baston / 2) + " " + (x + ancho - recubrimiento - diametro_varillas + 8 * recubrimiento) + "," + (y + bajo_zapata + altura_zapata + dist_baston / 2) + " " + 2.0 + " " + "2#" + Math.round(num_varilla_armado_baston) + "@" + Math.round(separacion_varillas_profundidad * scala));
+                    pw.println("qleader " + (x + ancho - recubrimiento - diametro_varillas_temperatura) + "," + (y + bajo_zapata + altura_zapata + dist_baston / 2) + " " + (x + ancho - recubrimiento - diametro_varillas_temperatura + 2 * recubrimiento) + "," + (y + bajo_zapata + altura_zapata + dist_baston / 2) + " " + (x + ancho - recubrimiento - diametro_varillas_temperatura + 8 * recubrimiento) + "," + (y + bajo_zapata + altura_zapata + dist_baston / 2) + " " + 2.0 + " " + num_varilla_baston1 + separacion_varillas_profundidad_baston1);
                     pw.println();
                 }
 
-                pw.println("qleader " + (x - izq_zapata / 2) + "," + (y + bajo_zapata + recubrimiento) + " " + (x - izq_zapata / 2) + "," + (y + bajo_zapata / 2) + " " + (x - izq_zapata + 2 * recubrimiento + diametro_varillas / 2 - diametro_señal_varillas / 2 - ancho - 1.5) + "," + (y + bajo_zapata / 2) + " " + 2.0 + " " + "1#" + Math.round(num_varilla_armado_corrido) + "@" + Math.round(separacion_varillas_profundidad * scala)+"fdfdfdf");
+                pw.println("qleader " + (x - izq_zapata / 2) + "," + (y + bajo_zapata + recubrimiento) + " " + (x - izq_zapata / 2) + "," + (y + bajo_zapata / 2) + " " + (x - izq_zapata + 2 * recubrimiento + diametro_varillas_temperatura / 2 - diametro_señal_varillas / 2 - ancho - 1.5) + "," + (y + bajo_zapata / 2) + " " + 2.0 + " " +num_varilla_armado_corrido + separacion_varillas_profundidad);
                 pw.println();
-                pw.println("qleader " + (x - izq_zapata / 2) + "," + (y + bajo_zapata + altura_zapata - recubrimiento) + " " + (x - izq_zapata / 2) + "," + (y + bajo_zapata + altura_zapata + bajo_zapata / 2) + " " + (x - izq_zapata + 2 * recubrimiento + diametro_varillas / 2 - diametro_señal_varillas / 2 - ancho - 1.5) + "," + (y + bajo_zapata + altura_zapata + bajo_zapata / 2) + " " + 2.0 + " " + "1#" + Math.round(num_varilla_armado_corrido) + "@" + Math.round(separacion_varillas_profundidad * scala));
+                pw.println("qleader " + (x - izq_zapata / 2) + "," + (y + bajo_zapata + altura_zapata - recubrimiento) + " " + (x - izq_zapata / 2) + "," + (y + bajo_zapata + altura_zapata + bajo_zapata / 2) + " " + (x - izq_zapata + 2 * recubrimiento + diametro_varillas_temperatura / 2 - diametro_señal_varillas / 2 - ancho - 1.5) + "," + (y + bajo_zapata + altura_zapata + bajo_zapata / 2) + " " + 2.0 + " " + num_varilla_armado_corrido + separacion_varillas_profundidad);
                 pw.println();
 
                 pw.println("qleader " + (x + ancho + drcha_zapata / 2) + "," + (y + bajo_zapata - recubrimiento) + " " + (x + ancho + drcha_zapata / 2) + "," + (y - ancho) + " " + (x + ancho + drcha_zapata + ancho + 1.0) + "," + (y - ancho) + " " + 4.0 + " " + "PLANTILLA DE CONCRETO\ne = 5 cm\nf'c = " + fc_plantilla);
