@@ -1259,7 +1259,7 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
         vc.h2.setBackground(Color.WHITE);
         vc.d1.setText("0.0");
         vc.d1.setBackground(Color.WHITE);
-        vc.var_e.setText("0.1");
+        vc.var_e.setText("0.2");
         vc.var_e.setBackground(Color.WHITE);
         vc.a1.setText("0.35");
         vc.a1.setBackground(Color.WHITE);
@@ -1422,17 +1422,20 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
 
     public void mostrar() {
         //double 
-        double posicion_as=Double.parseDouble(vc.fi_mr1.getText());
-        double posicion_baston1=0;
-        double posicion_baston2=0;
-        if(vc.varillas2.getSelectedIndex()!=0){
-            posicion_baston1=(posicion_as + Double.parseDouble(vc.fi_mr2.getText()));           
+        double posicion_as = Double.parseDouble(vc.fi_mr1.getText());
+        double posicion_baston1 = 0;
+        double posicion_baston2 = 0;
+        if (vc.varillas2.getSelectedIndex() != 0) { //Como se esta manejando es a que si se va a dibujar un baston y solo uno que se utilice el primer modulo no el segundo, o sea solo se dibuja el segundo si ya tenemos un primero
+            posicion_baston1 = (posicion_as + Double.parseDouble(vc.fi_mr2.getText()));
+            if (vc.varillas3.getSelectedIndex() != 0) {
+                posicion_baston2 = (posicion_baston1 + Double.parseDouble(vc.fi_mr3.getText()));
+            }
         }
-        if(vc.varillas3.getSelectedIndex()!=0){
-            posicion_baston2=(posicion_baston1 + Double.parseDouble(vc.fi_mr3.getText()));           
-        }        
-        double long_baston1=(Double.parseDouble(vc.ld1.getText()));
-        double long_baston2=(Double.parseDouble(vc.ld2.getText()));
+//        if (vc.varillas3.getSelectedIndex() != 0) {
+//            posicion_baston2 = (posicion_baston1 + Double.parseDouble(vc.fi_mr3.getText()));
+//        }
+        double long_baston1 = (Double.parseDouble(vc.ld1.getText()));
+        double long_baston2 = (Double.parseDouble(vc.ld2.getText()));
         double h1 = Double.parseDouble(vc.h1.getText());
         double h2 = Double.parseDouble(vc.h2.getText());
         double altura_muro = h1 + h2;
@@ -1493,7 +1496,6 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
 //            System.out.println((j + 1) + "                      " + v1[j] + "                      " + v2[j] + "                      " + vrb[j] + "                      " + vs[j] + "                      " + sum_mcv[j]);
 //            System.out.println("_______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________");
 //        }
-
         vc.m_max.setText(String.valueOf(sum[sum.length - 1]));
         vc.v_max.setText(String.valueOf(Vmax));
         if (vc.momento.isSelected()) {
