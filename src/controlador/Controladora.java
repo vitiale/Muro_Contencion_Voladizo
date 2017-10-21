@@ -1421,6 +1421,18 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
     }
 
     public void mostrar() {
+        //double 
+        double posicion_as=Double.parseDouble(vc.fi_mr1.getText());
+        double posicion_baston1=0;
+        double posicion_baston2=0;
+        if(vc.varillas2.getSelectedIndex()!=0){
+            posicion_baston1=(posicion_as + Double.parseDouble(vc.fi_mr2.getText()));           
+        }
+        if(vc.varillas3.getSelectedIndex()!=0){
+            posicion_baston2=(posicion_baston1 + Double.parseDouble(vc.fi_mr3.getText()));           
+        }        
+        double long_baston1=(Double.parseDouble(vc.ld1.getText()));
+        double long_baston2=(Double.parseDouble(vc.ld2.getText()));
         double h1 = Double.parseDouble(vc.h1.getText());
         double h2 = Double.parseDouble(vc.h2.getText());
         double altura_muro = h1 + h2;
@@ -1485,7 +1497,7 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
         vc.m_max.setText(String.valueOf(sum[sum.length - 1]));
         vc.v_max.setText(String.valueOf(Vmax));
         if (vc.momento.isSelected()) {
-            dm = new Diagrama_momento(sum, long2);
+            dm = new Diagrama_momento(sum, long2, altura_muro, posicion_as, posicion_baston1, posicion_baston2, long_baston1, long_baston2);
             dm.setVisible(true);
         } else {
             dc = new Diagrama_cortante(long2, sum_mcv);
@@ -1794,9 +1806,9 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
         vc.fs_v.setText(String.valueOf(redondeo((sum_mr / mpa), 2)));
 
         if (redondeo((sum_mr / mpa), 2) >= Double.parseDouble(vc.constante1.getText())) {
-            vc.q_max.setBackground(Color.lightGray);
+            vc.fs_v.setBackground(Color.lightGray);
         } else {
-            vc.q_max.setBackground(Color.red);
+            vc.fs_v.setBackground(Color.red);
         }
 
         //System.out.println("mpa " + mpa);
@@ -1836,9 +1848,9 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
         System.out.println("");
 
         if (Double.parseDouble(vc.fs_desliz.getText()) >= Double.parseDouble(vc.constante2.getText())) {
-            vc.q_max.setBackground(Color.lightGray);
+            vc.fs_desliz.setBackground(Color.lightGray);
         } else {
-            vc.q_max.setBackground(Color.red);
+            vc.fs_desliz.setBackground(Color.red);
         }
 
 //        System.out.println("tan que buscamos " + (Math.tan(k1 * Double.parseDouble(vc.fi2.getText()) * conversion)));
@@ -2097,24 +2109,27 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
 
         switch (vc.varillas2.getSelectedIndex()) {
             case 0:
-                area_steel2 = 0.71;
+                area_steel2 = 0;
                 break;
             case 1:
-                area_steel2 = 1.27;
+                area_steel2 = 0.71;
                 break;
             case 2:
-                area_steel2 = 1.98;
+                area_steel2 = 1.27;
                 break;
             case 3:
-                area_steel2 = 2.85;
+                area_steel2 = 1.98;
                 break;
             case 4:
-                area_steel2 = 5.07;
+                area_steel2 = 2.85;
                 break;
             case 5:
-                area_steel2 = 7.92;
+                area_steel2 = 5.07;
                 break;
             case 6:
+                area_steel2 = 7.92;
+                break;
+            case 7:
                 area_steel2 = 11.40;
                 break;
         }
@@ -2187,24 +2202,27 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
 
         switch (vc.varillas3.getSelectedIndex()) {
             case 0:
-                area_steel3 = 0.71;
+                area_steel3 = 0;
                 break;
             case 1:
-                area_steel3 = 1.27;
+                area_steel3 = 0.71;
                 break;
             case 2:
-                area_steel3 = 1.98;
+                area_steel3 = 1.27;
                 break;
             case 3:
-                area_steel3 = 2.85;
+                area_steel3 = 1.98;
                 break;
             case 4:
-                area_steel3 = 5.07;
+                area_steel3 = 2.85;
                 break;
             case 5:
-                area_steel3 = 7.92;
+                area_steel3 = 5.07;
                 break;
             case 6:
+                area_steel3 = 7.92;
+                break;
+            case 7:
                 area_steel3 = 11.40;
                 break;
         }

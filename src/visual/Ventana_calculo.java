@@ -900,7 +900,7 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
         jLabel72.setText("Varillas");
         jPanel13.add(jLabel72);
 
-        varillas2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1#3 = 0.71 cm²", "1#4 = 1.27 cm²", "1#5= 1.98 cm²", "1#6 = 2.85 cm² ", "1#8 = 5.07 cm²", "1#10 = 7.92 cm²", "1#12 = 11.40 cm²" }));
+        varillas2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "no se necesita", "1#3 = 0.71 cm²", "1#4 = 1.27 cm²", "1#5= 1.98 cm²", "1#6 = 2.85 cm² ", "1#8 = 5.07 cm²", "1#10 = 7.92 cm²", "1#12 = 11.40 cm²" }));
         jPanel13.add(varillas2);
 
         jLabel75.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -957,7 +957,7 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
         jLabel90.setText("Varillas");
         jPanel14.add(jLabel90);
 
-        varillas3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1#3 = 0.71 cm²", "1#4 = 1.27 cm²", "1#5= 1.98 cm²", "1#6 = 2.85 cm² ", "1#8 = 5.07 cm²", "1#10 = 7.92 cm²", "1#12 = 11.40 cm²" }));
+        varillas3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "no se necesita", "1#3 = 0.71 cm²", "1#4 = 1.27 cm²", "1#5= 1.98 cm²", "1#6 = 2.85 cm² ", "1#8 = 5.07 cm²", "1#10 = 7.92 cm²", "1#12 = 11.40 cm²" }));
         jPanel14.add(varillas3);
 
         jLabel93.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
