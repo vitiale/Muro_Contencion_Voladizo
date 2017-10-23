@@ -37,16 +37,17 @@ import org.jfree.data.xy.XYSeriesCollection;
 import visual.Diagrama_cortante;
 import visual.Diagrama_momento;
 import visual.Ventana_calculo;
+import visual.Ventana_calculo1;
 
 /**
  *
  * @author Alba Proyecto
  */
-public class Controladora implements KeyListener, FocusListener, ActionListener {
+public class Controladora1 implements KeyListener, FocusListener, ActionListener {
 
-    private Proyecto py = new Proyecto();
+    private Proyecto py=new Proyecto();
     //private ArrayList<String> datos_muro = new ArrayList<>();
-    private Ventana_calculo vc;
+    private Ventana_calculo1 vc;
     private ArrayList<String> elementos = new ArrayList<>();
     private ArrayList<String> elementos_mombre = new ArrayList<>();
     private final double conversion = 3.14159265 / 180;
@@ -130,9 +131,11 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
     int aux = (int) factor;
     double[] sum = new double[aux];
     double[] long2 = new double[aux];
+    private Proyecto py_entrada;
     //private Diag diag=new Diag();
-
-    public Controladora(Ventana_calculo vc) {
+@SuppressWarnings("LeakingThisInConstructor")//no se que carajos es esto pero me resolvio el problema
+    public Controladora1(Ventana_calculo1 vc, Proyecto py_entrada) {
+        this.py_entrada=py_entrada;
         this.vc = vc;
         vc.jLabel_ka2.setVisible(false);
         vc.jLabel_ka1.setToolTipText("pasando por aquí");
@@ -140,7 +143,9 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
         vc.jLabel_kp1.setVisible(false);
         //vc.jLabel_kp2.setVisible(false);
         vc.kp1.setVisible(false);
-        //para agregar el evento keylistener A los elementos
+        //para agregar el evento keylistener A los elementos        
+        vc.combo1.addKeyListener(this);
+        vc.aceptar_1.addKeyListener(this);
         vc.fi1.addKeyListener(this);
         vc.gamma1.addKeyListener(this);
         vc.sc.addKeyListener(this);
@@ -180,6 +185,7 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
         vc.mostrar.addKeyListener(this);
 
         //para agregar el evento focuslistener A los elementos
+        vc.combo1.addFocusListener(this);
         vc.fi1.addFocusListener(this);
         vc.gamma1.addFocusListener(this);
         vc.sc.addFocusListener(this);
@@ -217,6 +223,7 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
         vc.alpha.addFocusListener(this);
 
         //para agregar el evento actionlistener A los elementos
+        vc.aceptar_1.addActionListener(this);
         vc.aceptar1.addActionListener(this);
         vc.cancelar.addActionListener(this);
         vc.guardar.addActionListener(this);
@@ -388,6 +395,8 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
                 editar();
             } else if (e.getSource() == vc.guardar) {
                 guardar();
+            } else if (e.getSource() == vc.aceptar_1) {
+                aceptar_entrada();
             }
         }
     }
@@ -721,10 +730,35 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
             guardar();
         } else if (e.getSource() == vc.mostrar) {
             mostrar();
+        } else if (e.getSource() == vc.aceptar_1) {
+            aceptar_entrada();
         }
     }
 
 //metodos separadas
+    public void aceptar_entrada(){
+        //necesitamos tener por defecto los paneles ocultos y cuando presionemos este boton que se desplieguen
+        vc.fi1.setText(py_entrada.getLista().get(vc.combo1.getSelectedIndex()).getLista_muro().get(1));
+        vc.gamma1.setText(py_entrada.getLista().get(vc.combo1.getSelectedIndex()).getLista_muro().get(2));
+        vc.sc.setText(py_entrada.getLista().get(vc.combo1.getSelectedIndex()).getLista_muro().get(3));
+        vc.ka1.setText(py_entrada.getLista().get(vc.combo1.getSelectedIndex()).getLista_muro().get(4));
+        vc.fi2.setText(py_entrada.getLista().get(vc.combo1.getSelectedIndex()).getLista_muro().get(5));
+        vc.gamma2.setText(py_entrada.getLista().get(vc.combo1.getSelectedIndex()).getLista_muro().get(6));
+        vc.c.setText(py_entrada.getLista().get(vc.combo1.getSelectedIndex()).getLista_muro().get(7));
+        vc.qad.setText(py_entrada.getLista().get(vc.combo1.getSelectedIndex()).getLista_muro().get(8));
+        vc.kp2.setText(py_entrada.getLista().get(vc.combo1.getSelectedIndex()).getLista_muro().get(9));
+        vc.h1.setText(py_entrada.getLista().get(vc.combo1.getSelectedIndex()).getLista_muro().get(10));
+        vc.h2.setText(py_entrada.getLista().get(vc.combo1.getSelectedIndex()).getLista_muro().get(11));
+        vc.d1.setText(py_entrada.getLista().get(vc.combo1.getSelectedIndex()).getLista_muro().get(12));
+        vc.var_e.setText(py_entrada.getLista().get(vc.combo1.getSelectedIndex()).getLista_muro().get(13));
+        vc.a1.setText(py_entrada.getLista().get(vc.combo1.getSelectedIndex()).getLista_muro().get(14));
+        vc.d2.setText(py_entrada.getLista().get(vc.combo1.getSelectedIndex()).getLista_muro().get(15));
+        vc.l1.setText(py_entrada.getLista().get(vc.combo1.getSelectedIndex()).getLista_muro().get(16));
+        vc.l2.setText(py_entrada.getLista().get(vc.combo1.getSelectedIndex()).getLista_muro().get(17));
+        vc.l3.setText(py_entrada.getLista().get(vc.combo1.getSelectedIndex()).getLista_muro().get(18));
+        vc.fi1.requestFocus();
+    }
+    
     public void gps_error(String comp) {
         switch (comp) {
             case "a1":
@@ -1114,8 +1148,6 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
             System.out.println("");
             System.out.println("lo que tiene el combo " + vc.combo_almacen.getComponentCount());
             System.out.println("");
-            
-            py.setNombre_py(vc.getNombre_py());
 
             //datos_muro.clear();
             ArrayList<String> datos_muro = new ArrayList<>();
@@ -1540,7 +1572,7 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
                     //ObjectOutputStream out1=null;
                     ruta = jf.getSelectedFile().getAbsolutePath();
                     //se crea el fichero .va para una futura recuperacion de datos
-                    Py_Serializable ps = new Py_Serializable(py, ruta, vc.getNombre_py());
+                    Py_Serializable ps = new Py_Serializable(py, ruta, vc.getPy().getNombre_py());
                     ps.serializar_py();
                     //ps.recuperacion_py();
                     //System.out.println(jf.getSelectedFile().getAbsolutePath());
@@ -1557,10 +1589,9 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
                         out.close();
 
                     } else {
-                        py.trazado_muro1(jf.getSelectedFile().getAbsolutePath() + "(" + vc.getNombre_py() + ")");
+                        py.trazado_muro1(jf.getSelectedFile().getAbsolutePath() + "(" + vc.getPy().getNombre_py() + ")");
                         //trazado.fichero_dibujo(py, jf.getSelectedFile().getAbsolutePath() + "(" + vc.getNombre_py() + ")");
                     }
-                    
                     //contador_viga = 1;
                 }
             } catch (Exception e) {

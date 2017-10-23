@@ -5,6 +5,8 @@
  */
 package visual;
 
+import clases.Proyecto;
+import comunes.Obtener_serializado;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -52,7 +54,7 @@ public class NewMDIApplication extends javax.swing.JFrame {
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         nuevo = new javax.swing.JMenuItem();
-        saveMenuItem = new javax.swing.JMenuItem();
+        abrir = new javax.swing.JMenuItem();
         saveAsMenuItem = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
         editMenu = new javax.swing.JMenu();
@@ -76,11 +78,21 @@ public class NewMDIApplication extends javax.swing.JFrame {
                 nuevoActionPerformed(evt);
             }
         });
+        nuevo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                nuevoKeyPressed(evt);
+            }
+        });
         fileMenu.add(nuevo);
 
-        saveMenuItem.setMnemonic('s');
-        saveMenuItem.setText("Save");
-        fileMenu.add(saveMenuItem);
+        abrir.setMnemonic('s');
+        abrir.setText("Abrir Proyecto");
+        abrir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                abrirActionPerformed(evt);
+            }
+        });
+        fileMenu.add(abrir);
 
         saveAsMenuItem.setMnemonic('a');
         saveAsMenuItem.setText("Save As ...");
@@ -159,6 +171,19 @@ public class NewMDIApplication extends javax.swing.JFrame {
         np.setVisible(true);
     }//GEN-LAST:event_nuevoActionPerformed
 
+    private void nuevoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nuevoKeyPressed
+        // TODO add your handling code here:
+        Nombrar_pryecto np = new Nombrar_pryecto();
+        desktopPane.add(np, CENTER_ALIGNMENT);
+        np.setVisible(true);
+    }//GEN-LAST:event_nuevoKeyPressed
+
+    private void abrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirActionPerformed
+        // TODO add your handling code here:
+        Obtener_serializado obs =new Obtener_serializado();
+        obs.abrir_fichero_mcv();
+    }//GEN-LAST:event_abrirActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -196,6 +221,7 @@ public class NewMDIApplication extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem aboutMenuItem;
+    private javax.swing.JMenuItem abrir;
     private javax.swing.JMenuItem contentMenuItem;
     private javax.swing.JMenuItem copyMenuItem;
     private javax.swing.JMenuItem cutMenuItem;
@@ -209,7 +235,6 @@ public class NewMDIApplication extends javax.swing.JFrame {
     private javax.swing.JMenuItem nuevo;
     private javax.swing.JMenuItem pasteMenuItem;
     private javax.swing.JMenuItem saveAsMenuItem;
-    private javax.swing.JMenuItem saveMenuItem;
     // End of variables declaration//GEN-END:variables
 
 }

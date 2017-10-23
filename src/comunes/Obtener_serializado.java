@@ -6,6 +6,7 @@
 package comunes;
 
 import clases.Proyecto;
+import controlador.Controladora1;
 import controlador.Controladora_edicion;
 import visual.Ventana_calculo;
 import visual.Ventana_calculo_edicion;
@@ -15,15 +16,16 @@ import java.io.ObjectInputStream;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import visual.Ventana_calculo1;
 
 /**
  *
  * @author Alba Proyecto
  */
-public class Optener_serilizado {
+public class Obtener_serializado {
 
-    public Optener_serilizado() {
-        abrir_fichero_mcv();
+    public Obtener_serializado() {
+        //abrir_fichero_mcv();
     }
 
     public void abrir_fichero_mcv() {
@@ -39,11 +41,16 @@ public class Optener_serilizado {
 
                 if (jf.getSelectedFile().getAbsoluteFile().exists()/* && jf.getSelectedFile().getName().substring(jf.getSelectedFile().getName().length() - 3, jf.getSelectedFile().getName().length()).equals(".xlsx")*/) {
                     Proyecto py=(Proyecto)oin.readObject();
-                    Ventana_calculo_edicion vce = new Ventana_calculo_edicion(py.getNombre_py());
-                    Controladora_edicion ce=new Controladora_edicion(vce);
-                    Comun.nm.desktopPane.add(vce, CENTER_ALIGNMENT);
+                    System.out.println(py.getNombre_py());
+                    for(int i=0; i<py.getLista().size(); i++){
+                        System.out.println(i+" "+py.getLista().get(i).getLista_muro().get(0));
+                    }
+                    Ventana_calculo1 vc1 = new Ventana_calculo1(py);
+                    Controladora1 ce=new Controladora1(vc1, py);
+                    Comun.nm.desktopPane.add(vc1, CENTER_ALIGNMENT);
                     //vce.jComboBox2.requestFocus();
-                    vce.setVisible(true);
+                    vc1.setVisible(true);
+                    
                 } else {
                     JOptionPane.showMessageDialog(null, "El sistema no puede encontrar o no reconoce el archivo especificado.\nSi este fichero realmente existe, garantice que tenga la extensión y la estructura correcta.");
                 }
