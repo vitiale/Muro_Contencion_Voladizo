@@ -224,7 +224,7 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
         vc.eliminar.addActionListener(this);
         vc.cerrar.addActionListener(this);
         vc.mostrar.addActionListener(this);
-        
+
         //agregando tooltips para notificar errores
         vc.fs_v.setToolTipText("Este valor tiene que ser mayor o igual a 1.0");
         vc.fs_desliz.setToolTipText("Este valor tiene que ser mayor o igual a 1.5");
@@ -1114,7 +1114,7 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
             System.out.println("");
             System.out.println("lo que tiene el combo " + vc.combo_almacen.getComponentCount());
             System.out.println("");
-            
+
             py.setNombre_py(vc.getNombre_py());
 
             //datos_muro.clear();
@@ -1560,7 +1560,7 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
                         py.trazado_muro1(jf.getSelectedFile().getAbsolutePath() + "(" + vc.getNombre_py() + ")");
                         //trazado.fichero_dibujo(py, jf.getSelectedFile().getAbsolutePath() + "(" + vc.getNombre_py() + ")");
                     }
-                    
+
                     //contador_viga = 1;
                 }
             } catch (Exception e) {
@@ -2121,31 +2121,40 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
 
     //bastón 1
     public void baston1() {
+        double db = 0.0;
 
         switch (vc.varillas2.getSelectedIndex()) {
             case 0:
                 area_steel2 = 0;
+                db = 0.0;
                 break;
             case 1:
                 area_steel2 = 0.71;
+                db = 0.95;
                 break;
             case 2:
                 area_steel2 = 1.27;
+                db = 1.27;
                 break;
             case 3:
                 area_steel2 = 1.98;
+                db = 1.59;
                 break;
             case 4:
                 area_steel2 = 2.85;
+                db = 1.91;
                 break;
             case 5:
                 area_steel2 = 5.07;
+                db = 2.54;
                 break;
             case 6:
                 area_steel2 = 7.92;
+                db = 3.18;
                 break;
             case 7:
                 area_steel2 = 11.40;
+                db = 3.81;
                 break;
         }
         switch (vc.separacion2.getSelectedIndex()) {
@@ -2205,6 +2214,49 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
         fi_mr2 *= 10;
         vc.as2.setText(String.valueOf(as2 * 100));
         vc.fi_mr2.setText(String.valueOf(fi_mr2));
+
+        //lonjgitud de corte o desarrollo voy a utilizar las constantes a pesar de que sean 1, por si acaso.
+        double fc = Double.parseDouble(vc.fc.getText());
+        double psi_t = 1.0;
+        double psi_e = 1.0;
+        double cons = 1.0;
+        double H = Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText());
+        //longitud de desarrollo
+        double ld = (fy * psi_t * psi_e * db * 1.3) / (6.6 * cons * Math.sqrt(fc));
+        double rec = 2.5;
+        switch (vc.r.getSelectedIndex()) {
+            case 0:
+                rec = 2.5;
+                break;
+            case 1:
+                rec = 5.0;
+                break;
+            case 2:
+                rec = 7.5;
+                break;
+        }
+        double peralte_efect = H - rec;
+        //longitud de anclaje
+        double la = Math.max(12 * db, peralte_efect);
+
+        if (sum[sum.length - 1] > fi_mr2) {
+            int i = 0;
+            while (sum[i] < fi_mr2) {
+                i++;
+            }
+            int j = 0;
+            while (sum[j] < Double.parseDouble(vc.fi_mr1.getText())) {
+                j++;
+            }
+            //longitud de corte
+            double pi_1 = long2[j];
+            double pi = long2[i];
+            double lc = Math.max(ld + pi, la + pi_1);
+            vc.ld_propuesto1.setText(String.valueOf(lc));
+        }
+        else{
+            vc.ld_propuesto1.setText(String.valueOf(0.0));
+        }
 
 //            double as2 = (100 / separacion2) * area_steel2;
 //            fi_mr2 = Double.parseDouble(vc.fi_f.getText()) * (as2 / (b * d) * Double.parseDouble(vc.fy.getText()) * (1 - (as2 / (b * d)) * m1 * 0.5) * (b * d * d));
@@ -2469,16 +2521,15 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
 
         //dm = new Diagrama_momento(sum, long2);
         //dm.setVisible(true);
-        
-        if(Double.parseDouble(vc.sum_fi_mr.getText())<Double.parseDouble(vc.m_max.getText())){
+        if (Double.parseDouble(vc.sum_fi_mr.getText()) < Double.parseDouble(vc.m_max.getText())) {
             vc.sum_fi_mr.setBackground(Color.red);
             vc.m_max.setBackground(Color.red);
         } else {
             vc.sum_fi_mr.setBackground(Color.lightGray);
             vc.m_max.setBackground(Color.lightGray);
         }
-        
-        if(Double.parseDouble(vc.fi_vc.getText())<Double.parseDouble(vc.v_max.getText())){
+
+        if (Double.parseDouble(vc.fi_vc.getText()) < Double.parseDouble(vc.v_max.getText())) {
             vc.fi_vc.setBackground(Color.red);
             vc.v_max.setBackground(Color.red);
         } else {
