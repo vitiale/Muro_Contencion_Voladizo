@@ -1446,7 +1446,7 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
 //        if (vc.varillas3.getSelectedIndex() != 0) {
 //            posicion_baston2 = (posicion_baston1 + Double.parseDouble(vc.fi_mr3.getText()));
 //        }
-        double long_baston1 = (Double.parseDouble(vc.ld1.getText()));
+        double long_baston1 = (Double.parseDouble(vc.ld1.getText())/100);
         double long_baston2 = (Double.parseDouble(vc.ld2.getText()));
         double h1 = Double.parseDouble(vc.h1.getText());
         double h2 = Double.parseDouble(vc.h2.getText());
@@ -2220,9 +2220,11 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
         double psi_t = 1.0;
         double psi_e = 1.0;
         double cons = 1.0;
-        double H = Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText());
+        //double H = Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText());
+        double espesor = Double.parseDouble(vc.a1.getText());
         //longitud de desarrollo
         double ld = (fy * psi_t * psi_e * db * 1.3) / (6.6 * cons * Math.sqrt(fc));
+        System.out.println("ld "+ld);
         double rec = 2.5;
         switch (vc.r.getSelectedIndex()) {
             case 0:
@@ -2235,28 +2237,62 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
                 rec = 7.5;
                 break;
         }
-        double peralte_efect = H - rec;
+        // d = peralte_efect
+        double peralte_efect = espesor*100 - rec; //d
+        System.out.println("d "+peralte_efect);
+        System.out.println("12*db "+12*db);
+        System.out.println("db "+db);
         //longitud de anclaje
         double la = Math.max(12 * db, peralte_efect);
+        System.out.println("la "+la);
 
-        if (sum[sum.length - 1] > fi_mr2) {
+        System.out.println("sum[sum.length - 1] " + sum[sum.length - 1]);
+        System.out.println("fi_mr1 " + fi_mr1);
+        System.out.println("fi_mr2 " + fi_mr2);
+
+        double fi_mr1 = Double.parseDouble(vc.fi_mr1.getText());
+        double sum_fi_mr = Double.parseDouble(vc.sum_fi_mr.getText());
+        if (fi_mr1 < sum[sum.length - 1] && vc.varillas2.getSelectedIndex() != 0 && sum_fi_mr < sum[sum.length - 1]) {
             int i = 0;
-            while (sum[i] < fi_mr2) {
+            while (sum[i] < sum_fi_mr) {
                 i++;
             }
             int j = 0;
-            while (sum[j] < Double.parseDouble(vc.fi_mr1.getText())) {
+            while (sum[j] < fi_mr1) {
                 j++;
             }
+            //interpolando primer baston para encontrar el punto exacto teniendo ya x(momento) y buscando y(longitud)     
+            double pi_x1 = sum[i-1];
+            double pi_x2 = sum[i];
+            double pi_y1 = long2[i-1];
+            double pi_y2 = long2[i];
+            double valor_pi_y = pi_y2+(sum_fi_mr-pi_x2) * ( (pi_y1-pi_y2)/(pi_x1-pi_x2) );
+            System.out.println("valor_pi_y "+valor_pi_y);
+            
+            //double pia = long2[i-1];
+            //interpolando primer acero corrido para encontrar el punto exacto teniendo ya x(momento) y buscando y(longitud)
+            double pi_1x1 = sum[j-1];
+            double pi_1x2 = sum[j];
+            double pi_1y1 = long2[j-1];
+            double pi_1y2 = long2[j];
+            double valor_pi_1y = pi_1y2+(fi_mr1-pi_1x2) * ( (pi_1y1-pi_1y2)/(pi_1x1-pi_1x2) );
+            System.out.println("valor_pi_1y "+valor_pi_1y);
+            //double pi_1a = long2[j-1];
+            
+//           System.out.println("pi_1 con "+j+" "+pi_1);
+//            System.out.println("pi con "+i+" "+pi);
+            
             //longitud de corte
-            double pi_1 = long2[j];
-            double pi = long2[i];
-            double lc = Math.max(ld + pi, la + pi_1);
+            double lc = Math.max(ld + valor_pi_y*100, la + valor_pi_1y*100);
             vc.ld_propuesto1.setText(String.valueOf(lc));
-        }
-        else{
+            vc.ld1.setText(String.valueOf(lc));
+//            System.out.println("long2[i]" +long2[i]);
+//            System.out.println("long2[j]" +long2[j]);
+
+        } else {
             vc.ld_propuesto1.setText(String.valueOf(0.0));
         }
+        System.out.println("");
 
 //            double as2 = (100 / separacion2) * area_steel2;
 //            fi_mr2 = Double.parseDouble(vc.fi_f.getText()) * (as2 / (b * d) * Double.parseDouble(vc.fy.getText()) * (1 - (as2 / (b * d)) * m1 * 0.5) * (b * d * d));
@@ -2515,6 +2551,13 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
                 Vmax = Math.abs(sum_mcv[i]);
             }
         }
+        
+//         for (int j = 0; j < long2.length; j++) {
+//            System.out.println((j + 1) + "                      " + long1[j] + "                      " + long2[j] + "                      " + sigma_a + "                      " + w2[j] + "                      " + m1[j] + "                      " + m2[j] + "                      " + mrb[j] + "                              " + ms[j] + "                           " + sum[j]);
+//            System.out.println("_______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________");
+//        }
+        System.out.println("");
+        System.out.println("");
 
         vc.m_max.setText(String.valueOf(sum[sum.length - 1]));
         vc.v_max.setText(String.valueOf(Vmax));
