@@ -922,7 +922,7 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
         jPanel13.add(jLabel80);
 
         jLabel81.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel81.setText("Ld propuesto");
+        jLabel81.setText("Ld propuesto-[cm]");
         jPanel13.add(jLabel81);
 
         ld_propuesto1.setEditable(false);
@@ -934,7 +934,7 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
         jLabel82.setText("Ld");
         jPanel13.add(jLabel82);
 
-        ld1.setText("1.0");
+        ld1.setText("0.0");
         jPanel13.add(ld1);
 
         jLabel83.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -991,7 +991,7 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
         jLabel100.setText("Ld");
         jPanel14.add(jLabel100);
 
-        ld2.setText("1.0");
+        ld2.setText("0.0");
         jPanel14.add(ld2);
 
         jLabel101.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
