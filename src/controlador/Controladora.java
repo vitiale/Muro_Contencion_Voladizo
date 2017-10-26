@@ -2253,15 +2253,15 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
         double fi_mr1 = Double.parseDouble(vc.fi_mr1.getText());
         //double sum_fi_mr = Double.parseDouble(vc.sum_fi_mr.getText());
         double sum_fi_mr = Double.parseDouble(vc.fi_mr1.getText()) + Double.parseDouble(vc.fi_mr2.getText());
-        if (fi_mr1 < sum[sum.length - 1] && vc.varillas2.getSelectedIndex() != 0/* && sum_fi_mr < sum[sum.length - 1]*/) {
+        if (/*fi_mr1 < sum[sum.length - 1] && */vc.varillas2.getSelectedIndex() != 0/* && sum_fi_mr < sum[sum.length - 1]*/) {
 //            int i = 0;
 //            while (sum[i] < sum_fi_mr) {
 //                i++;
 //            }
-            int j = 0;
-            while (sum[j] < fi_mr1) {
-                j++;
-            }
+//            int j = 0;
+//            while (sum[j] < fi_mr1) {
+//                j++;
+//            }
 
             double valor_pi_y = 0.0;
             int i = 0;
@@ -2277,16 +2277,25 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
                 valor_pi_y = pi_y2 + (sum_fi_mr - pi_x2) * ((pi_y1 - pi_y2) / (pi_x1 - pi_x2));
 //                System.out.println("valor_pi_y " + valor_pi_y);
             }
-
-            //double pia = long2[i-1];
-            //interpolando primer acero corrido para encontrar el punto exacto teniendo ya x(momento) y buscando y(longitud)
-            double pi_1x1 = sum[j - 1];
-            double pi_1x2 = sum[j];
-            double pi_1y1 = long2[j - 1];
-            double pi_1y2 = long2[j];
-            double valor_pi_1y = pi_1y2 + (fi_mr1 - pi_1x2) * ((pi_1y1 - pi_1y2) / (pi_1x1 - pi_1x2));
+            
+            double valor_pi_1y = 0.0;
+            if (fi_mr1 < sum[sum.length - 1]) {
+                int j = 0;
+                while (sum[j] < fi_mr1) {
+                    j++;
+                }
+                //double pia = long2[i-1];
+                //interpolando primer acero corrido para encontrar el punto exacto teniendo ya x(momento) y buscando y(longitud)
+                double pi_1x1 = sum[j - 1];
+                double pi_1x2 = sum[j];
+                double pi_1y1 = long2[j - 1];
+                double pi_1y2 = long2[j];
+                valor_pi_1y = pi_1y2 + (fi_mr1 - pi_1x2) * ((pi_1y1 - pi_1y2) / (pi_1x1 - pi_1x2));
 //            System.out.println("valor_pi_1y " + valor_pi_1y);
-            //double pi_1a = long2[j-1];
+                //double pi_1a = long2[j-1];
+            }
+
+            
 
 //           System.out.println("pi_1 con "+j+" "+pi_1);
 //            System.out.println("pi con "+i+" "+pi);
