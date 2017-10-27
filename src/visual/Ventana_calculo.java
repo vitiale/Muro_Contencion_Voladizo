@@ -437,7 +437,7 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
         jLabel2.setText("h2-[m]");
         jPanel2.add(jLabel2);
 
-        h2.setText("0.5");
+        h2.setText("0.8");
         jPanel2.add(h2);
 
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -446,14 +446,14 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
 
         d2.setEditable(false);
         d2.setBackground(new java.awt.Color(204, 204, 204));
-        d2.setText("0.2");
+        d2.setText("0.35");
         jPanel2.add(d2);
 
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("d1-[m]");
         jPanel2.add(jLabel6);
 
-        d1.setText("0.0");
+        d1.setText("0.4");
         jPanel2.add(d1);
 
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -467,7 +467,7 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
         jLabel5.setText("e-[m]");
         jPanel2.add(jLabel5);
 
-        var_e.setText("0.2");
+        var_e.setText("0.4");
         jPanel2.add(var_e);
 
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -658,7 +658,7 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
 
         qad_espejo.setEditable(false);
         qad_espejo.setBackground(new java.awt.Color(204, 204, 204));
-        qad_espejo.setText("0.0");
+        qad_espejo.setText("20.7");
         jPanel8.add(qad_espejo);
 
         jLabel57.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -828,7 +828,7 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
         jPanel26.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gráfico", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fotos/mb_2.jpg"))); // NOI18N
+        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fotos/mb_5.jpg"))); // NOI18N
         jLabel22.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         jPanel26.add(jLabel22);
 

@@ -350,7 +350,6 @@ public class Proyecto implements Serializable{
             pw.println("-layer n ALBA_SECCIONES c t 255,0,0 ALBA_SECCIONES l Continuous ALBA_SECCIONES ");
             pw.println("-osnap off");
             for (int j = 0; j < lista.size(); j++) {
-
                 //private int cont;
                 String name_muro=lista.get(j).getLista_muro().get(0);
                 double scala = 20;
@@ -389,7 +388,8 @@ public class Proyecto implements Serializable{
                 double separacion_varillas_temperatura = separacion_temp(Integer.parseInt(lista.get(j).getLista_muro().get(72)), scala);//30.0/scala;
                 String separacion_varillas_profundidad = tipo_separacion(Integer.parseInt(lista.get(j).getLista_muro().get(52)));
                 
-                double dist_baston = 100/scala;
+                //double dist_baston = 100/scala;
+                double dist_baston = Double.parseDouble(lista.get(j).getLista_muro().get(60))/scala;
                 double alto_losa = 15.0 / scala;
                 double largo_losa;
                 if(izq_zapata<=0)
