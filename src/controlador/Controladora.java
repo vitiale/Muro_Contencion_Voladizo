@@ -178,6 +178,11 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
         vc.alpha.addKeyListener(this);
         vc.aceptar1.addKeyListener(this);
         vc.mostrar.addKeyListener(this);
+        vc.cancelar.addKeyListener(this);
+        vc.guardar.addKeyListener(this);
+        vc.editar.addKeyListener(this);
+        vc.eliminar.addKeyListener(this);
+        vc.cerrar.addKeyListener(this);
 
         //para agregar el evento focuslistener A los elementos
         vc.fi1.addFocusListener(this);
@@ -234,6 +239,8 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
         vc.m_max.setToolTipText("Este valor tiene que ser menor a ΣϕMr");
         vc.fi_vc.setToolTipText("Este valor tiene que ser mayor a Vmax");
         vc.v_max.setToolTipText("Este valor tiene que ser menor a ϕVc");
+        vc.ld_propuesto1.setToolTipText("No es necesario colocar este bastón, si lo hace estaría desperdiciando un chingo de acero");
+        vc.ld_propuesto2.setToolTipText("No es necesario colocar este bastón, si lo hace estaría desperdiciando un chingo de acero");
 
 //        //Aquí podemos cargar la lista elemento y elemento_nombre, así nos ahorramos el tener que borrar e insertar en cada llamada.
 //        elementos.add(vc.fi1.getText());
@@ -329,13 +336,13 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
             } else if (e.getSource() == vc.var_e) {
                 vc.a1.requestFocus();
             } else if (e.getSource() == vc.a1) {
-                vc.d2.requestFocus();
-            } else if (e.getSource() == vc.d2) {
                 vc.l1.requestFocus();
+//            } else if (e.getSource() == vc.d2) {
+//                vc.l1.requestFocus();
             } else if (e.getSource() == vc.l1) {
-                vc.l2.requestFocus();
-            } else if (e.getSource() == vc.l2) {
                 vc.l3.requestFocus();
+//            } else if (e.getSource() == vc.l2) {
+//                vc.l3.requestFocus();
             } else if (e.getSource() == vc.l3) {
                 vc.alpha.requestFocus();
             } else if (e.getSource() == vc.alpha) {
@@ -587,17 +594,23 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
         } else if (e.getSource() == vc.a1) {
             if (ChecarErrores.Dobles_menor_igual(vc.a1.getText()) == 1) {
                 vc.a1.setText(temp_a1);
+                vc.d2.setText(temp_a1);
+                vc.l2.setText(temp_a1);
                 vc.a1.setBackground(Color.ORANGE);
-            } else {
-                ejecutor();
-            }
-        } else if (e.getSource() == vc.d2) {
-            if (ChecarErrores.Dobles_menor_igual(vc.d2.getText()) == 1) {
-                vc.d2.setText(temp_d2);
                 vc.d2.setBackground(Color.ORANGE);
+                vc.l2.setBackground(Color.ORANGE);
             } else {
+                vc.d2.setText(vc.a1.getText());
+                vc.l2.setText(vc.a1.getText());
                 ejecutor();
             }
+//        } else if (e.getSource() == vc.d2) {
+//            if (ChecarErrores.Dobles_menor_igual(vc.d2.getText()) == 1) {
+//                vc.d2.setText(temp_d2);
+//                vc.d2.setBackground(Color.ORANGE);
+//            } else {
+//                ejecutor();
+//            }
         } else if (e.getSource() == vc.l1) {
             if (ChecarErrores.Dobles_menor_igual(vc.l1.getText()) == 1) {
                 vc.l1.setText(temp_l1);
@@ -605,13 +618,13 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
             } else {
                 ejecutor();
             }
-        } else if (e.getSource() == vc.l2) {
-            if (ChecarErrores.Dobles_menor_igual(vc.l2.getText()) == 1) {
-                vc.l2.setText(temp_l2);
-                vc.l2.setBackground(Color.ORANGE);
-            } else {
-                ejecutor();
-            }
+//        } else if (e.getSource() == vc.l2) {
+//            if (ChecarErrores.Dobles_menor_igual(vc.l2.getText()) == 1) {
+//                vc.l2.setText(temp_l2);
+//                vc.l2.setBackground(Color.ORANGE);
+//            } else {
+//                ejecutor();
+//            }
         } else if (e.getSource() == vc.l3) {
             if (ChecarErrores.Dobles_menor_igual(vc.l3.getText()) == 1) {
                 vc.l3.setText(temp_l3);
@@ -690,7 +703,7 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
                 ejecutor();
             }
         } else if (e.getSource() == vc.ld2) {
-            if (ChecarErrores.Dobles_menor_igual(vc.ld2.getText()) == 1) {
+            if (ChecarErrores.Dobles_menor(vc.ld2.getText()) == 1) {
                 vc.ld2.setText(temp_ld2);
                 vc.ld2.setBackground(Color.ORANGE);
             } else {
@@ -1276,11 +1289,11 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
         vc.a1.setText("0.35");
         vc.a1.setBackground(Color.WHITE);
         vc.d2.setText("0.35");
-        vc.d2.setBackground(Color.WHITE);
+        vc.d2.setBackground(Color.lightGray);
         vc.l1.setText("1.20");
         vc.l1.setBackground(Color.WHITE);
         vc.l2.setText("0.35");
-        vc.l2.setBackground(Color.WHITE);
+        vc.l2.setBackground(Color.lightGray);
         vc.l3.setText("0.5");
         vc.l3.setBackground(Color.WHITE);
         vc.alpha.setText("0");
@@ -1311,6 +1324,11 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
         vc.name.setText(null);
         vc.varillas4.setSelectedIndex(0);
         vc.separacion4.setSelectedIndex(0);
+        vc.fs_v.setBackground(Color.lightGray);
+        vc.fs_desliz.setBackground(Color.lightGray);
+        vc.fi_v.setBackground(Color.lightGray);
+        vc.v_max.setBackground(Color.lightGray);
+        vc.fi1.requestFocus();
 
         ejecutor();
 
@@ -2202,14 +2220,9 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
         h = (Double.parseDouble(vc.l2.getText()) - (Double.parseDouble(vc.l2.getText()) - Double.parseDouble(vc.a1.getText())) / (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText())) * Double.parseDouble(vc.h2.getText())) * 100;
         d = redondeo((h - (r)), 2) / 100;
         m1 = redondeo(Double.parseDouble(vc.fy.getText()) / (0.85 * Double.parseDouble(vc.fc.getText())), 2);
-//        System.out.println("esta carajo es m1 " + m1);
-//        System.out.println("esta carajo es h " + h);
-//        System.out.println("esta carajo es d " + d);
+
         double as2 = (100 / separacion2) * area_steel2;
         as2 /= 100;
-//        System.out.println("esta carajo es as2 " + as2);
-//        System.out.println("esta carajo es as2 " + as2 / 100);
-//        System.out.println("esta carajo es as2 " + as2 / (100 * 100));
         fi_mr2 = redondeo(fi_f * ((as2 / 100) / (b * d) * fy * (1 - ((as2 / 100) / (b * d)) * m1 * 0.5) * (b * d * d)), 2);
         fi_mr2 *= 10;
         vc.as2.setText(String.valueOf(as2 * 100));
@@ -2237,31 +2250,29 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
                 rec = 7.5;
                 break;
         }
-        // d = peralte_efect
-        double peralte_efect = espesor * 100 - rec; //d
-//        System.out.println("d " + peralte_efect);
-//        System.out.println("12*db " + 12 * db);
-//        System.out.println("db " + db);
-        //longitud de anclaje
+        double peralte_efect = espesor * 100 - rec;
         double la = Math.max(12 * db, peralte_efect);
-//        System.out.println("la " + la);
-//
-//        System.out.println("sum[sum.length - 1] " + sum[sum.length - 1]);
-//        System.out.println("fi_mr1 " + fi_mr1);
-//        System.out.println("fi_mr2 " + fi_mr2);
 
         double fi_mr1 = Double.parseDouble(vc.fi_mr1.getText());
-        //double sum_fi_mr = Double.parseDouble(vc.sum_fi_mr.getText());
         double sum_fi_mr = Double.parseDouble(vc.fi_mr1.getText()) + Double.parseDouble(vc.fi_mr2.getText());
         if (/*fi_mr1 < sum[sum.length - 1] && */vc.varillas2.getSelectedIndex() != 0/* && sum_fi_mr < sum[sum.length - 1]*/) {
-//            int i = 0;
-//            while (sum[i] < sum_fi_mr) {
-//                i++;
-//            }
-//            int j = 0;
-//            while (sum[j] < fi_mr1) {
-//                j++;
-//            }
+
+            double valor_pi_1y = 0.0;
+            if (fi_mr1 < sum[sum.length - 1]) {
+                int j = 0;
+                while (sum[j] < fi_mr1) {
+                    j++;
+                }
+                //interpolando primer acero corrido para encontrar el punto exacto teniendo ya x(momento) y buscando y(longitud)
+                double pi_1x1 = sum[j - 1];
+                double pi_1x2 = sum[j];
+                double pi_1y1 = long2[j - 1];
+                double pi_1y2 = long2[j];
+                valor_pi_1y = pi_1y2 + (fi_mr1 - pi_1x2) * ((pi_1y1 - pi_1y2) / (pi_1x1 - pi_1x2));
+                vc.ld_propuesto1.setBackground(Color.lightGray);
+            } else {
+                vc.ld_propuesto1.setBackground(Color.red);
+            }
 
             double valor_pi_y = 0.0;
             int i = 0;
@@ -2275,47 +2286,17 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
                 double pi_y1 = long2[i - 1];
                 double pi_y2 = long2[i];
                 valor_pi_y = pi_y2 + (sum_fi_mr - pi_x2) * ((pi_y1 - pi_y2) / (pi_x1 - pi_x2));
-//                System.out.println("valor_pi_y " + valor_pi_y);
-            }
-            
-            double valor_pi_1y = 0.0;
-            if (fi_mr1 < sum[sum.length - 1]) {
-                int j = 0;
-                while (sum[j] < fi_mr1) {
-                    j++;
-                }
-                //double pia = long2[i-1];
-                //interpolando primer acero corrido para encontrar el punto exacto teniendo ya x(momento) y buscando y(longitud)
-                double pi_1x1 = sum[j - 1];
-                double pi_1x2 = sum[j];
-                double pi_1y1 = long2[j - 1];
-                double pi_1y2 = long2[j];
-                valor_pi_1y = pi_1y2 + (fi_mr1 - pi_1x2) * ((pi_1y1 - pi_1y2) / (pi_1x1 - pi_1x2));
-//            System.out.println("valor_pi_1y " + valor_pi_1y);
-                //double pi_1a = long2[j-1];
             }
 
-            
-
-//           System.out.println("pi_1 con "+j+" "+pi_1);
-//            System.out.println("pi con "+i+" "+pi);
             //longitud de corte
             double lc = Math.max(ld + valor_pi_y * 100, la + valor_pi_1y * 100);
             vc.ld_propuesto1.setText(String.valueOf(lc));
-            //vc.ld1.setText(String.valueOf(lc));
-//            System.out.println("long2[i]" +long2[i]);
-//            System.out.println("long2[j]" +long2[j]);
 
         } else {
+            vc.ld_propuesto1.setBackground(Color.lightGray);
             vc.ld_propuesto1.setText(String.valueOf(0.0));
-            //vc.ld1.setText(String.valueOf(0.0));
         }
         System.out.println("");
-
-//            double as2 = (100 / separacion2) * area_steel2;
-//            fi_mr2 = Double.parseDouble(vc.fi_f.getText()) * (as2 / (b * d) * Double.parseDouble(vc.fy.getText()) * (1 - (as2 / (b * d)) * m1 * 0.5) * (b * d * d));
-//            vc.as2.setText(String.valueOf(as2));
-//            vc.fi_mr2.setText(String.valueOf(fi_mr2));
     }
 
     //bastón 2
@@ -2458,14 +2439,24 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
 
         double fi_mr2 = Double.parseDouble(vc.fi_mr1.getText()) + Double.parseDouble(vc.fi_mr2.getText());
         double sum_fi_mr = Double.parseDouble(vc.sum_fi_mr.getText());
-        if (fi_mr2 < sum[sum.length - 1] && vc.varillas3.getSelectedIndex() != 0/* && sum_fi_mr < sum[sum.length - 1]*/ && vc.varillas2.getSelectedIndex() != 0) {
-//            int i = 0;
-//            while (sum[i] < sum_fi_mr) {
-//                i++;
-//            }
-            int j = 0;
-            while (sum[j] < fi_mr2) {
-                j++;
+        if (vc.varillas3.getSelectedIndex() != 0 && vc.varillas2.getSelectedIndex() != 0) {
+
+            double valor_pi_1y = 0.0;
+            if (fi_mr2 < sum[sum.length - 1]) {
+                int j=0;
+                while (sum[j] < fi_mr2) {
+                    j++;
+                }
+                //double pia = long2[i-1];
+                //interpolando primer acero corrido para encontrar el punto exacto teniendo ya x(momento) y buscando y(longitud)
+                double pi_1x1 = sum[j - 1];
+                double pi_1x2 = sum[j];
+                double pi_1y1 = long2[j - 1];
+                double pi_1y2 = long2[j];
+                valor_pi_1y = pi_1y2 + (fi_mr2 - pi_1x2) * ((pi_1y1 - pi_1y2) / (pi_1x1 - pi_1x2));
+               vc.ld_propuesto2.setBackground(Color.lightGray);
+            } else {
+                vc.ld_propuesto2.setBackground(Color.red);
             }
 
             int i = 0;
@@ -2481,36 +2472,16 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
                 double pi_y2 = long2[i];
                 valor_pi_y = pi_y2 + (sum_fi_mr - pi_x2) * ((pi_y1 - pi_y2) / (pi_x1 - pi_x2));
             }
-
-            System.out.println("valor_pi_y " + valor_pi_y);
-
-            //double pia = long2[i-1];
-            //interpolando primer acero corrido para encontrar el punto exacto teniendo ya x(momento) y buscando y(longitud)
-            double pi_1x1 = sum[j - 1];
-            double pi_1x2 = sum[j];
-            double pi_1y1 = long2[j - 1];
-            double pi_1y2 = long2[j];
-            double valor_pi_1y = pi_1y2 + (fi_mr2 - pi_1x2) * ((pi_1y1 - pi_1y2) / (pi_1x1 - pi_1x2));
-            System.out.println("valor_pi_1y " + valor_pi_1y);
-            //double pi_1a = long2[j-1];
-
-//           System.out.println("pi_1 con "+j+" "+pi_1);
-//            System.out.println("pi con "+i+" "+pi);
+            
             //longitud de corte
             double lc = Math.max(ld + valor_pi_y * 100, la + valor_pi_1y * 100);
             vc.ld_propuesto2.setText(String.valueOf(lc));
-            //vc.ld2.setText(String.valueOf(lc));
-//            System.out.println("long2[i]" +long2[i]);
-//            System.out.println("long2[j]" +long2[j]);
 
         } else {
             vc.ld_propuesto2.setText(String.valueOf(0.0));
-            //vc.ld2.setText(String.valueOf(0.0));
+            vc.ld_propuesto2.setBackground(Color.lightGray);
         }
-//            double as3 = (100 / separacion3) * area_steel3;
-//            fi_mr3 = Double.parseDouble(vc.fi_f.getText()) * (as3 / (b * d) * Double.parseDouble(vc.fy.getText()) * (1 - (as3 / (b * d)) * m1 * 0.5) * (b * d * d));
-//            vc.as3.setText(String.valueOf(as3));
-//            vc.fi_mr3.setText(String.valueOf(fi_mr3));
+
     }
 
     //acero en temperatura

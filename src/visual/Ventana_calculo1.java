@@ -31,8 +31,8 @@ public class Ventana_calculo1 extends javax.swing.JInternalFrame {
         setTitle(this.py.getNombre_py());
         
         initComponents();
-        //setBounds(0, 0, 1950, 1010);
-        setPreferredSize(getMaximumSize());
+        setBounds(0, 0, 1850, 1000);
+        //setPreferredSize(getMaximumSize());
         poblar_combo();
     }
 
@@ -465,6 +465,8 @@ public class Ventana_calculo1 extends javax.swing.JInternalFrame {
         jLabel4.setText("d2-[m]");
         jPanel2.add(jLabel4);
 
+        d2.setEditable(false);
+        d2.setBackground(new java.awt.Color(204, 204, 204));
         d2.setText("0.2");
         jPanel2.add(d2);
 
@@ -493,6 +495,8 @@ public class Ventana_calculo1 extends javax.swing.JInternalFrame {
         jLabel8.setText("l2-[m]");
         jPanel2.add(jLabel8);
 
+        l2.setEditable(false);
+        l2.setBackground(new java.awt.Color(204, 204, 204));
         l2.setText("0.35");
         jPanel2.add(l2);
 
@@ -845,7 +849,7 @@ public class Ventana_calculo1 extends javax.swing.JInternalFrame {
         jPanel26.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gráfico", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fotos/muro6.jpg"))); // NOI18N
+        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fotos/mb_2.jpg"))); // NOI18N
         jLabel22.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         jPanel26.add(jLabel22);
 

@@ -183,6 +183,13 @@ public class Controladora1 implements KeyListener, FocusListener, ActionListener
         vc.alpha.addKeyListener(this);
         vc.aceptar1.addKeyListener(this);
         vc.mostrar.addKeyListener(this);
+        vc.cerrar.addKeyListener(this);
+        vc.aceptar_1.addKeyListener(this);
+        vc.editar.addKeyListener(this);
+        vc.eliminar.addKeyListener(this);
+        vc.guardar.addKeyListener(this);
+        vc.cancelar.addKeyListener(this);
+        vc.combo1.addKeyListener(this);
 
         //para agregar el evento focuslistener A los elementos
         vc.combo1.addFocusListener(this);
@@ -241,6 +248,8 @@ public class Controladora1 implements KeyListener, FocusListener, ActionListener
         vc.m_max.setToolTipText("Este valor tiene que ser menor a ΣϕMr");
         vc.fi_vc.setToolTipText("Este valor tiene que ser mayor a Vmax");
         vc.v_max.setToolTipText("Este valor tiene que ser menor a ϕVc");
+        vc.ld_propuesto1.setToolTipText("No es necesario colocar este bastón, si lo hace estaría desperdiciando un chingo de acero");
+        vc.ld_propuesto2.setToolTipText("No es necesario colocar este bastón, si lo hace estaría desperdiciando un chingo de acero");
 
 //        //Aquí podemos cargar la lista elemento y elemento_nombre, así nos ahorramos el tener que borrar e insertar en cada llamada.
 //        elementos.add(vc.fi1.getText());
@@ -313,7 +322,11 @@ public class Controladora1 implements KeyListener, FocusListener, ActionListener
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == e.VK_ENTER) {
-            if (e.getSource() == vc.fi1) {
+            if(e.getSource() == vc.combo1){
+                vc.aceptar_1.requestFocus();
+            } else if (e.getSource() == vc.aceptar_1) {
+                vc.fi1.requestFocus();
+            } else if (e.getSource() == vc.fi1) {
                 vc.gamma1.requestFocus();
             } else if (e.getSource() == vc.gamma1) {
                 vc.sc.requestFocus();
@@ -336,13 +349,13 @@ public class Controladora1 implements KeyListener, FocusListener, ActionListener
             } else if (e.getSource() == vc.var_e) {
                 vc.a1.requestFocus();
             } else if (e.getSource() == vc.a1) {
-                vc.d2.requestFocus();
-            } else if (e.getSource() == vc.d2) {
                 vc.l1.requestFocus();
+//            } else if (e.getSource() == vc.d2) {
+//                vc.l1.requestFocus();
             } else if (e.getSource() == vc.l1) {
-                vc.l2.requestFocus();
-            } else if (e.getSource() == vc.l2) {
                 vc.l3.requestFocus();
+//            } else if (e.getSource() == vc.l2) {
+//                vc.l3.requestFocus();
             } else if (e.getSource() == vc.l3) {
                 vc.alpha.requestFocus();
             } else if (e.getSource() == vc.alpha) {
@@ -596,17 +609,23 @@ public class Controladora1 implements KeyListener, FocusListener, ActionListener
         } else if (e.getSource() == vc.a1) {
             if (ChecarErrores.Dobles_menor_igual(vc.a1.getText()) == 1) {
                 vc.a1.setText(temp_a1);
+                vc.d2.setText(temp_a1);
+                vc.l2.setText(temp_a1);
                 vc.a1.setBackground(Color.ORANGE);
-            } else {
-                ejecutor();
-            }
-        } else if (e.getSource() == vc.d2) {
-            if (ChecarErrores.Dobles_menor_igual(vc.d2.getText()) == 1) {
-                vc.d2.setText(temp_d2);
                 vc.d2.setBackground(Color.ORANGE);
+                vc.l2.setBackground(Color.ORANGE);
             } else {
+                vc.d2.setText(vc.a1.getText());
+                vc.l2.setText(vc.a1.getText());
                 ejecutor();
             }
+        //        } else if (e.getSource() == vc.d2) {
+//            if (ChecarErrores.Dobles_menor_igual(vc.d2.getText()) == 1) {
+//                vc.d2.setText(temp_d2);
+//                vc.d2.setBackground(Color.ORANGE);
+//            } else {
+//                ejecutor();
+//            }
         } else if (e.getSource() == vc.l1) {
             if (ChecarErrores.Dobles_menor_igual(vc.l1.getText()) == 1) {
                 vc.l1.setText(temp_l1);
@@ -614,13 +633,13 @@ public class Controladora1 implements KeyListener, FocusListener, ActionListener
             } else {
                 ejecutor();
             }
-        } else if (e.getSource() == vc.l2) {
-            if (ChecarErrores.Dobles_menor_igual(vc.l2.getText()) == 1) {
-                vc.l2.setText(temp_l2);
-                vc.l2.setBackground(Color.ORANGE);
-            } else {
-                ejecutor();
-            }
+        //        } else if (e.getSource() == vc.l2) {
+//            if (ChecarErrores.Dobles_menor_igual(vc.l2.getText()) == 1) {
+//                vc.l2.setText(temp_l2);
+//                vc.l2.setBackground(Color.ORANGE);
+//            } else {
+//                ejecutor();
+//            }
         } else if (e.getSource() == vc.l3) {
             if (ChecarErrores.Dobles_menor_igual(vc.l3.getText()) == 1) {
                 vc.l3.setText(temp_l3);
@@ -692,14 +711,14 @@ public class Controladora1 implements KeyListener, FocusListener, ActionListener
         } else if (e.getSource() == vc.separacion3) {
             ejecutor();
         } else if (e.getSource() == vc.ld1) {
-            if (ChecarErrores.Dobles_menor_igual(vc.ld1.getText()) == 1) {
+            if (ChecarErrores.Dobles_menor(vc.ld1.getText()) == 1) {
                 vc.ld1.setText(temp_ld1);
                 vc.ld1.setBackground(Color.ORANGE);
             } else {
                 ejecutor();
             }
         } else if (e.getSource() == vc.ld2) {
-            if (ChecarErrores.Dobles_menor_igual(vc.ld2.getText()) == 1) {
+            if (ChecarErrores.Dobles_menor(vc.ld2.getText()) == 1) {
                 vc.ld2.setText(temp_ld2);
                 vc.ld2.setBackground(Color.ORANGE);
             } else {
@@ -1365,11 +1384,11 @@ public class Controladora1 implements KeyListener, FocusListener, ActionListener
         vc.a1.setText("0.35");
         vc.a1.setBackground(Color.WHITE);
         vc.d2.setText("0.35");
-        vc.d2.setBackground(Color.WHITE);
+        vc.d2.setBackground(Color.lightGray);
         vc.l1.setText("1.20");
         vc.l1.setBackground(Color.WHITE);
         vc.l2.setText("0.35");
-        vc.l2.setBackground(Color.WHITE);
+        vc.l2.setBackground(Color.lightGray);
         vc.l3.setText("0.5");
         vc.l3.setBackground(Color.WHITE);
         vc.alpha.setText("0");
@@ -1400,6 +1419,11 @@ public class Controladora1 implements KeyListener, FocusListener, ActionListener
         vc.name.setText(null);
         vc.varillas4.setSelectedIndex(0);
         vc.separacion4.setSelectedIndex(0);
+        vc.fs_v.setBackground(Color.lightGray);
+        vc.fs_desliz.setBackground(Color.lightGray);
+        vc.fi_v.setBackground(Color.lightGray);
+        vc.v_max.setBackground(Color.lightGray);
+        vc.fi1.requestFocus();
 
         ejecutor();
 
@@ -2208,32 +2232,41 @@ public class Controladora1 implements KeyListener, FocusListener, ActionListener
     }
 
     //bastón 1
-    public void baston1() {
+public void baston1() {
+        double db = 0.0;
 
         switch (vc.varillas2.getSelectedIndex()) {
             case 0:
                 area_steel2 = 0;
+                db = 0.0;
                 break;
             case 1:
                 area_steel2 = 0.71;
+                db = 0.95;
                 break;
             case 2:
                 area_steel2 = 1.27;
+                db = 1.27;
                 break;
             case 3:
                 area_steel2 = 1.98;
+                db = 1.59;
                 break;
             case 4:
                 area_steel2 = 2.85;
+                db = 1.91;
                 break;
             case 5:
                 area_steel2 = 5.07;
+                db = 2.54;
                 break;
             case 6:
                 area_steel2 = 7.92;
+                db = 3.18;
                 break;
             case 7:
                 area_steel2 = 11.40;
+                db = 3.81;
                 break;
         }
         switch (vc.separacion2.getSelectedIndex()) {
@@ -2281,53 +2314,123 @@ public class Controladora1 implements KeyListener, FocusListener, ActionListener
         h = (Double.parseDouble(vc.l2.getText()) - (Double.parseDouble(vc.l2.getText()) - Double.parseDouble(vc.a1.getText())) / (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText())) * Double.parseDouble(vc.h2.getText())) * 100;
         d = redondeo((h - (r)), 2) / 100;
         m1 = redondeo(Double.parseDouble(vc.fy.getText()) / (0.85 * Double.parseDouble(vc.fc.getText())), 2);
-        System.out.println("esta carajo es m1 " + m1);
-        System.out.println("esta carajo es h " + h);
-        System.out.println("esta carajo es d " + d);
+
         double as2 = (100 / separacion2) * area_steel2;
         as2 /= 100;
-        System.out.println("esta carajo es as2 " + as2);
-        System.out.println("esta carajo es as2 " + as2 / 100);
-        System.out.println("esta carajo es as2 " + as2 / (100 * 100));
         fi_mr2 = redondeo(fi_f * ((as2 / 100) / (b * d) * fy * (1 - ((as2 / 100) / (b * d)) * m1 * 0.5) * (b * d * d)), 2);
         fi_mr2 *= 10;
         vc.as2.setText(String.valueOf(as2 * 100));
         vc.fi_mr2.setText(String.valueOf(fi_mr2));
 
-//            double as2 = (100 / separacion2) * area_steel2;
-//            fi_mr2 = Double.parseDouble(vc.fi_f.getText()) * (as2 / (b * d) * Double.parseDouble(vc.fy.getText()) * (1 - (as2 / (b * d)) * m1 * 0.5) * (b * d * d));
-//            vc.as2.setText(String.valueOf(as2));
-//            vc.fi_mr2.setText(String.valueOf(fi_mr2));
+        //lonjgitud de corte o desarrollo voy a utilizar las constantes a pesar de que sean 1, por si acaso.
+        double fc = Double.parseDouble(vc.fc.getText());
+        double psi_t = 1.0;
+        double psi_e = 1.0;
+        double cons = 1.0;
+        //double H = Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText());
+        double espesor = Double.parseDouble(vc.a1.getText());
+        //longitud de desarrollo
+        double ld = (fy * psi_t * psi_e * db * 1.3) / (6.6 * cons * Math.sqrt(fc));
+//        System.out.println("ld " + ld);
+        double rec = 2.5;
+        switch (vc.r.getSelectedIndex()) {
+            case 0:
+                rec = 2.5;
+                break;
+            case 1:
+                rec = 5.0;
+                break;
+            case 2:
+                rec = 7.5;
+                break;
+        }
+        double peralte_efect = espesor * 100 - rec;
+        double la = Math.max(12 * db, peralte_efect);
+
+        double fi_mr1 = Double.parseDouble(vc.fi_mr1.getText());
+        double sum_fi_mr = Double.parseDouble(vc.fi_mr1.getText()) + Double.parseDouble(vc.fi_mr2.getText());
+        if (/*fi_mr1 < sum[sum.length - 1] && */vc.varillas2.getSelectedIndex() != 0/* && sum_fi_mr < sum[sum.length - 1]*/) {
+
+            double valor_pi_1y = 0.0;
+            if (fi_mr1 < sum[sum.length - 1]) {
+                int j = 0;
+                while (sum[j] < fi_mr1) {
+                    j++;
+                }
+                //interpolando primer acero corrido para encontrar el punto exacto teniendo ya x(momento) y buscando y(longitud)
+                double pi_1x1 = sum[j - 1];
+                double pi_1x2 = sum[j];
+                double pi_1y1 = long2[j - 1];
+                double pi_1y2 = long2[j];
+                valor_pi_1y = pi_1y2 + (fi_mr1 - pi_1x2) * ((pi_1y1 - pi_1y2) / (pi_1x1 - pi_1x2));
+                vc.ld_propuesto1.setBackground(Color.lightGray);
+            } else {
+                vc.ld_propuesto1.setBackground(Color.red);
+            }
+
+            double valor_pi_y = 0.0;
+            int i = 0;
+            if (sum_fi_mr < sum[sum.length - 1]) {
+                while (sum[i] < sum_fi_mr) {
+                    i++;
+                }
+                //interpolando primer baston para encontrar el punto exacto teniendo ya x(momento) y buscando y(longitud)     
+                double pi_x1 = sum[i - 1];
+                double pi_x2 = sum[i];
+                double pi_y1 = long2[i - 1];
+                double pi_y2 = long2[i];
+                valor_pi_y = pi_y2 + (sum_fi_mr - pi_x2) * ((pi_y1 - pi_y2) / (pi_x1 - pi_x2));
+            }
+
+            //longitud de corte
+            double lc = Math.max(ld + valor_pi_y * 100, la + valor_pi_1y * 100);
+            vc.ld_propuesto1.setText(String.valueOf(lc));
+
+        } else {
+            vc.ld_propuesto1.setBackground(Color.lightGray);
+            vc.ld_propuesto1.setText(String.valueOf(0.0));
+        }
+        System.out.println("");
     }
 
     //bastón 2
     public void baston2() {
+        System.out.println("Baston 2***********");
+        double db = 0.0;
         double as3 = (100 / separacion3) * area_steel3;
         if (vc.varillas2.getSelectedIndex() != 0) {// esto se hace para dar evitar que se use baston2 sin tewner un basonn1
             switch (vc.varillas3.getSelectedIndex()) {
                 case 0:
                     area_steel3 = 0;
+                    db = 0.0;
                     break;
                 case 1:
                     area_steel3 = 0.71;
+                    db = 0.95;
                     break;
                 case 2:
                     area_steel3 = 1.27;
+                    db = 1.27;
                     break;
                 case 3:
                     area_steel3 = 1.98;
+                    db = 1.59;
                     break;
                 case 4:
                     area_steel3 = 2.85;
+                    db = 1.91;
                     break;
                 case 5:
                     area_steel3 = 5.07;
+                    db = 2.54;
                     break;
                 case 6:
                     area_steel3 = 7.92;
+                    db = 3.18;
                     break;
                 case 7:
                     area_steel3 = 11.40;
+                    db = 3.81;
                     break;
             }
             switch (vc.separacion3.getSelectedIndex()) {
@@ -2375,14 +2478,14 @@ public class Controladora1 implements KeyListener, FocusListener, ActionListener
             h = (Double.parseDouble(vc.l2.getText()) - (Double.parseDouble(vc.l2.getText()) - Double.parseDouble(vc.a1.getText())) / (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText())) * Double.parseDouble(vc.h2.getText())) * 100;
             d = redondeo((h - (r)), 2) / 100;
             m1 = redondeo(Double.parseDouble(vc.fy.getText()) / (0.85 * Double.parseDouble(vc.fc.getText())), 2);
-            System.out.println("esta carajo es m1 " + m1);
-            System.out.println("esta carajo es h " + h);
-            System.out.println("esta carajo es d " + d);
+//            System.out.println("esta carajo es m1 " + m1);
+//            System.out.println("esta carajo es h " + h);
+//            System.out.println("esta carajo es d " + d);
 //        double as3 = (100 / separacion3) * area_steel3;
             as3 /= 100;
-            System.out.println("esta carajo es as3 " + as3);
-            System.out.println("esta carajo es as3 " + as3 / 100);
-            System.out.println("esta carajo es as3 " + as3 / (100 * 100));
+//            System.out.println("esta carajo es as3 " + as3);
+//            System.out.println("esta carajo es as3 " + as3 / 100);
+//            System.out.println("esta carajo es as3 " + as3 / (100 * 100));
             fi_mr3 = redondeo(fi_f * ((as3 / 100) / (b * d) * fy * (1 - ((as3 / 100) / (b * d)) * m1 * 0.5) * (b * d * d)), 2);
             fi_mr3 *= 10;
             vc.as3.setText(String.valueOf(as3 * 100));
@@ -2392,10 +2495,87 @@ public class Controladora1 implements KeyListener, FocusListener, ActionListener
             vc.fi_mr3.setText(String.valueOf(0.0));
         }
 
-//            double as3 = (100 / separacion3) * area_steel3;
-//            fi_mr3 = Double.parseDouble(vc.fi_f.getText()) * (as3 / (b * d) * Double.parseDouble(vc.fy.getText()) * (1 - (as3 / (b * d)) * m1 * 0.5) * (b * d * d));
-//            vc.as3.setText(String.valueOf(as3));
-//            vc.fi_mr3.setText(String.valueOf(fi_mr3));
+        //lonjgitud de corte o desarrollo voy a utilizar las constantes a pesar de que sean 1, por si acaso.
+        double fy = Double.parseDouble(vc.fy.getText());
+        double fc = Double.parseDouble(vc.fc.getText());
+        double psi_t = 1.0;
+        double psi_e = 1.0;
+        double cons = 1.0;
+        //double H = Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText());
+        double espesor = Double.parseDouble(vc.a1.getText());
+        //longitud de desarrollo
+        double ld = (fy * psi_t * psi_e * db * 1.3) / (6.6 * cons * Math.sqrt(fc));
+        System.out.println("ld " + ld);
+        double rec = 2.5;
+        switch (vc.r.getSelectedIndex()) {
+            case 0:
+                rec = 2.5;
+                break;
+            case 1:
+                rec = 5.0;
+                break;
+            case 2:
+                rec = 7.5;
+                break;
+        }
+        // d = peralte_efect
+        double peralte_efect = espesor * 100 - rec; //d
+        System.out.println("d " + peralte_efect);
+        System.out.println("12*db " + 12 * db);
+        System.out.println("db " + db);
+        //longitud de anclaje
+        double la = Math.max(12 * db, peralte_efect);
+        System.out.println("la " + la);
+
+        System.out.println("sum[sum.length - 1] " + sum[sum.length - 1]);
+        System.out.println("fi_mr2 " + fi_mr2);
+        System.out.println("fi_mr3 " + fi_mr3);
+
+        double fi_mr2 = Double.parseDouble(vc.fi_mr1.getText()) + Double.parseDouble(vc.fi_mr2.getText());
+        double sum_fi_mr = Double.parseDouble(vc.sum_fi_mr.getText());
+        if (vc.varillas3.getSelectedIndex() != 0 && vc.varillas2.getSelectedIndex() != 0) {
+
+            double valor_pi_1y = 0.0;
+            if (fi_mr2 < sum[sum.length - 1]) {
+                int j=0;
+                while (sum[j] < fi_mr2) {
+                    j++;
+                }
+                //double pia = long2[i-1];
+                //interpolando primer acero corrido para encontrar el punto exacto teniendo ya x(momento) y buscando y(longitud)
+                double pi_1x1 = sum[j - 1];
+                double pi_1x2 = sum[j];
+                double pi_1y1 = long2[j - 1];
+                double pi_1y2 = long2[j];
+                valor_pi_1y = pi_1y2 + (fi_mr2 - pi_1x2) * ((pi_1y1 - pi_1y2) / (pi_1x1 - pi_1x2));
+               vc.ld_propuesto2.setBackground(Color.lightGray);
+            } else {
+                vc.ld_propuesto2.setBackground(Color.red);
+            }
+
+            int i = 0;
+            double valor_pi_y = 0.0;
+            if (sum_fi_mr < sum[sum.length - 1]) {
+                while (sum[i] < sum_fi_mr) {
+                    i++;
+                }
+                //interpolando primer baston para encontrar el punto exacto teniendo ya x(momento) y buscando y(longitud)     
+                double pi_x1 = sum[i - 1];
+                double pi_x2 = sum[i];
+                double pi_y1 = long2[i - 1];
+                double pi_y2 = long2[i];
+                valor_pi_y = pi_y2 + (sum_fi_mr - pi_x2) * ((pi_y1 - pi_y2) / (pi_x1 - pi_x2));
+            }
+            
+            //longitud de corte
+            double lc = Math.max(ld + valor_pi_y * 100, la + valor_pi_1y * 100);
+            vc.ld_propuesto2.setText(String.valueOf(lc));
+
+        } else {
+            vc.ld_propuesto2.setText(String.valueOf(0.0));
+            vc.ld_propuesto2.setBackground(Color.lightGray);
+        }
+
     }
 
     //acero en temperatura

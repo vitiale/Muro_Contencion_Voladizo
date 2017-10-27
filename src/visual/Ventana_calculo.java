@@ -444,6 +444,8 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
         jLabel4.setText("d2-[m]");
         jPanel2.add(jLabel4);
 
+        d2.setEditable(false);
+        d2.setBackground(new java.awt.Color(204, 204, 204));
         d2.setText("0.2");
         jPanel2.add(d2);
 
@@ -472,6 +474,8 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
         jLabel8.setText("l2-[m]");
         jPanel2.add(jLabel8);
 
+        l2.setEditable(false);
+        l2.setBackground(new java.awt.Color(204, 204, 204));
         l2.setText("0.35");
         jPanel2.add(l2);
 
@@ -824,7 +828,7 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
         jPanel26.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gráfico", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fotos/muro6.jpg"))); // NOI18N
+        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fotos/mb_2.jpg"))); // NOI18N
         jLabel22.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         jPanel26.add(jLabel22);
 
@@ -931,7 +935,7 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
         jPanel13.add(ld_propuesto1);
 
         jLabel82.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel82.setText("Ld");
+        jLabel82.setText("Ld-[cm]");
         jPanel13.add(jLabel82);
 
         ld1.setText("0.0");
@@ -988,7 +992,7 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
         jPanel14.add(ld_propuesto2);
 
         jLabel100.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel100.setText("Ld");
+        jLabel100.setText("Ld-[cm]");
         jPanel14.add(jLabel100);
 
         ld2.setText("0.0");
