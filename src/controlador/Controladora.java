@@ -1526,8 +1526,8 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
 //            System.out.println((j + 1) + "                      " + v1[j] + "                      " + v2[j] + "                      " + vrb[j] + "                      " + vs[j] + "                      " + sum_mcv[j]);
 //            System.out.println("_______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________");
 //        }
-        vc.m_max.setText(String.valueOf(sum[sum.length - 1]));
-        vc.v_max.setText(String.valueOf(Vmax));
+        vc.m_max.setText(String.valueOf( redondeo(sum[sum.length - 1],2) ));
+        vc.v_max.setText(String.valueOf(redondeo(Vmax,2)));
         if (vc.momento.isSelected()) {
             dm = new Diagrama_momento(sum, long2, altura_muro, posicion_as, posicion_baston1, posicion_baston2, long_baston1, long_baston2);
             dm.setVisible(true);
@@ -1587,23 +1587,23 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
         }
     }
 
-    public void ka_kp(int tipo_suelo) {
-
-        double res;
-        double res1;
-        if (tipo_suelo == 1) {
-            res = redondeo(Math.pow(Math.tan((45 * conversion) - Double.parseDouble(vc.fi1.getText()) / 2), 2), 2);
-            vc.ka1.setText(String.valueOf(res));
-            res1 = Math.pow(Math.tan((45 * conversion) + Double.parseDouble(vc.fi1.getText())), 2);
-            vc.kp1.setText(String.valueOf(res1));
-        } else {
-            res = Math.pow(Math.tan((45 * conversion) - Double.parseDouble(vc.fi2.getText()) / 2), 2);
-            vc.ka2.setText(String.valueOf(res));
-            res1 = Math.pow(Math.tan((45 * conversion) + Double.parseDouble(vc.fi2.getText())), 2);
-            vc.kp2.setText(String.valueOf(res1));
-        }
-
-    }
+//    public void ka_kp(int tipo_suelo) {
+//
+//        double res;
+//        double res1;
+//        if (tipo_suelo == 1) {
+//            res = redondeo(Math.pow(Math.tan((45 * conversion) - Double.parseDouble(vc.fi1.getText()) / 2), 2), 2);
+//            vc.ka1.setText(String.valueOf(res));
+//            res1 = Math.pow(Math.tan((45 * conversion) + Double.parseDouble(vc.fi1.getText())), 2);
+//            vc.kp1.setText(String.valueOf(res1));
+//        } else {
+//            res = Math.pow(Math.tan((45 * conversion) - Double.parseDouble(vc.fi2.getText()) / 2), 2);
+//            vc.ka2.setText(String.valueOf(res));
+//            res1 = Math.pow(Math.tan((45 * conversion) + Double.parseDouble(vc.fi2.getText())), 2);
+//            vc.kp2.setText(String.valueOf(res1));
+//        }
+//
+//    }
 
     public void ka_kp() {
 
@@ -1622,7 +1622,7 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
                 / (Math.pow(Math.sin(beta * conversion), 2) * Math.sin((beta - delta) * conversion)
                 * (Math.pow(1 + Math.sqrt((Math.sin((delta + fi1) * conversion) * Math.sin((fi1 - alpha) * conversion)) / Math.sin(((beta - delta) * conversion - theta)) * Math.sin((beta + alpha) * conversion)), 2)));
 
-        vc.ka1.setText(String.valueOf(ka));
+        vc.ka1.setText(String.valueOf( redondeo(ka, 2) ));
 
     }
 
@@ -1921,8 +1921,8 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
         A = Double.parseDouble(vc.l1.getText()) + Double.parseDouble(vc.l2.getText()) + Double.parseDouble(vc.l3.getText());
         c = ((Double.parseDouble(vc.l1.getText()) + Double.parseDouble(vc.l2.getText()) + Double.parseDouble(vc.l3.getText())) / 2);
         i = redondeo((Math.pow(Double.parseDouble(vc.l1.getText()) + Double.parseDouble(vc.l2.getText()) + Double.parseDouble(vc.l3.getText()), 3) / 12), 2);
-        double q_max = (Double.parseDouble(vc.sum_v.getText()) / A) + (ma * c) / i;
-        double q_min = (Double.parseDouble(vc.sum_v.getText()) / A) - (ma * c) / i;
+        double q_max = redondeo((Double.parseDouble(vc.sum_v.getText()) / A) + (ma * c) / i , 2);
+        double q_min = redondeo((Double.parseDouble(vc.sum_v.getText()) / A) - (ma * c) / i , 2);
         vc.q_max.setText(String.valueOf(q_max));
         vc.q_min.setText(String.valueOf(q_min));
         //preguntar por la estructura correcta de las comparaciones
@@ -2032,12 +2032,12 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
 
         double m = pa * (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText())) / 3 + variacion_pae * (0.6 * (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText())));
 
-        vc.ka1.setText(String.valueOf(ka));
+        vc.ka1.setText(String.valueOf(redondeo(ka, 2)));
 
-        vc.pae.setText(String.valueOf(pae));
-        vc.pa.setText(String.valueOf(pa));
-        vc.variacion_pae.setText(String.valueOf(variacion_pae));
-        vc.m.setText(String.valueOf(m));
+        vc.pae.setText(String.valueOf( redondeo(pae,2) ));
+        vc.pa.setText(String.valueOf( redondeo(pa,2) ));
+        vc.variacion_pae.setText(String.valueOf( redondeo(variacion_pae,2) ));
+        vc.m.setText(String.valueOf(redondeo(m,2)));
 
     }
 
@@ -2132,8 +2132,8 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
         System.out.println("esta carajo es as1 " + as1 / (100 * 100));
         fi_mr1 = redondeo(fi_f * ((as1 / 100) / (b * d) * fy * (1 - ((as1 / 100) / (b * d)) * m1 * 0.5) * (b * d * d)), 2);
         fi_mr1 *= 10;
-        vc.as1.setText(String.valueOf(as1 * 100));
-        vc.fi_mr1.setText(String.valueOf(fi_mr1));
+        vc.as1.setText(String.valueOf(redondeo(as1 * 100,2)));
+        vc.fi_mr1.setText(String.valueOf(redondeo(fi_mr1,2)));
 
     }
 
@@ -2225,8 +2225,8 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
         as2 /= 100;
         fi_mr2 = redondeo(fi_f * ((as2 / 100) / (b * d) * fy * (1 - ((as2 / 100) / (b * d)) * m1 * 0.5) * (b * d * d)), 2);
         fi_mr2 *= 10;
-        vc.as2.setText(String.valueOf(as2 * 100));
-        vc.fi_mr2.setText(String.valueOf(fi_mr2));
+        vc.as2.setText(String.valueOf(redondeo(as2 * 100,2)));
+        vc.fi_mr2.setText(String.valueOf(redondeo(fi_mr2,2)));
 
         //lonjgitud de corte o desarrollo voy a utilizar las constantes a pesar de que sean 1, por si acaso.
         double fc = Double.parseDouble(vc.fc.getText());
@@ -2290,7 +2290,7 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
 
             //longitud de corte
             double lc = Math.max(ld + valor_pi_y * 100, la + valor_pi_1y * 100);
-            vc.ld_propuesto1.setText(String.valueOf(lc));
+            vc.ld_propuesto1.setText(String.valueOf(redondeo(lc,2)));
 
         } else {
             vc.ld_propuesto1.setBackground(Color.lightGray);
@@ -2394,8 +2394,8 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
 //            System.out.println("esta carajo es as3 " + as3 / (100 * 100));
             fi_mr3 = redondeo(fi_f * ((as3 / 100) / (b * d) * fy * (1 - ((as3 / 100) / (b * d)) * m1 * 0.5) * (b * d * d)), 2);
             fi_mr3 *= 10;
-            vc.as3.setText(String.valueOf(as3 * 100));
-            vc.fi_mr3.setText(String.valueOf(fi_mr3));
+            vc.as3.setText(String.valueOf(redondeo(as3 * 100,2)));
+            vc.fi_mr3.setText(String.valueOf(redondeo(fi_mr3,2)));
         } else {
             vc.as3.setText(String.valueOf(0.0));
             vc.fi_mr3.setText(String.valueOf(0.0));
@@ -2475,7 +2475,7 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
             
             //longitud de corte
             double lc = Math.max(ld + valor_pi_y * 100, la + valor_pi_1y * 100);
-            vc.ld_propuesto2.setText(String.valueOf(lc));
+            vc.ld_propuesto2.setText(String.valueOf(redondeo(lc,2)));
 
         } else {
             vc.ld_propuesto2.setText(String.valueOf(0.0));
@@ -2566,7 +2566,7 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
             vc.as4.setBackground(Color.lightGray);
         }
 
-        vc.as4.setText(String.valueOf(As));
+        vc.as4.setText(String.valueOf(redondeo(As,2)));
 
     }
 
@@ -2580,9 +2580,9 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
         double sum_fi_mr = fi_mr1 + fi_mr2 + fi_mr3;
         double fi_vc = fi_v * 0.53 * Math.sqrt(fi_fc) * b * d;
         fi_vc *= 10;
-        vc.fi_vc.setText(String.valueOf(fi_vc));
+        vc.fi_vc.setText(String.valueOf(redondeo(fi_vc,2)));
         System.out.println("fi_vc " + fi_vc);
-        vc.sum_fi_mr.setText(String.valueOf(sum_fi_mr));
+        vc.sum_fi_mr.setText(String.valueOf(redondeo(sum_fi_mr,2)));
 
         //Aquí coenzamos los calculos de momento
         System.out.println("sigma_a " + sigma_a);
@@ -2645,8 +2645,8 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
         System.out.println("");
         System.out.println("");
 
-        vc.m_max.setText(String.valueOf(sum[sum.length - 1]));
-        vc.v_max.setText(String.valueOf(Vmax));
+        vc.m_max.setText(String.valueOf(redondeo(sum[sum.length - 1],2)));
+        vc.v_max.setText(String.valueOf(redondeo(Vmax,2)));
 
         //dm = new Diagrama_momento(sum, long2);
         //dm.setVisible(true);
