@@ -373,12 +373,18 @@ public class Proyecto implements Serializable{
                 String num_varilla_armado_corrido = tipo_varillas(Integer.parseInt(lista.get(j).getLista_muro().get(49)));
                 
                 boolean baston=true;
+                boolean baston2=true;
                 String num_varilla_baston1 = tipo_varillas(Integer.parseInt(lista.get(j).getLista_muro().get(55)));
                 String num_varilla_baston2 = tipo_varillas(Integer.parseInt(lista.get(j).getLista_muro().get(61)));
                 if(Integer.parseInt(lista.get(j).getLista_muro().get(55))==0){
                     baston=false;
                 }else{
                     baston=true;
+                }
+                if(Integer.parseInt(lista.get(j).getLista_muro().get(61))==0){
+                    baston2=false;
+                }else{
+                    baston2=true;
                 }
                 String separacion_varillas_profundidad_baston1 = tipo_separacion(Integer.parseInt(lista.get(j).getLista_muro().get(59)));
                 String separacion_varillas_profundidad_baston2 = tipo_separacion(Integer.parseInt(lista.get(j).getLista_muro().get(65)));
@@ -390,6 +396,7 @@ public class Proyecto implements Serializable{
                 
                 //double dist_baston = 100/scala;
                 double dist_baston = Double.parseDouble(lista.get(j).getLista_muro().get(60))/scala;
+                double dist_baston2 = Double.parseDouble(lista.get(j).getLista_muro().get(66))/scala;
                 double alto_losa = 15.0 / scala;
                 double largo_losa;
                 if(izq_zapata<=0)
@@ -447,9 +454,12 @@ public class Proyecto implements Serializable{
                     pw.println("mirror " + (h + diametro_varillas_temperatura / 2) + "," + (y + bajo_zapata + recubrimiento + diametro_varillas_temperatura) + "  " + (pto_medio_zapata_x) + "," + (pto_medio_zapata_y) + " " + (pto_medio_zapata_x + 0.5) + "," + (pto_medio_zapata_y) + " N  ");
                     cont_pos_varillas_horiz = h;
                 }
-                //baston
+                //bastones
                 if (baston) {
-                    pw.println("pline " + (x + ancho - recubrimiento - diametro_varillas_temperatura) + "," + (y + bajo_zapata + altura_zapata) + " " + (x + ancho - recubrimiento - diametro_varillas_temperatura) + "," + (y + bajo_zapata + altura_zapata + dist_baston) + " ");
+                    pw.println("pline " + (x + ancho - recubrimiento - 2*diametro_varillas_temperatura) + "," + (y + bajo_zapata + altura_zapata) + " " + (x + ancho - recubrimiento - 2*diametro_varillas_temperatura) + "," + (y + bajo_zapata + altura_zapata + dist_baston) + " ");
+                }
+                if (baston2) {
+                    pw.println("pline " + (x + ancho - recubrimiento - 4*diametro_varillas_temperatura) + "," + (y + bajo_zapata + altura_zapata) + " " + (x + ancho - recubrimiento - 4*diametro_varillas_temperatura) + "," + (y + bajo_zapata + altura_zapata + dist_baston2) + " ");
                 }
 
                 pw.println("-layer s 0 ");

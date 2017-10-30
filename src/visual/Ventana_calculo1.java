@@ -344,28 +344,28 @@ public class Ventana_calculo1 extends javax.swing.JInternalFrame {
         jPanel3.setLayout(new java.awt.GridLayout(6, 2, 2, 2));
 
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel19.setText("ϕ1");
+        jLabel19.setText("Ángulo de fricción (ϕ1)-[°]");
         jPanel3.add(jLabel19);
 
         fi1.setText("30.0");
         jPanel3.add(fi1);
 
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel20.setText("γ1");
+        jLabel20.setText("Densidad  estrato 1 (γ1)-[t/m³]");
         jPanel3.add(jLabel20);
 
         gamma1.setText("1.75");
         jPanel3.add(gamma1);
 
         jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel21.setText("Sc");
+        jLabel21.setText("Sobrecarga (Sc)-[t/m²]");
         jPanel3.add(jLabel21);
 
         sc.setText("5.0");
         jPanel3.add(sc);
 
         jLabel_ka1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel_ka1.setText("Ka");
+        jLabel_ka1.setText("Coef. empuje activo (Ka)");
         jPanel3.add(jLabel_ka1);
 
         ka1.setEditable(false);
@@ -374,7 +374,7 @@ public class Ventana_calculo1 extends javax.swing.JInternalFrame {
         jPanel3.add(ka1);
 
         jLabel_kp1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel_kp1.setText("Kp");
+        jLabel_kp1.setText("Coef. empuje pasivo (Kp)");
         jPanel3.add(jLabel_kp1);
 
         kp1.setEditable(false);
@@ -390,35 +390,35 @@ public class Ventana_calculo1 extends javax.swing.JInternalFrame {
         jPanel4.setLayout(new java.awt.GridLayout(6, 2, 2, 2));
 
         jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel25.setText("ϕ2");
+        jLabel25.setText("Ángulo de fricción (ϕ2)-[°]");
         jPanel4.add(jLabel25);
 
         fi2.setText("30.0");
         jPanel4.add(fi2);
 
         jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel26.setText("γ2");
+        jLabel26.setText("Densidad estrato 2 (γ2)-[t/m³]");
         jPanel4.add(jLabel26);
 
         gamma2.setText("1.75");
         jPanel4.add(gamma2);
 
         jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel27.setText("C'");
+        jLabel27.setText("Coef. de cohesión (C')");
         jPanel4.add(jLabel27);
 
         c.setText("0.0");
         jPanel4.add(c);
 
         jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel28.setText("Qad-[tonnef/m²]");
+        jLabel28.setText("Carga admisible (qad)-[t/m²]");
         jPanel4.add(jLabel28);
 
         qad.setText("20.7");
         jPanel4.add(qad);
 
         jLabel_kp2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel_kp2.setText("Kp");
+        jLabel_kp2.setText("Coef. empuje pasivo (Kp)");
         jPanel4.add(jLabel_kp2);
 
         kp2.setEditable(false);
@@ -525,7 +525,7 @@ public class Ventana_calculo1 extends javax.swing.JInternalFrame {
         jPanel6.setLayout(new java.awt.GridLayout(4, 4, 2, 2));
 
         jLabel34.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel34.setText("Wp");
+        jLabel34.setText("Peso del relleno (Wp)-[t]");
         jPanel6.add(jLabel34);
 
         wp.setEditable(false);
@@ -534,7 +534,7 @@ public class Ventana_calculo1 extends javax.swing.JInternalFrame {
         jPanel6.add(wp);
 
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel13.setText("MWp");
+        jLabel13.setText("Momento por relleno (MWp)-[t-m]");
         jPanel6.add(jLabel13);
 
         mwp.setEditable(false);
@@ -543,7 +543,7 @@ public class Ventana_calculo1 extends javax.swing.JInternalFrame {
         jPanel6.add(mwp);
 
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel17.setText("Wa");
+        jLabel17.setText("Empuje de tierra (Wa)-[t]");
         jPanel6.add(jLabel17);
 
         wa.setEditable(false);
@@ -552,7 +552,7 @@ public class Ventana_calculo1 extends javax.swing.JInternalFrame {
         jPanel6.add(wa);
 
         jLabel40.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel40.setText("MWa");
+        jLabel40.setText("Momento por empuje (MWa)-[t-m]");
         jPanel6.add(jLabel40);
 
         mwa.setEditable(false);
@@ -561,7 +561,7 @@ public class Ventana_calculo1 extends javax.swing.JInternalFrame {
         jPanel6.add(mwa);
 
         jLabel36.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel36.setText("P propio");
+        jLabel36.setText("Peso propio (Pp)-[t]");
         jPanel6.add(jLabel36);
 
         p_propio.setEditable(false);
@@ -570,7 +570,7 @@ public class Ventana_calculo1 extends javax.swing.JInternalFrame {
         jPanel6.add(p_propio);
 
         jLabel39.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel39.setText("Mpp");
+        jLabel39.setText("Momento peso propio (Mpp)-[t-m]");
         jPanel6.add(jLabel39);
 
         mpp.setEditable(false);
@@ -579,7 +579,7 @@ public class Ventana_calculo1 extends javax.swing.JInternalFrame {
         jPanel6.add(mpp);
 
         jLabel35.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel35.setText("Fs volteo");
+        jLabel35.setText("Seguridad a volteo (FS)");
         jPanel6.add(jLabel35);
 
         fs_v.setEditable(false);
@@ -602,7 +602,7 @@ public class Ventana_calculo1 extends javax.swing.JInternalFrame {
         jPanel7.setLayout(new java.awt.GridLayout(4, 4, 2, 2));
 
         jLabel42.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel42.setText("α");
+        jLabel42.setText("Ángulo (α)-[°]");
         jPanel7.add(jLabel42);
 
         alpha.setText("0");
@@ -849,7 +849,7 @@ public class Ventana_calculo1 extends javax.swing.JInternalFrame {
         jPanel26.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gráfico", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fotos/mb_5.jpg"))); // NOI18N
+        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fotos/mb_6.jpg"))); // NOI18N
         jLabel22.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         jPanel26.add(jLabel22);
 

@@ -474,18 +474,20 @@ public class Controladora1 implements KeyListener, FocusListener, ActionListener
             temp_a1 = vc.a1.getText();
             vc.a1.selectAll();
             vc.a1.setBackground(Color.WHITE);
-        } else if (e.getSource() == vc.d2) {
-            temp_d2 = vc.d2.getText();
-            vc.d2.selectAll();
             vc.d2.setBackground(Color.lightGray);
+            vc.l2.setBackground(Color.lightGray);
+//        } else if (e.getSource() == vc.d2) {
+//            temp_d2 = vc.d2.getText();
+//            vc.d2.selectAll();
+//            vc.d2.setBackground(Color.lightGray);
         } else if (e.getSource() == vc.l1) {
             temp_l1 = vc.l1.getText();
             vc.l1.selectAll();
             vc.l1.setBackground(Color.WHITE);
-        } else if (e.getSource() == vc.l2) {
-            temp_l2 = vc.l2.getText();
-            vc.l2.selectAll();
-            vc.l2.setBackground(Color.lightGray);
+//        } else if (e.getSource() == vc.l2) {
+//            temp_l2 = vc.l2.getText();
+//            vc.l2.selectAll();
+//            vc.l2.setBackground(Color.lightGray);
         } else if (e.getSource() == vc.l3) {
             temp_l3 = vc.l3.getText();
             vc.l3.selectAll();
@@ -543,7 +545,7 @@ public class Controladora1 implements KeyListener, FocusListener, ActionListener
                 ejecutor();
             }
         } else if (e.getSource() == vc.sc) {
-            if (ChecarErrores.Dobles_menor_igual(vc.sc.getText()) == 1) {
+            if (ChecarErrores.Dobles_menor(vc.sc.getText()) == 1) {
                 vc.sc.setText(temp_sc);
                 vc.sc.setBackground(Color.ORANGE);
             } else {
@@ -2397,7 +2399,7 @@ public void baston1() {
     public void baston2() {
         System.out.println("Baston 2***********");
         double db = 0.0;
-        double as3 = (100 / separacion3) * area_steel3;
+        //double as3 = (100 / separacion3) * area_steel3;
         if (vc.varillas2.getSelectedIndex() != 0) {// esto se hace para dar evitar que se use baston2 sin tewner un basonn1
             switch (vc.varillas3.getSelectedIndex()) {
                 case 0:
@@ -2481,7 +2483,7 @@ public void baston1() {
 //            System.out.println("esta carajo es m1 " + m1);
 //            System.out.println("esta carajo es h " + h);
 //            System.out.println("esta carajo es d " + d);
-//        double as3 = (100 / separacion3) * area_steel3;
+            double as3 = (100 / separacion3) * area_steel3;
             as3 /= 100;
 //            System.out.println("esta carajo es as3 " + as3);
 //            System.out.println("esta carajo es as3 " + as3 / 100);
