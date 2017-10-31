@@ -41,6 +41,8 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
         
         initComponents();
         setBounds(0, 0, 1850, 1010);
+        
+        //pack();
         //setPreferredSize(getMaximumSize());
     }
 
