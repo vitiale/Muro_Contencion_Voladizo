@@ -1822,7 +1822,7 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
         double sc = Double.parseDouble(vc.sc.getText());
         double ka = Double.parseDouble(vc.ka1.getText());
 
-        double pa = 0.5 * ka * gamma1 * Math.pow(h1 + h2, 2)/* + ka * (h1 + h2) * sc * Math.sin(beta * conversion) / Math.sin((beta + alpha) * conversion)*/;
+        double pa = 0.5 * ka * gamma1 * Math.pow(h1 + h2, 2) + ka * (h1 + h2) * sc * Math.sin(beta * conversion) / Math.sin((beta + alpha) * conversion);
         mpa = pa * (h1 + h2) / 3;
         //mpa = redondeo((0.5 * Double.parseDouble(vc.ka1.getText()) * Double.parseDouble(vc.gamma1.getText()) * Math.pow(Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText()), 2) * (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText())) / 3), 2);
         System.out.println("ka " + ka);
@@ -1873,7 +1873,7 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
         double ka = Double.parseDouble(vc.ka1.getText());
         //en la memoria hay dos formulas distintas para pa, aqui se va A aplicar la mas larga para que esto de**************************************************
         //double pa = redondeo((0.5 * Double.parseDouble(vc.ka1.getText()) * Double.parseDouble(vc.gamma2.getText()) * Math.pow(Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText()), 2)), 2);
-        double pa = 0.5 * ka * gamma1 * Math.pow(h1 + h2, 2)/* + ka * (h1 + h2) * sc * Math.sin(beta * conversion) / Math.sin((beta + alpha) * conversion)*/;
+        double pa = 0.5 * ka * gamma1 * Math.pow(h1 + h2, 2) + ka * (h1 + h2) * sc * Math.sin(beta * conversion) / Math.sin((beta + alpha) * conversion);
         double Pp = redondeo(0.5 * Double.parseDouble(vc.kp2.getText()) * Double.parseDouble(vc.gamma2.getText()) * Math.pow(Double.parseDouble(vc.h2.getText()) + Double.parseDouble(vc.d1.getText()), 2) + 2 * Double.parseDouble(vc.c.getText())
                 * Math.sqrt(Double.parseDouble(vc.kp2.getText())) * (Double.parseDouble(vc.h2.getText()) + Double.parseDouble(vc.d1.getText())), 2);
 
@@ -1911,7 +1911,7 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
         double l2 = Double.parseDouble(vc.l2.getText());
         double l3 = Double.parseDouble(vc.l3.getText());
 
-        double pa = 0.5 * ka * gamma1 * Math.pow(h1 + h2, 2)/* + ka * (h1 + h2) * sc * Math.sin(beta * conversion) / Math.sin((beta + alpha) * conversion)*/;
+        double pa = 0.5 * ka * gamma1 * Math.pow(h1 + h2, 2) + ka * (h1 + h2) * sc * Math.sin(beta * conversion) / Math.sin((beta + alpha) * conversion);
         mpa = pa * (h1 + h2) / 3;
 
         //mpa = redondeo((0.5 * Double.parseDouble(vc.ka1.getText()) * Double.parseDouble(vc.gamma1.getText()) * Math.pow(Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText()), 2) * (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText())) / 3), 2);
@@ -2025,7 +2025,7 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
         double pae = 0.5 * Double.parseDouble(vc.gamma1.getText()) * Math.pow(Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText()), 2) * (1 - Double.parseDouble(vc.kv.getText())) * kae;
         //double pae = redondeo(0.5 * gamma1 * Math.pow(h1 + h2, 2) * (1 - kv) * kae, 2);
 
-        double pa = 0.5 * ka * gamma1 * Math.pow(h1 + h2, 2)/* + ka * (h1 + h2) * sc * Math.sin(beta * conversion) / Math.sin((beta + alpha) * conversion)*/;
+        double pa = 0.5 * ka * gamma1 * Math.pow(h1 + h2, 2) + ka * (h1 + h2) * sc * Math.sin(beta * conversion) / Math.sin((beta + alpha) * conversion);
 //            double pa = redondeo((0.5 * Double.parseDouble(vc.ka1.getText()) * Double.parseDouble(vc.gamma1.getText()) * Math.pow(Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText()), 2)
 //                    + Double.parseDouble(vc.ka1.getText()) * (Double.parseDouble(vc.h1.getText()) + Double.parseDouble(vc.h2.getText())) * Double.parseDouble(vc.sc.getText()) 
 //                    * (Math.sin(beta*conversion))/Math.sin((beta-alpha)*conversion)  ), 2);
