@@ -493,35 +493,51 @@ public class Proyecto implements Serializable{
                 //escala ancho la de arriba
                 pw.println("dimlinear " + (x) + "," + (y + altura) + " " + (x + ancho) + "," + (y + altura) + " h t " + Math.round(ancho * scala));
                 pw.println((x + ancho / 2) + "," + (y + altura + 0.6));
-                //escala 
+                //escala de abajo completa
                 pw.println("dimlinear " + (x - izq_zapata) + "," + (y + bajo_zapata) + " " + (x + ancho + drcha_zapata) + "," + (y + bajo_zapata) + " h t " + Math.round(largo_zapata * scala));
                 pw.println((x + largo_zapata / 2) + "," + (y - ancho - 1.5));
-                pw.println("dimlinear " + (x) + "," + (y) + " " + (x - largo_losa) + "," + (y + dist_losa_fondo) + " v t " + Math.round(dist_losa_fondo * scala));
-                pw.println((x - largo_losa - 1.5) + "," + (y + dist_losa_fondo / 2));
+                //lateral izq
+                //if(Double.parseDouble(lista.get(j).getLista_muro().get(16))!=0){
+                    pw.println("dimlinear " + (x) + "," + (y) + " " + (x - largo_losa) + "," + (y + dist_losa_fondo) + " v t " + Math.round(dist_losa_fondo * scala));
+                    pw.println((x - largo_losa - 1.5) + "," + (y + dist_losa_fondo / 2));
+                //}                
+                //zapata
                 pw.println("dimlinear " + (x + ancho + drcha_zapata) + "," + (y + bajo_zapata) + " " + (x + ancho + drcha_zapata) + "," + (y + bajo_zapata + altura_zapata) + " v t " + Math.round(altura_zapata * scala));
                 pw.println((x + ancho + drcha_zapata + ancho + 1.0) + "," + (y + 0.2));
-                pw.println("dimlinear " + (x + ancho) + "," + (y + bajo_zapata) + " " + (x + ancho) + "," + (y) + " v t " + Math.round(bajo_zapata * scala));
-                pw.println((x + ancho + drcha_zapata + ancho + 1.0) + "," + (y + 0.2));
-                pw.println("dimlinear " + (x + ancho) + "," + (y + bajo_zapata + altura_zapata) + " " + (x + ancho) + "," + (y + altura) + " v t " + Math.round((altura - (bajo_zapata + altura_zapata)) * scala));
+                //dentellon
+                if(Double.parseDouble(lista.get(j).getLista_muro().get(12))!=0){
+                    pw.println("dimlinear " + (x + ancho + drcha_zapata) + "," + (y + bajo_zapata) + " " + (x + ancho) + "," + (y) + " v t " + Math.round(bajo_zapata * scala));
+                    pw.println((x + ancho + drcha_zapata + ancho + 1.0) + "," + (y + 0.2));
+                }
+                //
+                pw.println("dimlinear " + (x + ancho+drcha_zapata) + "," + (y + bajo_zapata + altura_zapata) + " " + (x + ancho+drcha_zapata) + "," + (y + altura) + " v t " + Math.round((altura - (bajo_zapata + altura_zapata)) * scala));
                 pw.println((x + ancho + drcha_zapata + ancho + 1.0) + "," + (y + 0.2));
                 //cota de baston
                 if(baston){
                     pw.println("dimlinear " + (x + ancho) + "," + (y + bajo_zapata + altura_zapata) + " " + (x + ancho) + "," + (y + bajo_zapata + altura_zapata + dist_baston) + " v t " + Math.round(dist_baston * scala));
-                pw.println((x + 2 * ancho + 1.5) + "," + (y + bajo_zapata + altura_zapata + 0.2));
+                    pw.println((x + 2 * ancho + 1.5) + "," + (y + bajo_zapata + altura_zapata + 0.2));
                 }
                 if(baston2){
                     pw.println("dimlinear " + (x + ancho) + "," + (y + bajo_zapata + altura_zapata) + " " + (x + ancho) + "," + (y + bajo_zapata + altura_zapata + dist_baston2) + " v t " + Math.round(dist_baston2 * scala));
-                pw.println((x + 2 * ancho + 1.0) + "," + (y + bajo_zapata + altura_zapata + 0.2));
+                    pw.println((x + 2 * ancho + 1.0) + "," + (y + bajo_zapata + altura_zapata + 0.2));
                 }
-                
-                pw.println("dimlinear " + (x - izq_zapata) + "," + (y + bajo_zapata) + " " + (x) + "," + (y + bajo_zapata) + " h t " + Math.round(izq_zapata * scala));
-                pw.println((x - ancho) + "," + (y - ancho - 1.0));
-                pw.println("dimlinear " + (x + ancho) + "," + (y + bajo_zapata) + " " + (x + ancho + drcha_zapata) + "," + (y + bajo_zapata) + " h t " + Math.round(drcha_zapata * scala));
+                //l1
+                if(Double.parseDouble(lista.get(j).getLista_muro().get(16))!=0){
+                    pw.println("dimlinear " + (x - izq_zapata) + "," + (y + bajo_zapata) + " " + (x) + "," + (y) + " h t " + Math.round(izq_zapata * scala));
+                    pw.println((x - ancho) + "," + (y - ancho - 1.0));
+                }
+                //l3
+                if(Double.parseDouble(lista.get(j).getLista_muro().get(18))!=0){
+                    pw.println("dimlinear " + (x + ancho) + "," + (y) + " " + (x + ancho + drcha_zapata) + "," + (y + bajo_zapata) + " h t " + Math.round(drcha_zapata * scala));
+                    pw.println((x + largo_zapata / 2) + "," + (y - ancho - 1.0));
+                }
+                //l2
+                pw.println("dimlinear " + (x) + "," + (y) + " " + (x + ancho) + "," + (y) + " h t " + Math.round(ancho * scala));
                 pw.println((x + largo_zapata / 2) + "," + (y - ancho - 1.0));
-                pw.println("dimlinear " + (x) + "," + (y + bajo_zapata) + " " + (x + ancho) + "," + (y + bajo_zapata) + " h t " + Math.round(ancho * scala));
-                pw.println((x + largo_zapata / 2) + "," + (y - ancho - 1.0));
+                //
                 pw.println("dimlinear " + (x) + "," + (y + altura - (altura / 5)) + " " + (x + recubrimiento) + "," + (y + altura - (altura / 5)) + " h t " + (recubrimiento * scala));
                 pw.println((x + recubrimiento / 2) + "," + (y + altura - (altura / 5)));
+                //
                 pw.println("dimlinear " + (x + ancho) + "," + (y + altura - (altura / 7)) + " " + (x + ancho - recubrimiento) + "," + (y + altura - (altura / 7)) + " h t " + (recubrimiento * scala));
                 pw.println((x + ancho + recubrimiento / 2) + "," + (y + altura - (altura / 7)));
                 
