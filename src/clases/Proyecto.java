@@ -374,8 +374,8 @@ public class Proyecto implements Serializable{
                 
                 boolean baston=true;
                 boolean baston2=true;
-                String num_varilla_baston1 = tipo_varillas(Integer.parseInt(lista.get(j).getLista_muro().get(55)));
-                String num_varilla_baston2 = tipo_varillas(Integer.parseInt(lista.get(j).getLista_muro().get(61)));
+                String num_varilla_baston1 = tipo_varillas(Integer.parseInt(lista.get(j).getLista_muro().get(55))-1);
+                String num_varilla_baston2 = tipo_varillas(Integer.parseInt(lista.get(j).getLista_muro().get(61))-1);
                 if(Integer.parseInt(lista.get(j).getLista_muro().get(55))==0){
                     baston=false;
                 }else{
@@ -509,6 +509,10 @@ public class Proyecto implements Serializable{
                     pw.println("dimlinear " + (x + ancho) + "," + (y + bajo_zapata + altura_zapata) + " " + (x + ancho) + "," + (y + bajo_zapata + altura_zapata + dist_baston) + " v t " + Math.round(dist_baston * scala));
                 pw.println((x + 2 * ancho + 1.5) + "," + (y + bajo_zapata + altura_zapata + 0.2));
                 }
+                if(baston2){
+                    pw.println("dimlinear " + (x + ancho) + "," + (y + bajo_zapata + altura_zapata) + " " + (x + ancho) + "," + (y + bajo_zapata + altura_zapata + dist_baston2) + " v t " + Math.round(dist_baston2 * scala));
+                pw.println((x + 2 * ancho + 1.0) + "," + (y + bajo_zapata + altura_zapata + 0.2));
+                }
                 
                 pw.println("dimlinear " + (x - izq_zapata) + "," + (y + bajo_zapata) + " " + (x) + "," + (y + bajo_zapata) + " h t " + Math.round(izq_zapata * scala));
                 pw.println((x - ancho) + "," + (y - ancho - 1.0));
@@ -542,14 +546,19 @@ public class Proyecto implements Serializable{
                 pw.println("qleader " + (x + recubrimiento) + "," + (cont_pos_varillas_vert - separacion_varillas_temperatura / 2) + " " + (x - ancho) + "," + (cont_pos_varillas_vert - separacion_varillas_temperatura / 2) + " " + (x - 2 * ancho + 1) + "," + (cont_pos_varillas_vert - separacion_varillas_temperatura / 2) + " " + 2.0 + " " + num_varilla_armado_corrido + separacion_varillas_profundidad);
                 pw.println();
                 if (baston) {
-                    pw.println("qleader " + (x + ancho - recubrimiento - diametro_varillas_temperatura) + "," + (y + bajo_zapata + altura_zapata + dist_baston / 2) + " " + (x + ancho - recubrimiento - diametro_varillas_temperatura + 2 * recubrimiento) + "," + (y + bajo_zapata + altura_zapata + dist_baston / 2) + " " + (x + ancho - recubrimiento - diametro_varillas_temperatura + 8 * recubrimiento) + "," + (y + bajo_zapata + altura_zapata + dist_baston / 2) + " " + 2.0 + " " + num_varilla_baston1 + separacion_varillas_profundidad_baston1);
+                    pw.println("qleader " + (x + ancho - recubrimiento - 2*diametro_varillas_temperatura) + "," + (y + bajo_zapata + altura_zapata + dist_baston / 2) + " " + (x + ancho - recubrimiento - 2*diametro_varillas_temperatura + 2 * recubrimiento) + "," + (y + bajo_zapata + altura_zapata + dist_baston / 2) + " " + (x + ancho - recubrimiento - diametro_varillas_temperatura + 6 * recubrimiento) + "," + (y + bajo_zapata + altura_zapata + dist_baston / 2) + " " + 2.0 + " " + num_varilla_baston1 + separacion_varillas_profundidad_baston1);
+                    pw.println();
+                }
+                if (baston2) {
+                    pw.println("qleader " + (x + ancho - recubrimiento - 4*diametro_varillas_temperatura) + "," + (y + bajo_zapata + altura_zapata + dist_baston2 / 2) + " " + (x + ancho - recubrimiento - 4*diametro_varillas_temperatura + 2 * recubrimiento) + "," + (y + bajo_zapata + altura_zapata + dist_baston2 / 2) + " " + (x + ancho - recubrimiento - diametro_varillas_temperatura + 6 * recubrimiento) + "," + (y + bajo_zapata + altura_zapata + dist_baston2 / 2) + " " + 2.0 + " " + num_varilla_baston2 + separacion_varillas_profundidad_baston2);
                     pw.println();
                 }
                 pw.println("qleader " + (x - izq_zapata / 2) + "," + (y + bajo_zapata + recubrimiento) + " " + (x - izq_zapata / 2) + "," + (y + bajo_zapata / 2) + " " + (x - izq_zapata + 2 * recubrimiento + diametro_varillas_temperatura / 2 - diametro_señal_varillas / 2 - ancho - 1.5) + "," + (y + bajo_zapata / 2) + " " + 2.0 + " " +num_varilla_armado_corrido + separacion_varillas_profundidad);
                 pw.println();
                 pw.println("qleader " + (x - izq_zapata / 2) + "," + (y + bajo_zapata + altura_zapata - recubrimiento) + " " + (x - izq_zapata / 2) + "," + (y + bajo_zapata + altura_zapata + bajo_zapata / 2) + " " + (x - izq_zapata + 2 * recubrimiento + diametro_varillas_temperatura / 2 - diametro_señal_varillas / 2 - ancho - 1.5) + "," + (y + bajo_zapata + altura_zapata + bajo_zapata / 2) + " " + 2.0 + " " + num_varilla_armado_corrido + separacion_varillas_profundidad);
                 pw.println();
-
+                
+                //descripcion plantilla de concreto
                 pw.println("qleader " + (x + ancho + drcha_zapata / 2) + "," + (y + bajo_zapata - recubrimiento) + " " + (x + ancho + drcha_zapata / 2) + "," + (y - ancho) + " " + (x + ancho + drcha_zapata + ancho + 1.0) + "," + (y - ancho) + " " + 4.0 + " " + "PLANTILLA DE CONCRETO\ne = 5 cm\nf'c = " + fc_plantilla);
                 pw.println();
 
