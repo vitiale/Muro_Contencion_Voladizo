@@ -1341,7 +1341,7 @@ public class Controladora implements KeyListener, FocusListener, ActionListener 
         System.out.println("");
         System.out.println("combo_almacen tiene " + vc.combo_almacen.getComponentCount());
         System.out.println("");
-        if (vc.combo_almacen.getComponentCount() != 0) {
+        if (vc.combo_almacen.getItemCount() != 0) {
             int estado = JOptionPane.showConfirmDialog(null, "Está seguro que quiere editar?\nTenga en cuenta que si no ha guardado el elemento en el que está trabajando perderá los datos.");
             if (estado == JOptionPane.YES_OPTION) {
                 cancelar();
