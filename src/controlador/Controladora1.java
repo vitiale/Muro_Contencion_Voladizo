@@ -349,13 +349,13 @@ public class Controladora1 implements KeyListener, FocusListener, ActionListener
             } else if (e.getSource() == vc.var_e) {
                 vc.a1.requestFocus();
             } else if (e.getSource() == vc.a1) {
+                vc.d2.requestFocus();
+            } else if (e.getSource() == vc.d2) {
                 vc.l1.requestFocus();
-//            } else if (e.getSource() == vc.d2) {
-//                vc.l1.requestFocus();
             } else if (e.getSource() == vc.l1) {
+                vc.l2.requestFocus();
+            } else if (e.getSource() == vc.l2) {
                 vc.l3.requestFocus();
-//            } else if (e.getSource() == vc.l2) {
-//                vc.l3.requestFocus();
             } else if (e.getSource() == vc.l3) {
                 vc.alpha.requestFocus();
             } else if (e.getSource() == vc.alpha) {
@@ -476,18 +476,18 @@ public class Controladora1 implements KeyListener, FocusListener, ActionListener
             vc.a1.setBackground(Color.WHITE);
             vc.d2.setBackground(Color.lightGray);
             vc.l2.setBackground(Color.lightGray);
-//        } else if (e.getSource() == vc.d2) {
-//            temp_d2 = vc.d2.getText();
-//            vc.d2.selectAll();
-//            vc.d2.setBackground(Color.lightGray);
+        } else if (e.getSource() == vc.d2) {
+            temp_d2 = vc.d2.getText();
+            vc.d2.selectAll();
+            vc.d2.setBackground(Color.lightGray);
         } else if (e.getSource() == vc.l1) {
             temp_l1 = vc.l1.getText();
             vc.l1.selectAll();
             vc.l1.setBackground(Color.WHITE);
-//        } else if (e.getSource() == vc.l2) {
-//            temp_l2 = vc.l2.getText();
-//            vc.l2.selectAll();
-//            vc.l2.setBackground(Color.lightGray);
+        } else if (e.getSource() == vc.l2) {
+            temp_l2 = vc.l2.getText();
+            vc.l2.selectAll();
+            vc.l2.setBackground(Color.lightGray);
         } else if (e.getSource() == vc.l3) {
             temp_l3 = vc.l3.getText();
             vc.l3.selectAll();
@@ -611,23 +611,23 @@ public class Controladora1 implements KeyListener, FocusListener, ActionListener
         } else if (e.getSource() == vc.a1) {
             if (ChecarErrores.Dobles_menor_igual(vc.a1.getText()) == 1) {
                 vc.a1.setText(temp_a1);
-                vc.d2.setText(temp_a1);
-                vc.l2.setText(temp_a1);
+//                vc.d2.setText(temp_a1);
+//                vc.l2.setText(temp_a1);
                 vc.a1.setBackground(Color.ORANGE);
-                vc.d2.setBackground(Color.ORANGE);
-                vc.l2.setBackground(Color.ORANGE);
+//                vc.d2.setBackground(Color.ORANGE);
+//                vc.l2.setBackground(Color.ORANGE);
             } else {
-                vc.d2.setText(vc.a1.getText());
-                vc.l2.setText(vc.a1.getText());
+//                vc.d2.setText(vc.a1.getText());
+//                vc.l2.setText(vc.a1.getText());
                 ejecutor();
             }
-        //        } else if (e.getSource() == vc.d2) {
-//            if (ChecarErrores.Dobles_menor_igual(vc.d2.getText()) == 1) {
-//                vc.d2.setText(temp_d2);
-//                vc.d2.setBackground(Color.ORANGE);
-//            } else {
-//                ejecutor();
-//            }
+                } else if (e.getSource() == vc.d2) {
+            if (ChecarErrores.Dobles_menor_igual(vc.d2.getText()) == 1) {
+                vc.d2.setText(temp_d2);
+                vc.d2.setBackground(Color.ORANGE);
+            } else {
+                ejecutor();
+            }
         } else if (e.getSource() == vc.l1) {
             if (ChecarErrores.Dobles_menor(vc.l1.getText()) == 1 || (Double.parseDouble(vc.l1.getText())==0 && Double.parseDouble(vc.l3.getText())==0) ) {
                 vc.l1.setText(temp_l1);
@@ -635,13 +635,13 @@ public class Controladora1 implements KeyListener, FocusListener, ActionListener
             } else {
                 ejecutor();
             }
-        //        } else if (e.getSource() == vc.l2) {
-//            if (ChecarErrores.Dobles_menor_igual(vc.l2.getText()) == 1) {
-//                vc.l2.setText(temp_l2);
-//                vc.l2.setBackground(Color.ORANGE);
-//            } else {
-//                ejecutor();
-//            }
+                } else if (e.getSource() == vc.l2) {
+            if (ChecarErrores.Dobles_menor_igual(vc.l2.getText()) == 1) {
+                vc.l2.setText(temp_l2);
+                vc.l2.setBackground(Color.ORANGE);
+            } else {
+                ejecutor();
+            }
         } else if (e.getSource() == vc.l3) {
             if (ChecarErrores.Dobles_menor(vc.l3.getText()) == 1 || (Double.parseDouble(vc.l1.getText())==0 && Double.parseDouble(vc.l3.getText())==0) ) {
                 vc.l3.setText(temp_l3);
