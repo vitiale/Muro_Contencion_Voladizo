@@ -446,7 +446,6 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
         jLabel4.setText("d2-[m]");
         jPanel2.add(jLabel4);
 
-        d2.setEditable(false);
         d2.setBackground(new java.awt.Color(204, 204, 204));
         d2.setText("0.35");
         jPanel2.add(d2);
@@ -476,7 +475,6 @@ public class Ventana_calculo extends javax.swing.JInternalFrame {
         jLabel8.setText("l2-[m]");
         jPanel2.add(jLabel8);
 
-        l2.setEditable(false);
         l2.setBackground(new java.awt.Color(204, 204, 204));
         l2.setText("0.35");
         jPanel2.add(l2);
